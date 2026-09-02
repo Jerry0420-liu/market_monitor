@@ -1,0 +1,38 @@
+upstream market_monitor_loopback {
+    server 127.0.0.1:8000;
+    keepalive 16;
+}
+
+server {
+    listen 80;
+    listen [::]:80;
+    server_name __MARKET_MONITOR_DOMAIN__;
+    return 301 https://$host$request_uri;
+}
+
+server {
+    listen 443 ssl http2;
+    listen [::]:443 ssl http2;
+    server_name __MARKET_MONITOR_DOMAIN__;
+
+    ssl_certificate /etc/letsencrypt/live/__MARKET_MONITOR_DOMAIN__/fullchain.pem;
+    ssl_certificate_key /etc/letsencrypt/live/__MARKET_MONITOR_DOMAIN__/privkey.pem;
+    ssl_protocols TLSv1.2 TLSv1.3;
+    ssl_session_cache shared:market_monitor_tls:10m;
+    ssl_session_timeout 1d;
+    add_header Strict-Transport-Security "max-age=31536000" always;
+
+    client_max_body_size 1m;
+    proxy_connect_timeout 5s;
+    proxy_read_timeout 30s;
+    proxy_send_timeout 30s;
+
+    location / {
+        proxy_pass http://market_monitor_loopback;
+        proxy_http_version 1.1;
+        proxy_set_header Host 127.0.0.1;
+        proxy_set_header X-Forwarded-Host $host;
+        proxy_set_header X-Forwarded-Proto https;
+        proxy_set_header X-Request-ID $request_id;
+    }
+}

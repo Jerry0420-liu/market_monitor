@@ -1,0 +1,24 @@
+[project]
+name = "market-monitor"
+version = "0.0.0"
+description = "Market Monitor M0 engineering foundation"
+requires-python = "==3.14.*"
+
+[tool.pytest.ini_options]
+addopts = "-ra"
+pythonpath = ["apps/api/src", "packages/analysis/src", "packages/contracts/src", "packages/data/src", "packages/notifications/src", "packages/persistence/src", "."]
+testpaths = ["apps/api/tests", "tests"]
+
+[tool.ruff]
+line-length = 100
+target-version = "py314"
+extend-exclude = [".m9-final-clean-copy-*"]
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "UP"]
+
+[tool.mypy]
+python_version = "3.14"
+strict = true
+mypy_path = ["apps/api/src", "packages/analysis/src", "packages/contracts/src", "packages/data/src", "packages/notifications/src", "packages/persistence/src"]
+files = ["apps/api/src", "packages/analysis/src", "packages/contracts/src", "packages/data/src", "packages/notifications/src", "packages/persistence/src", "scripts", "tests"]

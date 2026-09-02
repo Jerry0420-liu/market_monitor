@@ -1,0 +1,16 @@
+{
+  "batches": [
+    {
+      "id": "demo-open-1",
+      "received_at": "2026-08-04T01:30:01Z",
+      "records": [
+        {
+          "code": "600001",
+          "source_time": "2026-08-04T01:30:00Z",
+          "price": "10.2500",
+          "volume": 100
+        }
+      ]
+    }
+  ]
+}

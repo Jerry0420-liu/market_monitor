@@ -1,0 +1,25 @@
+name: verify
+
+on:
+  pull_request:
+  push:
+
+permissions:
+  contents: read
+
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v6
+      - uses: actions/setup-python@v6
+        with:
+          python-version: 3.14.6
+      - uses: actions/setup-node@v6
+        with:
+          node-version: 24.18.0
+          cache: npm
+      - run: python scripts/dev.py install
+      - run: npx playwright install-deps chromium
+      - run: docker compose config
+      - run: python scripts/dev.py verify

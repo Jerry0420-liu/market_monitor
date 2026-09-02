@@ -1,0 +1,563 @@
+{
+  "openapi": "3.1.0",
+  "info": {
+    "title": "Market Monitor API",
+    "version": "1.3",
+    "description": "Protection-first committed A-share market monitoring API. It does not provide trading instructions or profit guarantees."
+  },
+  "paths": {
+    "/health/live": {
+      "get": {
+        "operationId": "healthLive",
+        "security": [],
+        "parameters": [{"$ref": "#/components/parameters/IfNoneMatch"}],
+        "responses": {
+          "200": {"description": "Process alive", "headers": {"Cache-Control": {"$ref": "#/components/headers/CacheControlPrivateNoCache"}, "ETag": {"$ref": "#/components/headers/ETag"}, "X-Request-ID": {"$ref": "#/components/headers/RequestId"}}, "content": {"application/json": {"schema": {"$ref": "#/components/schemas/HealthLiveView"}}}},
+          "304": {"$ref": "#/components/responses/NotModified"},
+          "500": {"$ref": "#/components/responses/InternalError"}
+        }
+      }
+    },
+    "/health/ready": {
+      "get": {
+        "operationId": "healthReady",
+        "security": [],
+        "parameters": [{"$ref": "#/components/parameters/IfNoneMatch"}],
+        "responses": {
+          "200": {"description": "Core service readable", "headers": {"Cache-Control": {"$ref": "#/components/headers/CacheControlPrivateNoCache"}, "ETag": {"$ref": "#/components/headers/ETag"}, "X-Request-ID": {"$ref": "#/components/headers/RequestId"}}, "content": {"application/json": {"schema": {"$ref": "#/components/schemas/SystemHealthSummaryView"}}}},
+          "304": {"$ref": "#/components/responses/NotModified"},
+          "503": {"$ref": "#/components/responses/ServiceUnavailable"},
+          "500": {"$ref": "#/components/responses/InternalError"}
+        }
+      }
+    },
+    "/api/v1/auth/login": {
+      "post": {
+        "operationId": "ownerLogin",
+        "security": [],
+        "requestBody": {"required": true, "content": {"application/json": {"schema": {"$ref": "#/components/schemas/LoginRequest"}}}},
+        "responses": {
+          "200": {"description": "OWNER authenticated", "headers": {"Cache-Control": {"$ref": "#/components/headers/CacheControlNoStore"}, "Set-Cookie": {"$ref": "#/components/headers/SetCookie"}, "X-CSRF-Token": {"$ref": "#/components/headers/CsrfToken"}, "X-Request-ID": {"$ref": "#/components/headers/RequestId"}}, "content": {"application/json": {"schema": {"$ref": "#/components/schemas/LoginView"}}}},
+          "400": {"$ref": "#/components/responses/BadRequest"},
+          "401": {"$ref": "#/components/responses/Unauthorized"},
+          "429": {"$ref": "#/components/responses/TooManyRequests"},
+          "503": {"$ref": "#/components/responses/ServiceUnavailable"},
+          "500": {"$ref": "#/components/responses/InternalError"}
+        }
+      }
+    },
+    "/api/v1/auth/logout": {
+      "post": {
+        "operationId": "ownerLogout",
+        "security": [{"OwnerSession": []}],
+        "parameters": [{"$ref": "#/components/parameters/Csrf"}],
+        "responses": {
+          "204": {"description": "OWNER session revoked", "headers": {"Cache-Control": {"$ref": "#/components/headers/CacheControlNoStore"}, "Set-Cookie": {"$ref": "#/components/headers/SetCookie"}, "X-Request-ID": {"$ref": "#/components/headers/RequestId"}}},
+          "401": {"$ref": "#/components/responses/Unauthorized"},
+          "403": {"$ref": "#/components/responses/Forbidden"},
+          "503": {"$ref": "#/components/responses/ServiceUnavailable"},
+          "500": {"$ref": "#/components/responses/InternalError"}
+        }
+      }
+    },
+    "/api/v1/auth/session": {
+      "get": {
+        "operationId": "ownerSession",
+        "security": [{"OwnerSession": []}],
+        "responses": {
+          "200": {"description": "Current OWNER session", "headers": {"Cache-Control": {"$ref": "#/components/headers/CacheControlNoStore"}, "X-Request-ID": {"$ref": "#/components/headers/RequestId"}}, "content": {"application/json": {"schema": {"$ref": "#/components/schemas/SessionView"}}}},
+          "401": {"$ref": "#/components/responses/Unauthorized"},
+          "503": {"$ref": "#/components/responses/ServiceUnavailable"},
+          "500": {"$ref": "#/components/responses/InternalError"}
+        }
+      }
+    },
+    "/api/v1/system/status": {
+      "get": {
+        "operationId": "systemStatus",
+        "security": [],
+        "parameters": [{"$ref": "#/components/parameters/IfNoneMatch"}],
+        "responses": {
+          "200": {"description": "Committed system status", "headers": {"Cache-Control": {"$ref": "#/components/headers/CacheControlPrivateNoCache"}, "ETag": {"$ref": "#/components/headers/ETag"}, "X-Request-ID": {"$ref": "#/components/headers/RequestId"}}, "content": {"application/json": {"schema": {"$ref": "#/components/schemas/SystemHealthSummaryView"}}}},
+          "304": {"$ref": "#/components/responses/NotModified"},
+          "503": {"$ref": "#/components/responses/ServiceUnavailable"},
+          "500": {"$ref": "#/components/responses/InternalError"}
+        }
+      }
+    },
+    "/api/v1/system/capabilities": {
+      "get": {
+        "operationId": "systemCapabilities",
+        "security": [],
+        "parameters": [{"$ref": "#/components/parameters/IfNoneMatch"}],
+        "responses": {
+          "200": {"description": "Current capability health", "headers": {"Cache-Control": {"$ref": "#/components/headers/CacheControlPrivateNoCache"}, "ETag": {"$ref": "#/components/headers/ETag"}, "X-Request-ID": {"$ref": "#/components/headers/RequestId"}}, "content": {"application/json": {"schema": {"$ref": "#/components/schemas/CapabilityListView"}}}},
+          "304": {"$ref": "#/components/responses/NotModified"},
+          "503": {"$ref": "#/components/responses/ServiceUnavailable"},
+          "500": {"$ref": "#/components/responses/InternalError"}
+        }
+      }
+    },
+    "/api/v1/system/incidents": {
+      "get": {
+        "operationId": "systemIncidents",
+        "security": [],
+        "parameters": [{"$ref": "#/components/parameters/IfNoneMatch"}],
+        "responses": {
+          "200": {"description": "Active data-health incidents", "headers": {"Cache-Control": {"$ref": "#/components/headers/CacheControlPrivateNoCache"}, "ETag": {"$ref": "#/components/headers/ETag"}, "X-Request-ID": {"$ref": "#/components/headers/RequestId"}}, "content": {"application/json": {"schema": {"$ref": "#/components/schemas/CapabilityListView"}}}},
+          "304": {"$ref": "#/components/responses/NotModified"},
+          "503": {"$ref": "#/components/responses/ServiceUnavailable"},
+          "500": {"$ref": "#/components/responses/InternalError"}
+        }
+      }
+    },
+    "/api/v1/meta/enums": {
+      "get": {
+        "operationId": "metaEnums",
+        "security": [],
+        "parameters": [{"$ref": "#/components/parameters/IfNoneMatch"}],
+        "responses": {
+          "200": {"description": "Stable enum registry", "headers": {"Cache-Control": {"$ref": "#/components/headers/CacheControlPrivateNoCache"}, "ETag": {"$ref": "#/components/headers/ETag"}, "X-Request-ID": {"$ref": "#/components/headers/RequestId"}}, "content": {"application/json": {"schema": {"$ref": "#/components/schemas/EnumRegistryView"}}}},
+          "304": {"$ref": "#/components/responses/NotModified"},
+          "503": {"$ref": "#/components/responses/ServiceUnavailable"},
+          "500": {"$ref": "#/components/responses/InternalError"}
+        }
+      }
+    },
+    "/api/v1/meta/codes/{group}": {
+      "get": {
+        "operationId": "metaCodes",
+        "security": [],
+        "parameters": [{"$ref": "#/components/parameters/Group"}, {"$ref": "#/components/parameters/IfNoneMatch"}],
+        "responses": {
+          "200": {"description": "Stable code group", "headers": {"Cache-Control": {"$ref": "#/components/headers/CacheControlPrivateNoCache"}, "ETag": {"$ref": "#/components/headers/ETag"}, "X-Request-ID": {"$ref": "#/components/headers/RequestId"}}, "content": {"application/json": {"schema": {"$ref": "#/components/schemas/CodeListView"}}}},
+          "304": {"$ref": "#/components/responses/NotModified"},
+          "400": {"$ref": "#/components/responses/BadRequest"},
+          "503": {"$ref": "#/components/responses/ServiceUnavailable"},
+          "500": {"$ref": "#/components/responses/InternalError"}
+        }
+      }
+    },
+    "/api/v1/home/overview": {
+      "get": {
+        "operationId": "homeOverview",
+        "security": [],
+        "parameters": [{"$ref": "#/components/parameters/IfNoneMatch"}],
+        "responses": {
+          "200": {"description": "Committed OFFICIAL overview", "headers": {"Cache-Control": {"$ref": "#/components/headers/CacheControlPrivateNoCache"}, "ETag": {"$ref": "#/components/headers/ETag"}, "X-Request-ID": {"$ref": "#/components/headers/RequestId"}}, "content": {"application/json": {"schema": {"$ref": "#/components/schemas/HomeOverviewView"}}}},
+          "304": {"$ref": "#/components/responses/NotModified"},
+          "503": {"$ref": "#/components/responses/ServiceUnavailable"},
+          "500": {"$ref": "#/components/responses/InternalError"}
+        }
+      }
+    },
+    "/api/v1/instruments": {
+      "get": {
+        "operationId": "listInstruments",
+        "security": [],
+        "parameters": [{"$ref": "#/components/parameters/Cursor"}, {"$ref": "#/components/parameters/IfNoneMatch"}],
+        "responses": {
+          "200": {"description": "Instrument page", "headers": {"Cache-Control": {"$ref": "#/components/headers/CacheControlPrivateNoCache"}, "ETag": {"$ref": "#/components/headers/ETag"}, "X-Request-ID": {"$ref": "#/components/headers/RequestId"}}, "content": {"application/json": {"schema": {"$ref": "#/components/schemas/InstrumentPage"}}}},
+          "304": {"$ref": "#/components/responses/NotModified"},
+          "400": {"$ref": "#/components/responses/BadRequest"},
+          "503": {"$ref": "#/components/responses/ServiceUnavailable"},
+          "500": {"$ref": "#/components/responses/InternalError"}
+        }
+      }
+    },
+    "/api/v1/instruments/{id}": {
+      "get": {
+        "operationId": "getInstrument",
+        "security": [],
+        "parameters": [{"$ref": "#/components/parameters/Id"}, {"$ref": "#/components/parameters/IfNoneMatch"}],
+        "responses": {
+          "200": {"description": "Instrument", "headers": {"Cache-Control": {"$ref": "#/components/headers/CacheControlPrivateNoCache"}, "ETag": {"$ref": "#/components/headers/ETag"}, "X-Request-ID": {"$ref": "#/components/headers/RequestId"}}, "content": {"application/json": {"schema": {"$ref": "#/components/schemas/InstrumentView"}}}},
+          "304": {"$ref": "#/components/responses/NotModified"},
+          "400": {"$ref": "#/components/responses/BadRequest"},
+          "404": {"$ref": "#/components/responses/NotFound"},
+          "503": {"$ref": "#/components/responses/ServiceUnavailable"},
+          "500": {"$ref": "#/components/responses/InternalError"}
+        }
+      }
+    },
+    "/api/v1/sectors": {
+      "get": {
+        "operationId": "listSectors",
+        "security": [],
+        "parameters": [{"$ref": "#/components/parameters/Cursor"}, {"$ref": "#/components/parameters/IfNoneMatch"}],
+        "responses": {
+          "200": {"description": "Sector page", "headers": {"Cache-Control": {"$ref": "#/components/headers/CacheControlPrivateNoCache"}, "ETag": {"$ref": "#/components/headers/ETag"}, "X-Request-ID": {"$ref": "#/components/headers/RequestId"}}, "content": {"application/json": {"schema": {"$ref": "#/components/schemas/SectorPage"}}}},
+          "304": {"$ref": "#/components/responses/NotModified"},
+          "400": {"$ref": "#/components/responses/BadRequest"},
+          "503": {"$ref": "#/components/responses/ServiceUnavailable"},
+          "500": {"$ref": "#/components/responses/InternalError"}
+        }
+      }
+    },
+    "/api/v1/sectors/{id}": {
+      "get": {
+        "operationId": "getSector",
+        "security": [],
+        "parameters": [{"$ref": "#/components/parameters/Id"}, {"$ref": "#/components/parameters/IfNoneMatch"}],
+        "responses": {
+          "200": {"description": "Sector", "headers": {"Cache-Control": {"$ref": "#/components/headers/CacheControlPrivateNoCache"}, "ETag": {"$ref": "#/components/headers/ETag"}, "X-Request-ID": {"$ref": "#/components/headers/RequestId"}}, "content": {"application/json": {"schema": {"$ref": "#/components/schemas/SectorView"}}}},
+          "304": {"$ref": "#/components/responses/NotModified"},
+          "400": {"$ref": "#/components/responses/BadRequest"},
+          "404": {"$ref": "#/components/responses/NotFound"},
+          "503": {"$ref": "#/components/responses/ServiceUnavailable"},
+          "500": {"$ref": "#/components/responses/InternalError"}
+        }
+      }
+    },
+    "/api/v1/sectors/{id}/members": {
+      "get": {
+        "operationId": "sectorMembers",
+        "security": [],
+        "parameters": [{"$ref": "#/components/parameters/Id"}, {"$ref": "#/components/parameters/Cursor"}, {"$ref": "#/components/parameters/IfNoneMatch"}],
+        "responses": {
+          "200": {"description": "Sector member page", "headers": {"Cache-Control": {"$ref": "#/components/headers/CacheControlPrivateNoCache"}, "ETag": {"$ref": "#/components/headers/ETag"}, "X-Request-ID": {"$ref": "#/components/headers/RequestId"}}, "content": {"application/json": {"schema": {"$ref": "#/components/schemas/SectorMemberPage"}}}},
+          "304": {"$ref": "#/components/responses/NotModified"},
+          "400": {"$ref": "#/components/responses/BadRequest"},
+          "404": {"$ref": "#/components/responses/NotFound"},
+          "503": {"$ref": "#/components/responses/ServiceUnavailable"},
+          "500": {"$ref": "#/components/responses/InternalError"}
+        }
+      }
+    },
+    "/api/v1/subjects/{id}/state": {
+      "get": {
+        "operationId": "subjectState",
+        "security": [],
+        "parameters": [{"$ref": "#/components/parameters/Id"}, {"$ref": "#/components/parameters/IfNoneMatch"}],
+        "responses": {
+          "200": {"description": "Committed MarketView", "headers": {"Cache-Control": {"$ref": "#/components/headers/CacheControlPrivateNoCache"}, "ETag": {"$ref": "#/components/headers/ETag"}, "X-Request-ID": {"$ref": "#/components/headers/RequestId"}}, "content": {"application/json": {"schema": {"$ref": "#/components/schemas/MarketView"}}}},
+          "304": {"$ref": "#/components/responses/NotModified"},
+          "400": {"$ref": "#/components/responses/BadRequest"},
+          "404": {"$ref": "#/components/responses/NotFound"},
+          "503": {"$ref": "#/components/responses/ServiceUnavailable"},
+          "500": {"$ref": "#/components/responses/InternalError"}
+        }
+      }
+    },
+    "/api/v1/subjects/{id}/state-transitions": {
+      "get": {
+        "operationId": "subjectTransitions",
+        "security": [],
+        "parameters": [{"$ref": "#/components/parameters/Id"}, {"$ref": "#/components/parameters/Cursor"}, {"$ref": "#/components/parameters/IfNoneMatch"}],
+        "responses": {
+          "200": {"description": "State transition page", "headers": {"Cache-Control": {"$ref": "#/components/headers/CacheControlPrivateNoCache"}, "ETag": {"$ref": "#/components/headers/ETag"}, "X-Request-ID": {"$ref": "#/components/headers/RequestId"}}, "content": {"application/json": {"schema": {"$ref": "#/components/schemas/StateTransitionPage"}}}},
+          "304": {"$ref": "#/components/responses/NotModified"},
+          "400": {"$ref": "#/components/responses/BadRequest"},
+          "404": {"$ref": "#/components/responses/NotFound"},
+          "503": {"$ref": "#/components/responses/ServiceUnavailable"},
+          "500": {"$ref": "#/components/responses/InternalError"}
+        }
+      }
+    },
+    "/api/v1/subjects/{id}/facts": {
+      "get": {
+        "operationId": "subjectFacts",
+        "security": [],
+        "parameters": [{"$ref": "#/components/parameters/Id"}, {"$ref": "#/components/parameters/Cursor"}, {"$ref": "#/components/parameters/IfNoneMatch"}],
+        "responses": {
+          "200": {"description": "Fact page", "headers": {"Cache-Control": {"$ref": "#/components/headers/CacheControlPrivateNoCache"}, "ETag": {"$ref": "#/components/headers/ETag"}, "X-Request-ID": {"$ref": "#/components/headers/RequestId"}}, "content": {"application/json": {"schema": {"$ref": "#/components/schemas/FactPage"}}}},
+          "304": {"$ref": "#/components/responses/NotModified"},
+          "400": {"$ref": "#/components/responses/BadRequest"},
+          "404": {"$ref": "#/components/responses/NotFound"},
+          "503": {"$ref": "#/components/responses/ServiceUnavailable"},
+          "500": {"$ref": "#/components/responses/InternalError"}
+        }
+      }
+    },
+    "/api/v1/events": {
+      "get": {
+        "operationId": "listEvents",
+        "security": [],
+        "parameters": [{"$ref": "#/components/parameters/Cursor"}, {"$ref": "#/components/parameters/IfNoneMatch"}],
+        "responses": {
+          "200": {"description": "Event page", "headers": {"Cache-Control": {"$ref": "#/components/headers/CacheControlPrivateNoCache"}, "ETag": {"$ref": "#/components/headers/ETag"}, "X-Request-ID": {"$ref": "#/components/headers/RequestId"}}, "content": {"application/json": {"schema": {"$ref": "#/components/schemas/EventPage"}}}},
+          "304": {"$ref": "#/components/responses/NotModified"},
+          "400": {"$ref": "#/components/responses/BadRequest"},
+          "503": {"$ref": "#/components/responses/ServiceUnavailable"},
+          "500": {"$ref": "#/components/responses/InternalError"}
+        }
+      }
+    },
+    "/api/v1/events/{id}": {
+      "get": {
+        "operationId": "getEvent",
+        "security": [],
+        "parameters": [{"$ref": "#/components/parameters/Id"}, {"$ref": "#/components/parameters/IfNoneMatch"}],
+        "responses": {
+          "200": {"description": "Current event", "headers": {"Cache-Control": {"$ref": "#/components/headers/CacheControlPrivateNoCache"}, "ETag": {"$ref": "#/components/headers/ETag"}, "X-Request-ID": {"$ref": "#/components/headers/RequestId"}}, "content": {"application/json": {"schema": {"$ref": "#/components/schemas/EventDetailView"}}}},
+          "304": {"$ref": "#/components/responses/NotModified"},
+          "400": {"$ref": "#/components/responses/BadRequest"},
+          "404": {"$ref": "#/components/responses/NotFound"},
+          "503": {"$ref": "#/components/responses/ServiceUnavailable"},
+          "500": {"$ref": "#/components/responses/InternalError"}
+        }
+      }
+    },
+    "/api/v1/events/{id}/versions": {
+      "get": {
+        "operationId": "eventVersions",
+        "security": [],
+        "parameters": [{"$ref": "#/components/parameters/Id"}, {"$ref": "#/components/parameters/Cursor"}, {"$ref": "#/components/parameters/IfNoneMatch"}],
+        "responses": {
+          "200": {"description": "Event version page", "headers": {"Cache-Control": {"$ref": "#/components/headers/CacheControlPrivateNoCache"}, "ETag": {"$ref": "#/components/headers/ETag"}, "X-Request-ID": {"$ref": "#/components/headers/RequestId"}}, "content": {"application/json": {"schema": {"$ref": "#/components/schemas/EventVersionPage"}}}},
+          "304": {"$ref": "#/components/responses/NotModified"},
+          "400": {"$ref": "#/components/responses/BadRequest"},
+          "404": {"$ref": "#/components/responses/NotFound"},
+          "503": {"$ref": "#/components/responses/ServiceUnavailable"},
+          "500": {"$ref": "#/components/responses/InternalError"}
+        }
+      }
+    },
+    "/api/v1/analysis/queries": {
+      "post": {
+        "operationId": "createAnalysisQuery",
+        "security": [{"OwnerSession": []}],
+        "parameters": [{"$ref": "#/components/parameters/Csrf"}, {"$ref": "#/components/parameters/IdempotencyKey"}],
+        "requestBody": {"required": true, "content": {"application/json": {"schema": {"$ref": "#/components/schemas/AnalysisQueryRequest"}}}},
+        "responses": {
+          "200": {"description": "Isolated USER_QUERY result", "headers": {"Cache-Control": {"$ref": "#/components/headers/CacheControlNoStore"}, "X-Request-ID": {"$ref": "#/components/headers/RequestId"}}, "content": {"application/json": {"schema": {"$ref": "#/components/schemas/AnalysisQueryView"}}}},
+          "400": {"$ref": "#/components/responses/BadRequest"},
+          "401": {"$ref": "#/components/responses/Unauthorized"},
+          "403": {"$ref": "#/components/responses/Forbidden"},
+          "404": {"$ref": "#/components/responses/NotFound"},
+          "409": {"$ref": "#/components/responses/Conflict"},
+          "429": {"$ref": "#/components/responses/TooManyRequests"},
+          "503": {"$ref": "#/components/responses/ServiceUnavailable"},
+          "500": {"$ref": "#/components/responses/InternalError"}
+        }
+      }
+    },
+    "/api/v1/analysis/sector-match": {
+      "post": {
+        "operationId": "sectorMatch",
+        "security": [{"OwnerSession": []}],
+        "requestBody": {"required": true, "content": {"application/json": {"schema": {"$ref": "#/components/schemas/SectorMatchRequest"}}}},
+        "responses": {
+          "200": {"description": "Exact, ambiguous, or absent sector match", "headers": {"Cache-Control": {"$ref": "#/components/headers/CacheControlNoStore"}, "X-Request-ID": {"$ref": "#/components/headers/RequestId"}}, "content": {"application/json": {"schema": {"$ref": "#/components/schemas/SectorMatchView"}}}},
+          "400": {"$ref": "#/components/responses/BadRequest"},
+          "401": {"$ref": "#/components/responses/Unauthorized"},
+          "503": {"$ref": "#/components/responses/ServiceUnavailable"},
+          "500": {"$ref": "#/components/responses/InternalError"}
+        }
+      }
+    },
+    "/api/v1/notifications": {
+      "get": {
+        "operationId": "listNotifications",
+        "security": [],
+        "parameters": [{"$ref": "#/components/parameters/Cursor"}, {"$ref": "#/components/parameters/IfNoneMatch"}],
+        "responses": {
+          "200": {"description": "Frozen notification page", "headers": {"Cache-Control": {"$ref": "#/components/headers/CacheControlPrivateNoCache"}, "ETag": {"$ref": "#/components/headers/ETag"}, "X-Request-ID": {"$ref": "#/components/headers/RequestId"}}, "content": {"application/json": {"schema": {"$ref": "#/components/schemas/NotificationPage"}}}},
+          "304": {"$ref": "#/components/responses/NotModified"},
+          "400": {"$ref": "#/components/responses/BadRequest"},
+          "503": {"$ref": "#/components/responses/ServiceUnavailable"},
+          "500": {"$ref": "#/components/responses/InternalError"}
+        }
+      }
+    },
+    "/api/v1/notifications/{id}": {
+      "get": {
+        "operationId": "getNotification",
+        "security": [],
+        "parameters": [{"$ref": "#/components/parameters/Id"}, {"$ref": "#/components/parameters/IfNoneMatch"}],
+        "responses": {
+          "200": {"description": "Frozen historical notification", "headers": {"Cache-Control": {"$ref": "#/components/headers/CacheControlPrivateNoCache"}, "ETag": {"$ref": "#/components/headers/ETag"}, "X-Request-ID": {"$ref": "#/components/headers/RequestId"}}, "content": {"application/json": {"schema": {"$ref": "#/components/schemas/NotificationView"}}}},
+          "304": {"$ref": "#/components/responses/NotModified"},
+          "400": {"$ref": "#/components/responses/BadRequest"},
+          "404": {"$ref": "#/components/responses/NotFound"},
+          "503": {"$ref": "#/components/responses/ServiceUnavailable"},
+          "500": {"$ref": "#/components/responses/InternalError"}
+        }
+      }
+    },
+    "/api/v1/settings/notifications": {
+      "get": {
+        "operationId": "notificationSettings",
+        "security": [{"OwnerSession": []}],
+        "responses": {
+          "200": {"description": "Masked notification settings", "headers": {"Cache-Control": {"$ref": "#/components/headers/CacheControlNoStore"}, "ETag": {"$ref": "#/components/headers/ETag"}, "X-Request-ID": {"$ref": "#/components/headers/RequestId"}}, "content": {"application/json": {"schema": {"$ref": "#/components/schemas/NotificationSettingsView"}}}},
+          "401": {"$ref": "#/components/responses/Unauthorized"},
+          "503": {"$ref": "#/components/responses/ServiceUnavailable"},
+          "500": {"$ref": "#/components/responses/InternalError"}
+        }
+      },
+      "put": {
+        "operationId": "updateNotificationSettings",
+        "security": [{"OwnerSession": []}],
+        "parameters": [{"$ref": "#/components/parameters/IfMatch"}, {"$ref": "#/components/parameters/Csrf"}, {"$ref": "#/components/parameters/IdempotencyKey"}],
+        "requestBody": {"required": true, "content": {"application/json": {"schema": {"$ref": "#/components/schemas/NotificationSettingsRequest"}}}},
+        "responses": {
+          "200": {"description": "Notification settings updated", "headers": {"Cache-Control": {"$ref": "#/components/headers/CacheControlNoStore"}, "ETag": {"$ref": "#/components/headers/ETag"}, "X-Request-ID": {"$ref": "#/components/headers/RequestId"}}, "content": {"application/json": {"schema": {"$ref": "#/components/schemas/NotificationSettingsView"}}}},
+          "400": {"$ref": "#/components/responses/BadRequest"},
+          "401": {"$ref": "#/components/responses/Unauthorized"},
+          "403": {"$ref": "#/components/responses/Forbidden"},
+          "409": {"$ref": "#/components/responses/Conflict"},
+          "503": {"$ref": "#/components/responses/ServiceUnavailable"},
+          "500": {"$ref": "#/components/responses/InternalError"}
+        }
+      }
+    },
+    "/api/v1/operations/backups": {
+      "post": {
+        "operationId": "createBackup",
+        "security": [{"OwnerSession": []}],
+        "parameters": [{"$ref": "#/components/parameters/Csrf"}, {"$ref": "#/components/parameters/IdempotencyKey"}],
+        "responses": {
+          "201": {"description": "Verified online backup", "headers": {"Cache-Control": {"$ref": "#/components/headers/CacheControlNoStore"}, "X-Request-ID": {"$ref": "#/components/headers/RequestId"}}, "content": {"application/json": {"schema": {"$ref": "#/components/schemas/BackupView"}}}},
+          "400": {"$ref": "#/components/responses/BadRequest"},
+          "401": {"$ref": "#/components/responses/Unauthorized"},
+          "403": {"$ref": "#/components/responses/Forbidden"},
+          "409": {"$ref": "#/components/responses/Conflict"},
+          "503": {"$ref": "#/components/responses/ServiceUnavailable"},
+          "500": {"$ref": "#/components/responses/InternalError"}
+        }
+      }
+    },
+    "/api/v1/operations/diagnostics": {
+      "get": {
+        "operationId": "diagnostics",
+        "security": [{"OwnerSession": []}],
+        "responses": {
+          "200": {"description": "Redacted diagnostics", "headers": {"Cache-Control": {"$ref": "#/components/headers/CacheControlNoStore"}, "X-Request-ID": {"$ref": "#/components/headers/RequestId"}}, "content": {"application/json": {"schema": {"$ref": "#/components/schemas/DiagnosticsView"}}}},
+          "401": {"$ref": "#/components/responses/Unauthorized"},
+          "503": {"$ref": "#/components/responses/ServiceUnavailable"},
+          "500": {"$ref": "#/components/responses/InternalError"}
+        }
+      }
+    },
+    "/api/v1/audit": {
+      "get": {
+        "operationId": "auditRecords",
+        "security": [{"OwnerSession": []}],
+        "parameters": [{"$ref": "#/components/parameters/Cursor"}],
+        "responses": {
+          "200": {"description": "Audit page", "headers": {"Cache-Control": {"$ref": "#/components/headers/CacheControlNoStore"}, "X-Request-ID": {"$ref": "#/components/headers/RequestId"}}, "content": {"application/json": {"schema": {"$ref": "#/components/schemas/AuditPage"}}}},
+          "400": {"$ref": "#/components/responses/BadRequest"},
+          "401": {"$ref": "#/components/responses/Unauthorized"},
+          "503": {"$ref": "#/components/responses/ServiceUnavailable"},
+          "500": {"$ref": "#/components/responses/InternalError"}
+        }
+      }
+    }
+  },
+  "components": {
+    "securitySchemes": {
+      "OwnerSession": {"type": "apiKey", "in": "cookie", "name": "market_monitor_session", "description": "Opaque OWNER session cookie."}
+    },
+    "parameters": {
+      "Id": {"name": "id", "in": "path", "required": true, "schema": {"$ref": "#/components/schemas/StableUid"}},
+      "Group": {"name": "group", "in": "path", "required": true, "schema": {"type": "string", "minLength": 1, "maxLength": 128}},
+      "Cursor": {"name": "cursor", "in": "query", "required": false, "schema": {"$ref": "#/components/schemas/OpaqueCursor"}},
+      "IfNoneMatch": {"name": "If-None-Match", "in": "header", "required": false, "schema": {"$ref": "#/components/schemas/ETagValue"}},
+      "IfMatch": {"name": "If-Match", "in": "header", "required": true, "schema": {"$ref": "#/components/schemas/ETagValue"}},
+      "Csrf": {"name": "X-CSRF-Token", "in": "header", "required": true, "schema": {"type": "string", "minLength": 1, "maxLength": 512}},
+      "IdempotencyKey": {"name": "Idempotency-Key", "in": "header", "required": true, "schema": {"type": "string", "minLength": 8, "maxLength": 128}}
+    },
+    "headers": {
+      "RequestId": {"description": "Request correlation identifier", "schema": {"type": "string", "minLength": 1, "maxLength": 128}},
+      "CacheControlPrivateNoCache": {"description": "Private response requiring revalidation", "schema": {"type": "string", "enum": ["private, no-cache"]}},
+      "CacheControlNoStore": {"description": "Sensitive or state-changing response", "schema": {"type": "string", "enum": ["no-store"]}},
+      "SetCookie": {"description": "Secure, HttpOnly, SameSite=Strict OWNER session cookie or deletion directive", "schema": {"type": "string", "minLength": 1}},
+      "CsrfToken": {"description": "Opaque same-session CSRF token; keep in volatile client state and never log it", "schema": {"type": "string", "minLength": 1, "maxLength": 512}},
+      "ETag": {"description": "Opaque representation validator", "schema": {"$ref": "#/components/schemas/ETagValue"}}
+    },
+    "responses": {
+      "NotModified": {"description": "Representation unchanged", "headers": {"Cache-Control": {"$ref": "#/components/headers/CacheControlPrivateNoCache"}, "ETag": {"$ref": "#/components/headers/ETag"}, "X-Request-ID": {"$ref": "#/components/headers/RequestId"}}},
+      "BadRequest": {"description": "Invalid request", "headers": {"Cache-Control": {"$ref": "#/components/headers/CacheControlNoStore"}, "X-Request-ID": {"$ref": "#/components/headers/RequestId"}}, "content": {"application/json": {"schema": {"$ref": "#/components/schemas/ErrorView"}}}},
+      "Unauthorized": {"description": "OWNER authentication required", "headers": {"Cache-Control": {"$ref": "#/components/headers/CacheControlNoStore"}, "X-Request-ID": {"$ref": "#/components/headers/RequestId"}}, "content": {"application/json": {"schema": {"$ref": "#/components/schemas/ErrorView"}}}},
+      "Forbidden": {"description": "CSRF validation failed", "headers": {"Cache-Control": {"$ref": "#/components/headers/CacheControlNoStore"}, "X-Request-ID": {"$ref": "#/components/headers/RequestId"}}, "content": {"application/json": {"schema": {"$ref": "#/components/schemas/ErrorView"}}}},
+      "NotFound": {"description": "Stable UID not found", "headers": {"Cache-Control": {"$ref": "#/components/headers/CacheControlNoStore"}, "X-Request-ID": {"$ref": "#/components/headers/RequestId"}}, "content": {"application/json": {"schema": {"$ref": "#/components/schemas/ErrorView"}}}},
+      "Conflict": {"description": "Idempotency or resource version conflict", "headers": {"Cache-Control": {"$ref": "#/components/headers/CacheControlNoStore"}, "X-Request-ID": {"$ref": "#/components/headers/RequestId"}}, "content": {"application/json": {"schema": {"$ref": "#/components/schemas/ErrorView"}}}},
+      "TooManyRequests": {"description": "Rate limit exceeded", "headers": {"Cache-Control": {"$ref": "#/components/headers/CacheControlNoStore"}, "X-Request-ID": {"$ref": "#/components/headers/RequestId"}}, "content": {"application/json": {"schema": {"$ref": "#/components/schemas/ErrorView"}}}},
+      "InternalError": {"description": "Redacted internal service error", "headers": {"Cache-Control": {"$ref": "#/components/headers/CacheControlNoStore"}, "X-Request-ID": {"$ref": "#/components/headers/RequestId"}}, "content": {"application/json": {"schema": {"$ref": "#/components/schemas/ErrorView"}}}},
+      "ServiceUnavailable": {"description": "Core service unreadable", "headers": {"Cache-Control": {"$ref": "#/components/headers/CacheControlNoStore"}, "X-Request-ID": {"$ref": "#/components/headers/RequestId"}}, "content": {"application/json": {"schema": {"$ref": "#/components/schemas/ErrorView"}}}}
+    },
+    "schemas": {
+      "StableUid": {"type": "string", "format": "uuid"},
+      "Rfc3339Time": {"type": "string", "format": "date-time"},
+      "CalendarDate": {"type": "string", "format": "date"},
+      "Ratio": {"type": "number", "minimum": 0, "maximum": 1},
+      "DecimalString": {"type": "string", "pattern": "^-?[0-9]+(?:\\.[0-9]+)?$"},
+      "OpaqueCursor": {"type": "string", "minLength": 1},
+      "ETagValue": {"type": "string", "minLength": 2},
+      "ValueStatus": {"type": "string", "enum": ["VALUE", "MISSING", "NOT_APPLICABLE", "STALE", "INVALID"]},
+      "AvailabilityState": {"type": "string", "enum": ["AVAILABLE", "WARMING_UP", "SUSPENDED", "UNAVAILABLE"]},
+      "LifecycleState": {"type": "string", "enum": ["OBSERVING", "STARTING", "EXPANDING", "ACCELERATING", "DIVERGING", "DECLINING"]},
+      "DataHealthStatus": {"type": "string", "enum": ["HEALTHY", "DEGRADED", "UNHEALTHY", "UNKNOWN"]},
+      "FitnessStatus": {"type": "string", "enum": ["FIT", "FIT_WITH_LIMITATIONS", "UNFIT", "UNKNOWN"]},
+      "EvidenceSufficiency": {"type": "string", "enum": ["LOW", "MEDIUM", "HIGH", "UNKNOWN"]},
+      "GuardianEffect": {"type": "string", "enum": ["ALLOW", "ALLOW_WITH_WARNING", "DOWNGRADE", "SUPPRESS", "PAUSE"]},
+      "EventStatus": {"type": "string", "enum": ["CANDIDATE", "ACTIVE", "RESOLVED", "INVALIDATED"]},
+      "DeliveryStatus": {"type": "string", "enum": ["PENDING", "PROCESSING", "RETRY_WAIT", "DELIVERED", "FAILED", "CANCELLED", "EXPIRED"]},
+
+      "HealthLiveView": {"type": "object", "additionalProperties": false, "required": ["service", "status"], "properties": {"service": {"type": "string", "const": "market-monitor"}, "status": {"type": "string", "const": "ok"}}},
+      "SystemHealthSummaryView": {"type": "object", "additionalProperties": false, "required": ["status", "database_readable", "migration_current", "migration_revision", "recovery_state", "restore_generation"], "properties": {"status": {"type": "string"}, "database_readable": {"type": "boolean"}, "migration_current": {"type": "boolean"}, "migration_revision": {"type": "string"}, "recovery_state": {"type": "string"}, "restore_generation": {"type": "integer", "minimum": 0}}},
+      "CapabilityHealthView": {"type": "object", "additionalProperties": false, "required": ["report_uid", "epoch_uid", "capability", "health", "fitness", "coverage", "latency_ms", "observed_at", "valid_until", "expired"], "properties": {"report_uid": {"$ref": "#/components/schemas/StableUid"}, "epoch_uid": {"$ref": "#/components/schemas/StableUid"}, "capability": {"type": "string"}, "health": {"$ref": "#/components/schemas/DataHealthStatus"}, "fitness": {"$ref": "#/components/schemas/FitnessStatus"}, "coverage": {"$ref": "#/components/schemas/Ratio"}, "latency_ms": {"type": "integer", "minimum": 0}, "observed_at": {"$ref": "#/components/schemas/Rfc3339Time"}, "valid_until": {"$ref": "#/components/schemas/Rfc3339Time"}, "expired": {"type": "boolean"}}},
+      "CapabilityListView": {"type": "object", "additionalProperties": false, "required": ["items"], "properties": {"items": {"type": "array", "items": {"$ref": "#/components/schemas/CapabilityHealthView"}}}},
+      "EnumRegistryView": {"type": "object", "additionalProperties": {"type": "array", "items": {"type": "string"}}},
+      "CodeView": {"type": "object", "additionalProperties": false, "required": ["group", "code", "meaning", "active"], "properties": {"group": {"type": "string"}, "code": {"type": "string"}, "meaning": {"type": "string"}, "active": {"type": "integer", "enum": [0, 1]}}},
+      "CodeListView": {"type": "object", "additionalProperties": false, "required": ["items"], "properties": {"items": {"type": "array", "items": {"$ref": "#/components/schemas/CodeView"}}}},
+
+      "ConfidenceView": {"type": "object", "additionalProperties": false, "required": ["level", "reference_status"], "properties": {"level": {"type": "string", "enum": ["HIGH", "MEDIUM", "LOW", "BLOCKED"]}, "reference_status": {"type": "string", "enum": ["NORMAL_REFERENCE", "LIMITED_REFERENCE", "OBSERVATION_ONLY", "NO_JUDGMENT"]}}},
+      "EvidenceItemView": {"type": "object", "additionalProperties": false, "required": ["role", "reason_code", "fact_uid", "fact_uid_status", "rule_execution_uid", "rule_execution_uid_status", "template_key", "attributes"], "properties": {"role": {"type": "string", "enum": ["SUPPORTING", "CONTRARY"]}, "reason_code": {"type": "string"}, "fact_uid": {"anyOf": [{"$ref": "#/components/schemas/StableUid"}, {"type": "null"}]}, "fact_uid_status": {"$ref": "#/components/schemas/ValueStatus"}, "rule_execution_uid": {"anyOf": [{"$ref": "#/components/schemas/StableUid"}, {"type": "null"}]}, "rule_execution_uid_status": {"$ref": "#/components/schemas/ValueStatus"}, "template_key": {"type": "string"}, "attributes": {"type": "object", "additionalProperties": {"type": "string"}}}},
+      "GuardianView": {"type": "object", "additionalProperties": false, "required": ["status", "effect", "blocking", "reasons"], "properties": {"status": {"type": "string", "enum": ["NORMAL", "CAUTION", "WARNING", "BLOCKED"]}, "effect": {"$ref": "#/components/schemas/GuardianEffect"}, "blocking": {"type": "boolean"}, "reasons": {"type": "array", "items": {"$ref": "#/components/schemas/EvidenceItemView"}}}},
+      "ScoutView": {"type": "object", "additionalProperties": false, "required": ["status", "strength", "suppressed_by_guardian", "reasons"], "properties": {"status": {"type": "string", "enum": ["NONE", "OBSERVING", "ACTIVE"]}, "strength": {"type": "string", "enum": ["LOW", "MEDIUM", "HIGH"]}, "suppressed_by_guardian": {"type": "boolean"}, "reasons": {"type": "array", "items": {"$ref": "#/components/schemas/EvidenceItemView"}}}},
+      "ExplanationView": {"type": "object", "additionalProperties": false, "required": ["supporting", "contrary"], "properties": {"supporting": {"type": "array", "items": {"$ref": "#/components/schemas/EvidenceItemView"}}, "contrary": {"type": "array", "items": {"$ref": "#/components/schemas/EvidenceItemView"}}}},
+      "DataLimitationView": {"type": "object", "additionalProperties": false, "required": ["code", "detail"], "properties": {"code": {"type": "string"}, "detail": {"type": "string"}}},
+      "DataQualityView": {"type": "object", "additionalProperties": false, "required": ["health", "fitness", "evidence_sufficiency", "coverage", "limitations"], "properties": {"health": {"$ref": "#/components/schemas/DataHealthStatus"}, "fitness": {"$ref": "#/components/schemas/FitnessStatus"}, "evidence_sufficiency": {"$ref": "#/components/schemas/EvidenceSufficiency"}, "coverage": {"$ref": "#/components/schemas/Ratio"}, "limitations": {"type": "array", "items": {"$ref": "#/components/schemas/DataLimitationView"}}}},
+      "LastValidStateView": {"type": "object", "additionalProperties": false, "required": ["lifecycle_state", "as_of_time", "value_status"], "properties": {"lifecycle_state": {"anyOf": [{"$ref": "#/components/schemas/LifecycleState"}, {"type": "null"}]}, "as_of_time": {"anyOf": [{"$ref": "#/components/schemas/Rfc3339Time"}, {"type": "null"}]}, "value_status": {"$ref": "#/components/schemas/ValueStatus"}}},
+      "MarketSourceView": {"type": "object", "additionalProperties": false, "required": ["evaluation_uid", "snapshot_uid", "guardian_uid", "scout_uid", "projection_version"], "properties": {"evaluation_uid": {"$ref": "#/components/schemas/StableUid"}, "snapshot_uid": {"$ref": "#/components/schemas/StableUid"}, "guardian_uid": {"$ref": "#/components/schemas/StableUid"}, "scout_uid": {"$ref": "#/components/schemas/StableUid"}, "projection_version": {"type": "integer", "minimum": 1}}},
+      "MarketView": {"type": "object", "additionalProperties": false, "required": ["subject_uid", "availability_state", "lifecycle_state", "lifecycle_value_status", "as_of_time", "confidence", "guardian", "scout", "explanation", "data_quality", "last_valid_state", "source"], "properties": {"subject_uid": {"$ref": "#/components/schemas/StableUid"}, "availability_state": {"$ref": "#/components/schemas/AvailabilityState"}, "lifecycle_state": {"anyOf": [{"$ref": "#/components/schemas/LifecycleState"}, {"type": "null"}]}, "lifecycle_value_status": {"$ref": "#/components/schemas/ValueStatus"}, "as_of_time": {"$ref": "#/components/schemas/Rfc3339Time"}, "confidence": {"$ref": "#/components/schemas/ConfidenceView"}, "guardian": {"$ref": "#/components/schemas/GuardianView"}, "scout": {"$ref": "#/components/schemas/ScoutView"}, "explanation": {"$ref": "#/components/schemas/ExplanationView"}, "data_quality": {"$ref": "#/components/schemas/DataQualityView"}, "last_valid_state": {"$ref": "#/components/schemas/LastValidStateView"}, "source": {"$ref": "#/components/schemas/MarketSourceView"}}},
+
+      "InstrumentView": {"type": "object", "additionalProperties": false, "required": ["instrument_uid", "instrument_kind", "identity_version_uid", "exchange", "trading_code", "name", "listing_status", "trading_status", "valid_from"], "properties": {"instrument_uid": {"$ref": "#/components/schemas/StableUid"}, "instrument_kind": {"type": "string"}, "identity_version_uid": {"$ref": "#/components/schemas/StableUid"}, "exchange": {"type": "string"}, "trading_code": {"type": "string"}, "name": {"type": "string"}, "listing_status": {"type": "string"}, "trading_status": {"type": "string"}, "valid_from": {"$ref": "#/components/schemas/Rfc3339Time"}}},
+      "SectorView": {"type": "object", "additionalProperties": false, "required": ["sector_uid", "sector_kind", "sector_version_uid", "name", "valid_from", "subject_uid", "subject_uid_status"], "properties": {"sector_uid": {"$ref": "#/components/schemas/StableUid"}, "sector_kind": {"type": "string"}, "sector_version_uid": {"$ref": "#/components/schemas/StableUid"}, "name": {"type": "string"}, "valid_from": {"$ref": "#/components/schemas/Rfc3339Time"}, "subject_uid": {"anyOf": [{"$ref": "#/components/schemas/StableUid"}, {"type": "null"}]}, "subject_uid_status": {"$ref": "#/components/schemas/ValueStatus"}}},
+      "SectorMemberView": {"type": "object", "additionalProperties": false, "required": ["instrument_uid", "member_role", "membership_version_uid", "trading_date"], "properties": {"instrument_uid": {"$ref": "#/components/schemas/StableUid"}, "member_role": {"type": "string"}, "membership_version_uid": {"$ref": "#/components/schemas/StableUid"}, "trading_date": {"$ref": "#/components/schemas/CalendarDate"}}},
+      "StateTransitionView": {"type": "object", "additionalProperties": false, "required": ["transition_uid", "from_lifecycle_state", "from_lifecycle_state_status", "to_lifecycle_state", "evaluation_uid", "occurred_at"], "properties": {"transition_uid": {"$ref": "#/components/schemas/StableUid"}, "from_lifecycle_state": {"anyOf": [{"$ref": "#/components/schemas/LifecycleState"}, {"type": "null"}]}, "from_lifecycle_state_status": {"$ref": "#/components/schemas/ValueStatus"}, "to_lifecycle_state": {"$ref": "#/components/schemas/LifecycleState"}, "evaluation_uid": {"$ref": "#/components/schemas/StableUid"}, "occurred_at": {"$ref": "#/components/schemas/Rfc3339Time"}}},
+      "FactView": {"type": "object", "additionalProperties": false, "required": ["fact_uid", "fact_code", "value", "value_status", "unit", "as_of_time"], "properties": {"fact_uid": {"$ref": "#/components/schemas/StableUid"}, "fact_code": {"type": "string"}, "value": {"anyOf": [{"$ref": "#/components/schemas/DecimalString"}, {"type": "null"}]}, "value_status": {"$ref": "#/components/schemas/ValueStatus"}, "unit": {"type": "string"}, "as_of_time": {"$ref": "#/components/schemas/Rfc3339Time"}}},
+
+      "EventSummaryView": {"type": "object", "additionalProperties": false, "required": ["event_uid", "event_version_uid", "subject_uid", "event_kind", "status", "version", "as_of_time", "guardian", "confidence", "scout", "explanation", "data_limitations"], "properties": {"event_uid": {"$ref": "#/components/schemas/StableUid"}, "event_version_uid": {"$ref": "#/components/schemas/StableUid"}, "subject_uid": {"$ref": "#/components/schemas/StableUid"}, "event_kind": {"type": "string"}, "status": {"$ref": "#/components/schemas/EventStatus"}, "version": {"type": "integer", "minimum": 1}, "as_of_time": {"$ref": "#/components/schemas/Rfc3339Time"}, "guardian": {"$ref": "#/components/schemas/GuardianView"}, "confidence": {"$ref": "#/components/schemas/ConfidenceView"}, "scout": {"$ref": "#/components/schemas/ScoutView"}, "explanation": {"$ref": "#/components/schemas/ExplanationView"}, "data_limitations": {"type": "array", "items": {"$ref": "#/components/schemas/DataLimitationView"}}}},
+      "EventDetailView": {"type": "object", "additionalProperties": false, "required": ["event_uid", "event_version_uid", "subject_uid", "event_kind", "status", "version", "as_of_time", "created_at", "guardian", "confidence", "scout", "explanation", "data_limitations"], "properties": {"event_uid": {"$ref": "#/components/schemas/StableUid"}, "event_version_uid": {"$ref": "#/components/schemas/StableUid"}, "subject_uid": {"$ref": "#/components/schemas/StableUid"}, "event_kind": {"type": "string"}, "status": {"$ref": "#/components/schemas/EventStatus"}, "version": {"type": "integer", "minimum": 1}, "as_of_time": {"$ref": "#/components/schemas/Rfc3339Time"}, "created_at": {"$ref": "#/components/schemas/Rfc3339Time"}, "guardian": {"$ref": "#/components/schemas/GuardianView"}, "confidence": {"$ref": "#/components/schemas/ConfidenceView"}, "scout": {"$ref": "#/components/schemas/ScoutView"}, "explanation": {"$ref": "#/components/schemas/ExplanationView"}, "data_limitations": {"type": "array", "items": {"$ref": "#/components/schemas/DataLimitationView"}}}},
+      "EventVersionView": {"type": "object", "additionalProperties": false, "required": ["event_uid", "event_version_uid", "subject_uid", "event_kind", "status", "version", "as_of_time", "change_type", "guardian", "confidence", "scout", "explanation", "data_limitations"], "properties": {"event_uid": {"$ref": "#/components/schemas/StableUid"}, "event_version_uid": {"$ref": "#/components/schemas/StableUid"}, "subject_uid": {"$ref": "#/components/schemas/StableUid"}, "event_kind": {"type": "string"}, "status": {"$ref": "#/components/schemas/EventStatus"}, "version": {"type": "integer", "minimum": 1}, "as_of_time": {"$ref": "#/components/schemas/Rfc3339Time"}, "change_type": {"type": "string"}, "guardian": {"$ref": "#/components/schemas/GuardianView"}, "confidence": {"$ref": "#/components/schemas/ConfidenceView"}, "scout": {"$ref": "#/components/schemas/ScoutView"}, "explanation": {"$ref": "#/components/schemas/ExplanationView"}, "data_limitations": {"type": "array", "items": {"$ref": "#/components/schemas/DataLimitationView"}}}},
+
+      "FrozenRiskView": {"type": "object", "additionalProperties": false, "required": ["tag", "severity", "reason_code", "fact_uid", "fact_uid_status", "rule_execution_uid", "rule_execution_uid_status", "template_key", "attributes"], "properties": {"tag": {"type": "string"}, "severity": {"type": "string"}, "reason_code": {"type": "string"}, "fact_uid": {"anyOf": [{"$ref": "#/components/schemas/StableUid"}, {"type": "null"}]}, "fact_uid_status": {"$ref": "#/components/schemas/ValueStatus"}, "rule_execution_uid": {"anyOf": [{"$ref": "#/components/schemas/StableUid"}, {"type": "null"}]}, "rule_execution_uid_status": {"$ref": "#/components/schemas/ValueStatus"}, "template_key": {"type": "string"}, "attributes": {"type": "object", "additionalProperties": {"type": "string"}}}},
+      "FrozenGuardianView": {"type": "object", "additionalProperties": false, "required": ["guardian_uid", "effect", "blocking", "risks"], "properties": {"guardian_uid": {"$ref": "#/components/schemas/StableUid"}, "effect": {"$ref": "#/components/schemas/GuardianEffect"}, "blocking": {"type": "boolean"}, "risks": {"type": "array", "items": {"$ref": "#/components/schemas/FrozenRiskView"}}}},
+      "FrozenScoutTagView": {"type": "object", "additionalProperties": false, "required": ["tag", "reason_code", "fact_uid", "fact_uid_status", "rule_execution_uid", "rule_execution_uid_status", "template_key", "attributes"], "properties": {"tag": {"type": "string"}, "reason_code": {"type": "string"}, "fact_uid": {"anyOf": [{"$ref": "#/components/schemas/StableUid"}, {"type": "null"}]}, "fact_uid_status": {"$ref": "#/components/schemas/ValueStatus"}, "rule_execution_uid": {"anyOf": [{"$ref": "#/components/schemas/StableUid"}, {"type": "null"}]}, "rule_execution_uid_status": {"$ref": "#/components/schemas/ValueStatus"}, "template_key": {"type": "string"}, "attributes": {"type": "object", "additionalProperties": {"type": "string"}}}},
+      "FrozenScoutView": {"type": "object", "additionalProperties": false, "required": ["scout_uid", "status", "strength", "suppressed_by_guardian", "tags"], "properties": {"scout_uid": {"$ref": "#/components/schemas/StableUid"}, "status": {"type": "string", "enum": ["NONE", "OBSERVING", "ACTIVE"]}, "strength": {"type": "string", "enum": ["LOW", "MEDIUM", "HIGH"]}, "suppressed_by_guardian": {"type": "boolean"}, "tags": {"type": "array", "items": {"$ref": "#/components/schemas/FrozenScoutTagView"}}}},
+      "FrozenEventView": {"type": "object", "additionalProperties": false, "required": ["event_uid", "version", "status"], "properties": {"event_uid": {"$ref": "#/components/schemas/StableUid"}, "version": {"type": "integer", "minimum": 1}, "status": {"$ref": "#/components/schemas/EventStatus"}}},
+      "NotificationFrozenContextView": {"type": "object", "additionalProperties": false, "required": ["as_of_time", "guardian", "confidence", "scout", "explanation", "data_limitations", "event"], "properties": {"as_of_time": {"$ref": "#/components/schemas/Rfc3339Time"}, "guardian": {"$ref": "#/components/schemas/FrozenGuardianView"}, "confidence": {"$ref": "#/components/schemas/ConfidenceView"}, "scout": {"$ref": "#/components/schemas/FrozenScoutView"}, "explanation": {"$ref": "#/components/schemas/ExplanationView"}, "data_limitations": {"type": "array", "items": {"$ref": "#/components/schemas/DataLimitationView"}}, "event": {"$ref": "#/components/schemas/FrozenEventView"}}},
+      "NotificationView": {"type": "object", "additionalProperties": false, "required": ["intent_uid", "event_version_uid", "channel", "intent_kind", "created_at", "expires_at", "delivery_status", "attempt_count", "frozen_context"], "properties": {"intent_uid": {"$ref": "#/components/schemas/StableUid"}, "event_version_uid": {"$ref": "#/components/schemas/StableUid"}, "channel": {"type": "string"}, "intent_kind": {"type": "string"}, "created_at": {"$ref": "#/components/schemas/Rfc3339Time"}, "expires_at": {"$ref": "#/components/schemas/Rfc3339Time"}, "delivery_status": {"$ref": "#/components/schemas/DeliveryStatus"}, "attempt_count": {"type": "integer", "minimum": 0}, "frozen_context": {"$ref": "#/components/schemas/NotificationFrozenContextView"}}},
+      "AuditView": {"type": "object", "additionalProperties": false, "required": ["audit_uid", "action", "subject_uid", "subject_uid_status", "analysis_commit_uid", "analysis_commit_uid_status", "detail_hash", "created_at"], "properties": {"audit_uid": {"$ref": "#/components/schemas/StableUid"}, "action": {"type": "string"}, "subject_uid": {"anyOf": [{"$ref": "#/components/schemas/StableUid"}, {"type": "null"}]}, "subject_uid_status": {"$ref": "#/components/schemas/ValueStatus"}, "analysis_commit_uid": {"anyOf": [{"$ref": "#/components/schemas/StableUid"}, {"type": "null"}]}, "analysis_commit_uid_status": {"$ref": "#/components/schemas/ValueStatus"}, "detail_hash": {"type": "string"}, "created_at": {"$ref": "#/components/schemas/Rfc3339Time"}}},
+
+      "InstrumentPage": {"type": "object", "additionalProperties": false, "required": ["items", "next_cursor", "next_cursor_status"], "properties": {"items": {"type": "array", "items": {"$ref": "#/components/schemas/InstrumentView"}}, "next_cursor": {"anyOf": [{"$ref": "#/components/schemas/OpaqueCursor"}, {"type": "null"}]}, "next_cursor_status": {"$ref": "#/components/schemas/ValueStatus"}}},
+      "SectorPage": {"type": "object", "additionalProperties": false, "required": ["items", "next_cursor", "next_cursor_status"], "properties": {"items": {"type": "array", "items": {"$ref": "#/components/schemas/SectorView"}}, "next_cursor": {"anyOf": [{"$ref": "#/components/schemas/OpaqueCursor"}, {"type": "null"}]}, "next_cursor_status": {"$ref": "#/components/schemas/ValueStatus"}}},
+      "SectorMemberPage": {"type": "object", "additionalProperties": false, "required": ["items", "next_cursor", "next_cursor_status"], "properties": {"items": {"type": "array", "items": {"$ref": "#/components/schemas/SectorMemberView"}}, "next_cursor": {"anyOf": [{"$ref": "#/components/schemas/OpaqueCursor"}, {"type": "null"}]}, "next_cursor_status": {"$ref": "#/components/schemas/ValueStatus"}}},
+      "StateTransitionPage": {"type": "object", "additionalProperties": false, "required": ["items", "next_cursor", "next_cursor_status"], "properties": {"items": {"type": "array", "items": {"$ref": "#/components/schemas/StateTransitionView"}}, "next_cursor": {"anyOf": [{"$ref": "#/components/schemas/OpaqueCursor"}, {"type": "null"}]}, "next_cursor_status": {"$ref": "#/components/schemas/ValueStatus"}}},
+      "FactPage": {"type": "object", "additionalProperties": false, "required": ["items", "next_cursor", "next_cursor_status"], "properties": {"items": {"type": "array", "items": {"$ref": "#/components/schemas/FactView"}}, "next_cursor": {"anyOf": [{"$ref": "#/components/schemas/OpaqueCursor"}, {"type": "null"}]}, "next_cursor_status": {"$ref": "#/components/schemas/ValueStatus"}}},
+      "EventPage": {"type": "object", "additionalProperties": false, "required": ["items", "next_cursor", "next_cursor_status"], "properties": {"items": {"type": "array", "items": {"$ref": "#/components/schemas/EventSummaryView"}}, "next_cursor": {"anyOf": [{"$ref": "#/components/schemas/OpaqueCursor"}, {"type": "null"}]}, "next_cursor_status": {"$ref": "#/components/schemas/ValueStatus"}}},
+      "EventVersionPage": {"type": "object", "additionalProperties": false, "required": ["items", "next_cursor", "next_cursor_status"], "properties": {"items": {"type": "array", "items": {"$ref": "#/components/schemas/EventVersionView"}}, "next_cursor": {"anyOf": [{"$ref": "#/components/schemas/OpaqueCursor"}, {"type": "null"}]}, "next_cursor_status": {"$ref": "#/components/schemas/ValueStatus"}}},
+      "NotificationPage": {"type": "object", "additionalProperties": false, "required": ["items", "next_cursor", "next_cursor_status"], "properties": {"items": {"type": "array", "items": {"$ref": "#/components/schemas/NotificationView"}}, "next_cursor": {"anyOf": [{"$ref": "#/components/schemas/OpaqueCursor"}, {"type": "null"}]}, "next_cursor_status": {"$ref": "#/components/schemas/ValueStatus"}}},
+      "AuditPage": {"type": "object", "additionalProperties": false, "required": ["items", "next_cursor", "next_cursor_status"], "properties": {"items": {"type": "array", "items": {"$ref": "#/components/schemas/AuditView"}}, "next_cursor": {"anyOf": [{"$ref": "#/components/schemas/OpaqueCursor"}, {"type": "null"}]}, "next_cursor_status": {"$ref": "#/components/schemas/ValueStatus"}}},
+
+      "HomeOverviewView": {"type": "object", "additionalProperties": false, "required": ["overview_as_of_time", "overview_as_of_time_status", "is_partial", "stale_sections", "market_view", "market_view_status", "risk_items", "watch_items", "system_health"], "properties": {"overview_as_of_time": {"anyOf": [{"$ref": "#/components/schemas/Rfc3339Time"}, {"type": "null"}]}, "overview_as_of_time_status": {"$ref": "#/components/schemas/ValueStatus"}, "is_partial": {"type": "boolean"}, "stale_sections": {"type": "array", "items": {"type": "string"}}, "market_view": {"anyOf": [{"$ref": "#/components/schemas/MarketView"}, {"type": "null"}]}, "market_view_status": {"$ref": "#/components/schemas/ValueStatus"}, "risk_items": {"type": "array", "items": {"$ref": "#/components/schemas/EventSummaryView"}}, "watch_items": {"type": "array", "items": {"$ref": "#/components/schemas/EventSummaryView"}}, "system_health": {"$ref": "#/components/schemas/SystemHealthSummaryView"}}},
+
+      "LoginRequest": {"type": "object", "additionalProperties": false, "required": ["username", "password"], "properties": {"username": {"type": "string", "minLength": 1, "maxLength": 64}, "password": {"type": "string", "minLength": 1, "maxLength": 1024}}},
+      "LoginView": {"type": "object", "additionalProperties": false, "required": ["role", "expires_at"], "properties": {"role": {"type": "string", "const": "OWNER"}, "expires_at": {"$ref": "#/components/schemas/Rfc3339Time"}}},
+      "SessionView": {"type": "object", "additionalProperties": false, "required": ["role", "expires_at"], "properties": {"role": {"type": "string", "const": "OWNER"}, "expires_at": {"$ref": "#/components/schemas/Rfc3339Time"}}},
+      "AnalysisQueryRequest": {"type": "object", "additionalProperties": false, "required": ["subject_uid"], "properties": {"subject_uid": {"$ref": "#/components/schemas/StableUid"}}},
+      "AnalysisQueryView": {"type": "object", "additionalProperties": false, "required": ["query_uid", "subject_uid", "source_snapshot_uid", "query_snapshot_uid", "evaluation_disposition", "official_state_unchanged", "as_of_time", "availability_state", "lifecycle_state", "lifecycle_value_status", "confidence", "data_limitations", "guardian", "scout", "explanation"], "properties": {"query_uid": {"$ref": "#/components/schemas/StableUid"}, "subject_uid": {"$ref": "#/components/schemas/StableUid"}, "source_snapshot_uid": {"$ref": "#/components/schemas/StableUid"}, "query_snapshot_uid": {"$ref": "#/components/schemas/StableUid"}, "evaluation_disposition": {"type": "string", "const": "USER_QUERY"}, "official_state_unchanged": {"type": "boolean", "const": true}, "as_of_time": {"$ref": "#/components/schemas/Rfc3339Time"}, "availability_state": {"$ref": "#/components/schemas/AvailabilityState"}, "lifecycle_state": {"anyOf": [{"$ref": "#/components/schemas/LifecycleState"}, {"type": "null"}]}, "lifecycle_value_status": {"$ref": "#/components/schemas/ValueStatus"}, "confidence": {"$ref": "#/components/schemas/ConfidenceView"}, "data_limitations": {"type": "array", "items": {"$ref": "#/components/schemas/DataLimitationView"}}, "guardian": {"$ref": "#/components/schemas/GuardianView"}, "scout": {"$ref": "#/components/schemas/ScoutView"}, "explanation": {"$ref": "#/components/schemas/ExplanationView"}}},
+      "SectorMatchRequest": {"type": "object", "additionalProperties": false, "required": ["query"], "properties": {"query": {"type": "string", "minLength": 1, "maxLength": 100}}},
+      "SectorMatchCandidateView": {"type": "object", "additionalProperties": false, "required": ["sector_uid", "sector_kind", "name", "subject_uid", "subject_uid_status"], "properties": {"sector_uid": {"$ref": "#/components/schemas/StableUid"}, "sector_kind": {"type": "string"}, "name": {"type": "string"}, "subject_uid": {"anyOf": [{"$ref": "#/components/schemas/StableUid"}, {"type": "null"}]}, "subject_uid_status": {"$ref": "#/components/schemas/ValueStatus"}}},
+      "SectorMatchView": {"type": "object", "additionalProperties": false, "required": ["query", "match_status", "selected", "selected_value_status", "candidates"], "properties": {"query": {"type": "string"}, "match_status": {"type": "string", "enum": ["EXACT", "NONE", "AMBIGUOUS"]}, "selected": {"anyOf": [{"$ref": "#/components/schemas/SectorMatchCandidateView"}, {"type": "null"}]}, "selected_value_status": {"$ref": "#/components/schemas/ValueStatus"}, "candidates": {"type": "array", "items": {"$ref": "#/components/schemas/SectorMatchCandidateView"}}}},
+      "NotificationSettingsRequest": {"type": "object", "additionalProperties": false, "required": ["enabled"], "properties": {"enabled": {"type": "boolean"}}},
+      "NotificationSettingsView": {"type": "object", "additionalProperties": false, "required": ["enabled", "endpoint_source", "endpoint_status", "endpoint_masked", "endpoint_value_status", "updated_at", "version", "etag"], "properties": {"enabled": {"type": "boolean"}, "endpoint_source": {"type": "string"}, "endpoint_status": {"type": "string", "enum": ["CONFIGURED", "NOT_CONFIGURED"]}, "endpoint_masked": {"anyOf": [{"type": "string"}, {"type": "null"}]}, "endpoint_value_status": {"$ref": "#/components/schemas/ValueStatus"}, "updated_at": {"$ref": "#/components/schemas/Rfc3339Time"}, "version": {"type": "integer", "minimum": 1}, "etag": {"$ref": "#/components/schemas/ETagValue"}}},
+      "BackupView": {"type": "object", "additionalProperties": false, "required": ["backup_uid", "sha256", "size_bytes", "created_at", "verified"], "properties": {"backup_uid": {"$ref": "#/components/schemas/StableUid"}, "sha256": {"type": "string", "pattern": "^[0-9a-f]{64}$"}, "size_bytes": {"type": "integer", "minimum": 0}, "created_at": {"$ref": "#/components/schemas/Rfc3339Time"}, "verified": {"type": "boolean", "const": true}}},
+      "DiagnosticsView": {"type": "object", "additionalProperties": false, "required": ["sqlite_version", "journal_mode", "synchronous", "foreign_keys", "auto_vacuum", "wal_autocheckpoint", "integrity_check", "migration_revision", "migration_checksum_valid", "artifact_count", "expired_lease_count", "sector_subject_mapping_missing_count"], "properties": {"sqlite_version": {"type": "string"}, "journal_mode": {"type": "string"}, "synchronous": {"type": "integer"}, "foreign_keys": {"type": "integer"}, "auto_vacuum": {"type": "integer"}, "wal_autocheckpoint": {"type": "integer"}, "integrity_check": {"type": "string"}, "migration_revision": {"type": "string"}, "migration_checksum_valid": {"type": "boolean"}, "artifact_count": {"type": "integer", "minimum": 0}, "expired_lease_count": {"type": "integer", "minimum": 0}, "sector_subject_mapping_missing_count": {"type": "integer", "minimum": 0}}},
+      "ErrorView": {"type": "object", "additionalProperties": false, "required": ["code", "message", "request_id"], "properties": {"code": {"type": "string"}, "message": {"type": "string"}, "request_id": {"type": "string", "minLength": 1, "maxLength": 128}}}
+    }
+  }
+}

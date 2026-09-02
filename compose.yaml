@@ -1,0 +1,40 @@
+name: market-monitor
+
+services:
+  market-monitor:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: market-monitor:local
+    network_mode: host
+    user: "10001:10001"
+    read_only: true
+    tmpfs:
+      - /tmp:rw,noexec,nosuid,size=64m
+      - /run:rw,noexec,nosuid,size=16m
+    cap_drop:
+      - ALL
+    security_opt:
+      - no-new-privileges:true
+    environment:
+      MARKET_MONITOR_ENV: release
+      MARKET_MONITOR_BIND_HOST: 127.0.0.1
+      MARKET_MONITOR_PORT: "8000"
+      MARKET_MONITOR_WORKERS: "1"
+      MARKET_MONITOR_DATA_DIR: /var/lib/market-monitor
+      MARKET_MONITOR_OWNER_PASSWORD_FILE: /run/secrets/owner_password
+      MARKET_MONITOR_WEBHOOK_ENABLED: "false"
+    volumes:
+      - ./var/data:/var/lib/market-monitor
+      - ./var/owner-password:/run/secrets/owner_password:ro
+    healthcheck:
+      test:
+        - CMD
+        - python
+        - -c
+        - "from urllib.request import urlopen; assert urlopen('http://127.0.0.1:8000/health/live', timeout=3).status == 200"
+      interval: 30s
+      timeout: 5s
+      retries: 3
+      start_period: 20s
+    restart: unless-stopped
