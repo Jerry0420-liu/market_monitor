@@ -151,7 +151,7 @@ def test_realtime_snapshot_rejects_stale_quote_or_current_minute(
     runtime, writer, artifacts = m3_runtime
     quote_uid, current_bars, instruments, subject_uid, identity_uid = _metric_inputs(m3_runtime)
     stale_bar = _record_bar(
-        runtime, writer, current_bars[0], datetime(2026, 8, 24, 1, 32, tzinfo=UTC)
+        runtime, writer, current_bars[0], datetime(2026, 8, 24, 1, 33, tzinfo=UTC)
     )
     historical_bar = _record_bar(
         runtime, writer, current_bars[0], datetime(2026, 8, 3, 1, 34, tzinfo=UTC)
@@ -191,35 +191,36 @@ def test_realtime_manifest_cannot_omit_live_quote_from_its_gate(
         )
 
 
-def test_realtime_current_bar_must_be_complete_at_snapshot_time(
+def test_realtime_current_bar_right_edge_is_complete_at_snapshot_time(
     m3_runtime: tuple[DatabaseRuntime, WriterQueue, ArtifactStore],
 ) -> None:
-    """A bar stamped at as-of is not a completed minute and cannot enter the live gate."""
+    """A right-edge bar stamped at as-of is complete at snapshot time."""
     runtime, writer, artifacts = m3_runtime
     quote_uid, current_bars, instruments, subject_uid, identity_uid = _metric_inputs(m3_runtime)
-    incomplete_bar = _record_bar(runtime, writer, current_bars[0], AS_OF)
+    completed_bar = _record_bar(runtime, writer, current_bars[0], AS_OF)
     snapshots, manifest_uid = _manifest(
         runtime,
         writer,
         artifacts,
         quote_uid=quote_uid,
-        bar_uids=[*current_bars, incomplete_bar],
-        realtime_bar_uids=[incomplete_bar],
+        bar_uids=[*current_bars, completed_bar],
+        realtime_bar_uids=[completed_bar],
         instrument_uid=instruments[0],
     )
     bundle_uid = snapshots.create_reference_bundle([("INSTRUMENT", instruments[0], identity_uid)])
 
-    with pytest.raises(SnapshotFreshnessError, match="not complete"):
-        snapshots.create_snapshot(
-            subject_uid,
-            manifest_uid,
-            bundle_uid,
-            "SHADOW",
-            ["QUOTES"],
-            [],
-            max_skew_ms=180_000,
-            max_age_ms=_REALTIME_LIMIT_MS,
-        )
+    snapshot_uid = snapshots.create_snapshot(
+        subject_uid,
+        manifest_uid,
+        bundle_uid,
+        "SHADOW",
+        ["QUOTES"],
+        [],
+        max_skew_ms=180_000,
+        max_age_ms=_REALTIME_LIMIT_MS,
+    )
+
+    assert snapshot_uid
 
 
 def test_shadow_preparation_pins_the_exact_realtime_minute_cohort(

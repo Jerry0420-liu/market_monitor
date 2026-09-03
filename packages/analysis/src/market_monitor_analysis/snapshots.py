@@ -1,7 +1,7 @@
 import json
 from collections.abc import Mapping, Sequence
 from dataclasses import dataclass
-from datetime import datetime, timedelta
+from datetime import datetime
 from typing import Any, Literal, cast
 
 from market_monitor_persistence.artifacts import ArtifactStore
@@ -391,7 +391,7 @@ class SnapshotBuilder:
             ):
                 raise SnapshotFreshnessError("realtime quote source time is after as-of")
             if any(
-                parse_rfc3339(str(bar_by_uid[uid].source_time)) + timedelta(minutes=1)
+            parse_rfc3339(str(bar_by_uid[uid].source_time))
                 > snapshot_time
                 for uid in realtime_current_bar_uids
             ):
@@ -411,7 +411,7 @@ class SnapshotBuilder:
             source_times = [
                 *(parse_rfc3339(str(row.source_time)) for row in quote_by_uid.values()),
                 *(
-                    parse_rfc3339(str(row.source_time)) + timedelta(minutes=1)
+            parse_rfc3339(str(row.source_time))
                     for row in bar_by_uid.values()
                     if str(row.bar_uid) in set(realtime_current_bar_uids)
                 ),

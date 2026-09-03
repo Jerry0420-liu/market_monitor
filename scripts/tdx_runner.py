@@ -969,9 +969,9 @@ def _shadow_metric_bars(
     day_start = format_rfc3339(
         local.replace(hour=0, minute=0, second=0, microsecond=0).astimezone(UTC)
     )
-    complete_cutoff = format_rfc3339(as_of - timedelta(minutes=1))
+    complete_cutoff = format_rfc3339(as_of)
     fresh_current_cutoff = format_rfc3339(
-        as_of - _REALTIME_OBSERVATION_MAX_AGE - timedelta(minutes=1)
+        as_of - _REALTIME_OBSERVATION_MAX_AGE
     )
     same_values = ",".join("(?,?)" for _ in range(10))
     daily_values = ",".join("(?,?)" for _ in range(40))
@@ -1055,7 +1055,7 @@ def _shadow_metric_bars(
     return (
         [str(row.bar_uid) for row in rows],
         [str(row.bar_uid) for row in realtime_rows],
-        [parse_rfc3339(str(row.source_time)) + timedelta(minutes=1) for row in realtime_rows],
+        [parse_rfc3339(str(row.source_time)) for row in realtime_rows],
     )
 
 
@@ -1068,7 +1068,7 @@ def _shadow_metric_bars_for_exact_cohort(
     minute_targets: Mapping[int, datetime],
 ) -> tuple[list[str], list[str], list[datetime]]:
     if set(minute_targets) != {0, 1} or any(
-        target.tzinfo is None or target.utcoffset() is None or target + timedelta(minutes=1) > as_of
+        target.tzinfo is None or target.utcoffset() is None or target > as_of
         for target in minute_targets.values()
     ):
         raise ValueError("CR-004 Shadow requires completed SSE/SZSE legal minute targets")
@@ -1172,7 +1172,7 @@ def _shadow_metric_bars_for_exact_cohort(
     return (
         [str(row.bar_uid) for row in rows],
         [str(row.bar_uid) for row in realtime_rows],
-        [parse_rfc3339(str(row.source_time)) + timedelta(minutes=1) for row in realtime_rows],
+        [parse_rfc3339(str(row.source_time)) for row in realtime_rows],
     )
 
 
