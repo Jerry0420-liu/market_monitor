@@ -404,7 +404,7 @@ class NativeTdxProvider:
                 raise ValueError("quote identity/cardinality mismatch")
         except TdxTransportError:
             raise
-        except OSError, RuntimeError, ValueError:
+        except (OSError, RuntimeError, ValueError):
             if len(instruments) == 1:
                 instrument = instruments[0]
                 self._storage.record_quarantine(
@@ -571,7 +571,7 @@ class NativeTdxProvider:
             return "UNKNOWN"
         try:
             raw_quotes = self._gateway.quotes(instruments)
-        except OSError, RuntimeError, ValueError:
+        except (OSError, RuntimeError, ValueError):
             raw_quotes = ()
         expected = {(item.market, item.code) for item in instruments}
         returned = {(item.market, item.code) for item in raw_quotes}
@@ -609,7 +609,7 @@ class NativeTdxProvider:
         for instrument in instruments:
             try:
                 raw_bars = self._gateway.bars(instrument, interval, count=1)
-            except OSError, RuntimeError, ValueError:
+            except (OSError, RuntimeError, ValueError):
                 continue
             normalized = [normalize_bar(item, instrument, interval) for item in raw_bars]
             valid = [item for item in normalized if isinstance(item, TdxBar)]
@@ -643,7 +643,7 @@ class NativeTdxProvider:
                     ),
                     parse_block_file(download.data, filename),
                 )
-            except OSError, RuntimeError, ValueError:
+            except (OSError, RuntimeError, ValueError):
                 continue
             successful += 1
             versions += int(version_uid is not None)

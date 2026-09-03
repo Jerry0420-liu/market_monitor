@@ -48,7 +48,7 @@ def main() -> int:
             _cleanup_generated_target(target)
         _emit(payload)
         return 0
-    except CapacityError, ValueError:
+    except (CapacityError, ValueError):
         _emit(
             {
                 "error_code": "CAPACITY_INVALID",

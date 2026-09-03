@@ -40,7 +40,7 @@ def main() -> int:
             if response.status != 200 or 'id="root"' not in body:
                 raise ValueError("same-origin Web response is invalid")
             web_ok = True
-    except HTTPError, URLError, OSError, UnicodeError, ValueError:
+    except (HTTPError, URLError, OSError, UnicodeError, ValueError):
         _emit(
             {"error_code": "LOCAL_SMOKE_FAILED", "message": "local smoke check failed", "ok": False}
         )

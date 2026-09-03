@@ -104,7 +104,7 @@ def _load_owner_password(values: Mapping[str, str]) -> str:
         if not path.is_file() or size <= 0 or size > _MAX_OWNER_PASSWORD_BYTES:
             raise OSError("secret file is outside the accepted bounds")
         content = path.read_bytes()
-    except OSError, ValueError:
+    except (OSError, ValueError):
         raise SettingsError("owner password file is unavailable") from None
     try:
         decoded = content.decode("utf-8")

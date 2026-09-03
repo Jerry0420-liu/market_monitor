@@ -918,7 +918,7 @@ def _shadow_primary_quote_statuses(
             continue
         try:
             source_time = parse_rfc3339(str(row.source_time))
-        except TypeError, ValueError:
+        except (TypeError, ValueError):
             source_time = None
         is_valid = (
             source_time is not None

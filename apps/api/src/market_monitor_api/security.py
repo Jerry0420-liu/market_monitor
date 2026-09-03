@@ -290,7 +290,7 @@ def _verify_password(
 ) -> bool:
     try:
         actual = _password_hash(password, bytes.fromhex(salt_hex), n, r, p).hex()
-    except ValueError, UnicodeError:
+    except (ValueError, UnicodeError):
         return False
     return hmac.compare_digest(actual, expected_hex)
 

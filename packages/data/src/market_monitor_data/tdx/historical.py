@@ -298,7 +298,7 @@ class TdxHistoricalLoader:
                 )
                 if invalid is not None:
                     raise ValueError(invalid.reason)
-            except OSError, RuntimeError, ValueError:
+            except (OSError, RuntimeError, ValueError):
                 self._storage.record_quarantine(
                     epoch_uid,
                     instrument.market,

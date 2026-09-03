@@ -209,7 +209,7 @@ class TdxServerPool:
                 compressed_length = struct.unpack("<H", header[12:14])[0]
                 body = _recv_exact(connection, compressed_length)
                 response = self._protocol.decode_response(header, body)
-        except OSError, TdxProtocolError, TimeoutError:
+        except (OSError, TdxProtocolError, TimeoutError):
             if not reused_connection:
                 raise
             self._close_node_connection(node)

@@ -739,7 +739,7 @@ class MetricRunner:
         try:
             with self._artifacts.open_verified(evidence_sha256) as stream:
                 evidence = json.load(stream)
-        except ArtifactError, OSError, TypeError, UnicodeDecodeError, json.JSONDecodeError:
+        except (ArtifactError, OSError, TypeError, UnicodeDecodeError, json.JSONDecodeError):
             return None
         if not isinstance(evidence, Mapping):
             return None

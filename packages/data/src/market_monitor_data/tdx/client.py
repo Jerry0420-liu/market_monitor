@@ -132,7 +132,7 @@ class TdxLiveClient:
                 probe_name=probe_name,
                 validator=validate,
             )
-        except OSError, RuntimeError, ValueError:
+        except (OSError, RuntimeError, ValueError):
             return False
         return True
 
@@ -153,7 +153,7 @@ class TdxLiveClient:
                 probe_name=probe_name,
                 validator=validate,
             )
-        except OSError, RuntimeError, ValueError:
+        except (OSError, RuntimeError, ValueError):
             return False
         return True
 

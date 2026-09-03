@@ -264,5 +264,5 @@ def _price(value: str | None) -> tuple[int | None, str]:
         return None, "MISSING"
     try:
         return to_scaled_integer(Decimal(value), 4), "VALUE"
-    except InvalidOperation, ValueError:
+    except (InvalidOperation, ValueError):
         return None, "INVALID"

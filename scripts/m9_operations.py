@@ -272,7 +272,7 @@ def _load_fixture(path: Path) -> tuple[dict[str, Any], ...]:
     try:
         with path.open("r", encoding="utf-8") as stream:
             value = json.load(stream)
-    except OSError, UnicodeError, json.JSONDecodeError:
+    except (OSError, UnicodeError, json.JSONDecodeError):
         raise OperationError("FIXTURE_INVALID", "demo fixture is unavailable or invalid") from None
     if (
         not isinstance(value, dict)

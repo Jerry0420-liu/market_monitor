@@ -86,5 +86,5 @@ class WebhookAdapter:
             return DeliveryResult(False, status >= 500, None, f"HTTP_{status}")
         except HTTPError as error:
             return DeliveryResult(False, error.code >= 500, None, f"HTTP_{error.code}")
-        except URLError, TimeoutError, OSError:
+        except (URLError, TimeoutError, OSError):
             return DeliveryResult(False, True, None, "CHANNEL_UNAVAILABLE")
