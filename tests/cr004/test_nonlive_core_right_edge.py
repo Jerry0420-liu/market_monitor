@@ -2,14 +2,13 @@
 
 from __future__ import annotations
 
-from collections import Counter
 import json
+from collections import Counter
 from datetime import UTC, datetime, timedelta, timezone
 from decimal import Decimal
 from typing import Any
 
 import pytest
-
 from market_monitor_analysis.guardian import GuardianService
 from market_monitor_analysis.metric_runner import MetricRunner
 from market_monitor_analysis.scout import ScoutService
@@ -21,6 +20,7 @@ from market_monitor_data.ingestion import IngestionService
 from market_monitor_data.models import ProviderBatch, ProviderRecord
 from market_monitor_data.reference import ReferenceRepository
 from market_monitor_data.tdx.models import (
+    TdxBar,
     TdxBlockArtifact,
     TdxBlockMembership,
     TdxInstrument,
@@ -28,10 +28,10 @@ from market_monitor_data.tdx.models import (
 )
 from market_monitor_data.tdx.provider import TdxMinuteIncrementResult
 from market_monitor_data.tdx.storage import TdxStorage
+
 from scripts.tdx_runner import _audit_surface_counts, _prepare_metric_shadow_snapshots
 from tests.cr004.conftest import _CODES, _SAME_CLOCK_DATES, _bar
 from tests.cr004.test_metric_performance import _CALENDAR_DATES
-
 
 _SHANGHAI = timezone(timedelta(hours=8), "Asia/Shanghai")
 _TRADING_DATE = "2026-08-24"
@@ -213,7 +213,7 @@ def _seed_current_inputs(
     )
 
     local_target = target.astimezone(_SHANGHAI)
-    bars = []
+    bars: list[TdxBar] = []
     for market, code in members:
         instrument = TdxInstrument(market, code, "STOCK")
         bars.extend(
@@ -253,8 +253,7 @@ def _run_shadow_chain(
     builder = SnapshotBuilder(runtime, writer, artifacts)
     with runtime.read_connection() as connection:
         snapshot_row = connection.exec_driver_sql(
-            "SELECT manifest_uid,snapshot_status FROM evaluation_snapshot "
-            "WHERE snapshot_uid=?",
+            "SELECT manifest_uid,snapshot_status FROM evaluation_snapshot WHERE snapshot_uid=?",
             (snapshot_uid,),
         ).one()
         manifest = builder.replay_manifest(str(snapshot_row.manifest_uid))
@@ -396,8 +395,8 @@ def _prepare_case(
     ),
 )
 def test_offline_core_shadow_uses_exact_latest_right_edge(
-    m3_runtime,
-    sealed_metric_snapshot,
+    m3_runtime: Any,
+    sealed_metric_snapshot: Any,
     observed_at: datetime,
     expected_target: datetime,
 ) -> None:
@@ -416,11 +415,13 @@ def test_offline_core_shadow_uses_exact_latest_right_edge(
     assert result["scout"]
     assert result["scout_suppressed"] is True
     assert result["official_delta"]
-    assert all(value == 0 for value in result["official_delta"].values())
+    official_delta = result["official_delta"]
+    assert isinstance(official_delta, dict)
+    assert all(value == 0 for value in official_delta.values())
 
 
 def test_offline_core_shadow_preserves_sse_and_szse_mapping(
-    m3_runtime, sealed_metric_snapshot
+    m3_runtime: Any, sealed_metric_snapshot: Any
 ) -> None:
     runtime, writer, artifacts = m3_runtime
     observed_at = datetime(2026, 8, 24, 9, 45, 30, tzinfo=_SHANGHAI)
@@ -448,4 +449,6 @@ def test_offline_core_shadow_preserves_sse_and_szse_mapping(
     assert result["guardian"]
     assert result["scout"]
     assert result["scout_suppressed"] is True
-    assert all(value == 0 for value in result["official_delta"].values())
+    official_delta = result["official_delta"]
+    assert isinstance(official_delta, dict)
+    assert all(value == 0 for value in official_delta.values())

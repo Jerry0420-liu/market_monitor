@@ -5,6 +5,7 @@ FROM node:24.18.0-bookworm-slim AS web-build
 WORKDIR /workspace
 COPY package.json package-lock.json .npmrc ./
 COPY apps/web/package.json apps/web/package.json
+RUN npm install --global npm@12.0.2
 RUN npm ci --ignore-scripts
 COPY apps/web apps/web
 RUN npm run build
@@ -29,7 +30,7 @@ COPY alembic.ini ./
 COPY migrations migrations
 COPY packages packages
 COPY apps/api/src apps/api/src
-COPY scripts/run_local.py scripts/official_runner.py scripts/tdx_runner.py scripts/
+COPY scripts/__init__.py scripts/official_runner.py scripts/production_worker.py scripts/run_local.py scripts/tdx_runner.py scripts/
 COPY --from=web-build --chown=marketmonitor:marketmonitor /workspace/apps/web/dist apps/web/dist
 
 USER marketmonitor

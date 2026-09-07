@@ -71,6 +71,7 @@ REQUIRED_FILES = (
     "scripts/m9_capacity.py",
     "scripts/m9_operations.py",
     "scripts/official_runner.py",
+    "scripts/production_worker.py",
     "scripts/m7_diagnostics.py",
     "scripts/run_local.py",
     "scripts/smoke_local.py",
@@ -196,8 +197,6 @@ def check_repository(root: Path) -> list[str]:
     root = root.resolve()
     errors: list[str] = []
 
-    if root.name != "market-monitor":
-        errors.append(f"repository directory must be named market-monitor, got {root.name}")
     for relative in REQUIRED_FILES:
         if not (root / relative).is_file():
             errors.append(f"missing required file: {relative}")

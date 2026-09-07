@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import json
+import logging
 import os
 import shutil
 from collections.abc import Callable
@@ -28,6 +29,9 @@ _CAPACITY_MIN_INTERVAL_SECONDS = 30
 _CAPACITY_SESSION_SECONDS = 4 * 60 * 60
 _CAPACITY_BYTES_PER_SAMPLE = 1_024
 _CAPACITY_BASE_BYTES = 256 * 1024 * 1024
+_TDX_BAR_RETENTION_MAX_BATCH = 5_000
+
+_logger = logging.getLogger(__name__)
 
 
 @dataclass(frozen=True)
@@ -142,6 +146,197 @@ class RetentionResult:
     deleted_quote_count: int
     deleted_artifact_count: int
     audit_hash: str
+
+
+@dataclass(frozen=True)
+class TdxBarRetentionPlan:
+    candidate_count: int
+    candidate_hash: str
+    cutoff: str
+    planned_at: str
+    manifest_catalog_hash: str
+    protected_bar_uids: tuple[str, ...]
+
+
+@dataclass(frozen=True)
+class TdxBarRetentionResult:
+    deleted_bar_count: int
+    audit_hash: str
+
+
+def plan_tdx_bar_retention(
+    runtime: DatabaseRuntime,
+    artifacts: ArtifactStore,
+    cutoff: datetime,
+    *,
+    now: Any,
+    batch_size: int = 1_000,
+) -> TdxBarRetentionPlan:
+    """Build a bounded, evidence-aware plan for old raw 1m bars."""
+    current = now() if callable(now) else now
+    if not isinstance(current, datetime):
+        raise TypeError("now must be a datetime or zero-argument callable")
+    _validate_bar_retention_batch_size(batch_size)
+    cutoff_value = format_rfc3339(cutoff)
+    current_value = format_rfc3339(current)
+    if cutoff >= current:
+        raise ValueError("retention cutoff must precede the current time")
+
+    try:
+        with runtime.read_connection() as connection:
+            manifest_catalog_hash = _manifest_catalog_hash(connection)
+            protected_bar_uids = _protected_tdx_bar_uids(artifacts, connection)
+            candidate_count, candidate_digest = _scan_tdx_bar_candidates(
+                connection,
+                cutoff_value,
+                protected_bar_uids,
+                batch_size,
+            )
+    except RetentionError:
+        raise
+    except (
+        ArtifactError,
+        OSError,
+        TypeError,
+        UnicodeError,
+        ValueError,
+        json.JSONDecodeError,
+    ) as error:
+        raise RetentionError("tdx_bar retention evidence validation failed") from error
+
+    candidate_hash = _tdx_bar_retention_hash(
+        cutoff_value,
+        candidate_count,
+        candidate_digest,
+        manifest_catalog_hash,
+    )
+    return TdxBarRetentionPlan(
+        candidate_count=candidate_count,
+        candidate_hash=candidate_hash,
+        cutoff=cutoff_value,
+        planned_at=current_value,
+        manifest_catalog_hash=manifest_catalog_hash,
+        protected_bar_uids=protected_bar_uids,
+    )
+
+
+def apply_tdx_bar_retention(
+    runtime: DatabaseRuntime,
+    writer: WriterQueue,
+    artifacts: ArtifactStore,
+    plan: TdxBarRetentionPlan,
+    *,
+    now: Any,
+    batch_size: int = 1_000,
+) -> TdxBarRetentionResult:
+    """Delete a fenced bar plan in short WriterQueue transactions."""
+    current = now() if callable(now) else now
+    if not isinstance(current, datetime):
+        raise TypeError("now must be a datetime or zero-argument callable")
+    _validate_bar_retention_batch_size(batch_size)
+    try:
+        cutoff = parse_rfc3339(plan.cutoff)
+    except (AttributeError, TypeError, ValueError) as error:
+        raise RetentionError("tdx_bar retention plan is invalid") from error
+    refreshed = plan_tdx_bar_retention(
+        runtime,
+        artifacts,
+        cutoff,
+        now=current,
+        batch_size=batch_size,
+    )
+    if not _same_tdx_bar_retention_plan(plan, refreshed):
+        raise RetentionError("tdx_bar retention candidates changed; create a new plan")
+    if plan.candidate_count == 0:
+        _logger.info(
+            json.dumps(
+                {
+                    "event": "tdx_bar_retention_completed",
+                    "deleted_bar_count": 0,
+                    "candidate_count": 0,
+                    "cutoff": plan.cutoff,
+                },
+                sort_keys=True,
+            )
+        )
+        return TdxBarRetentionResult(0, plan.candidate_hash)
+
+    deleted = 0
+    while deleted < plan.candidate_count:
+
+        def delete_batch(transaction: TransactionContext) -> int:
+            connection = transaction.connection
+            if _manifest_catalog_hash(connection) != plan.manifest_catalog_hash:
+                raise RetentionError("tdx_bar retention evidence catalog changed")
+            query, parameters = _tdx_bar_candidate_query(
+                plan.cutoff,
+                plan.protected_bar_uids,
+                batch_size,
+            )
+            rows = connection.exec_driver_sql(query, parameters).all()
+            uids = tuple(str(row[0]) for row in rows)
+            if not uids:
+                return 0
+            removed = _delete_values(connection, "tdx_bar", "bar_uid", uids)
+            if removed != len(uids):
+                raise RetentionError("tdx_bar delete count did not match the fenced batch")
+            return removed
+
+        try:
+            removed = int(writer.submit(delete_batch).result())
+        except RetentionError:
+            raise
+        except Exception as error:
+            raise RetentionError("tdx_bar retention database apply failed") from error
+        if removed == 0:
+            raise RetentionError("tdx_bar retention ended before its fenced plan was deleted")
+        deleted += removed
+
+    if deleted != plan.candidate_count:
+        raise RetentionError("tdx_bar retention delete count did not match the fenced plan")
+
+    with runtime.read_connection() as connection:
+        if _manifest_catalog_hash(connection) != plan.manifest_catalog_hash:
+            raise RetentionError("tdx_bar retention evidence catalog changed")
+        remaining, _ = _scan_tdx_bar_candidates(
+            connection,
+            plan.cutoff,
+            plan.protected_bar_uids,
+            batch_size,
+        )
+    if remaining:
+        raise RetentionError("tdx_bar retention found new candidates during apply")
+
+    applied_at = format_rfc3339(current)
+
+    def record_audit(transaction: TransactionContext) -> None:
+        if _manifest_catalog_hash(transaction.connection) != plan.manifest_catalog_hash:
+            raise RetentionError("tdx_bar retention evidence catalog changed")
+        transaction.connection.exec_driver_sql(
+            "INSERT INTO audit_record(audit_uid,action,subject_uid,analysis_commit_uid,"
+            "detail_hash,created_at) VALUES (?,'TDX_BAR_RETENTION_APPLIED',NULL,NULL,?,?)",
+            (new_uid(), plan.candidate_hash, applied_at),
+        )
+
+    try:
+        writer.submit(record_audit).result()
+    except RetentionError:
+        raise
+    except Exception as error:
+        raise RetentionError("tdx_bar retention audit write failed") from error
+    _logger.info(
+        json.dumps(
+            {
+                "event": "tdx_bar_retention_completed",
+                "deleted_bar_count": deleted,
+                "candidate_count": plan.candidate_count,
+                "cutoff": plan.cutoff,
+                "audit_hash": plan.candidate_hash,
+            },
+            sort_keys=True,
+        )
+    )
+    return TdxBarRetentionResult(deleted, plan.candidate_hash)
 
 
 def plan_retention(
@@ -352,6 +547,110 @@ def _read_manifest(artifacts: ArtifactStore, row: Any) -> tuple[str, ...]:
     if raw != canonical or _canonical_hash(document) != str(row.canonical_hash):
         raise RetentionError("an Input Manifest canonical hash does not match")
     return tuple(quote_uids)
+
+
+def _validate_bar_retention_batch_size(batch_size: int) -> None:
+    if isinstance(batch_size, bool) or not isinstance(batch_size, int):
+        raise ValueError("tdx_bar retention batch size must be an integer")
+    if not 1 <= batch_size <= _TDX_BAR_RETENTION_MAX_BATCH:
+        raise ValueError("tdx_bar retention batch size is outside the accepted bounds")
+
+
+def _protected_tdx_bar_uids(
+    artifacts: ArtifactStore,
+    connection: Any,
+) -> tuple[str, ...]:
+    protected: set[str] = set()
+    rows = connection.exec_driver_sql(
+        "SELECT artifact_sha256 FROM input_manifest ORDER BY manifest_uid"
+    ).all()
+    for row in rows:
+        try:
+            with artifacts.open_verified(str(row.artifact_sha256)) as stream:
+                raw = stream.read()
+            document = json.loads(raw.decode("utf-8"), object_pairs_hook=_unique_json_object)
+        except RetentionError:
+            raise
+        except (ArtifactError, OSError, UnicodeError, json.JSONDecodeError) as error:
+            raise RetentionError("an Input Manifest is missing, corrupt, or malformed") from error
+        if not isinstance(document, dict):
+            raise RetentionError("an Input Manifest has an invalid shape")
+        for field in ("bar_uids", "realtime_current_bar_uids"):
+            if field not in document:
+                continue
+            values = document[field]
+            if not isinstance(values, list) or any(
+                not isinstance(value, str) or not value or len(value) > 256 for value in values
+            ):
+                raise RetentionError(f"an Input Manifest {field} list is invalid")
+            protected.update(values)
+    return tuple(sorted(protected))
+
+
+def _tdx_bar_candidate_query(
+    cutoff: str,
+    protected_bar_uids: tuple[str, ...],
+    limit: int | None = None,
+) -> tuple[str, tuple[object, ...]]:
+    clauses = ["interval_kind='1m'", "source_time < ?"]
+    parameters: list[object] = [cutoff]
+    for chunk in _chunks(protected_bar_uids, 400):
+        placeholders = ",".join("?" for _ in chunk)
+        clauses.append(f"bar_uid NOT IN ({placeholders})")
+        parameters.extend(chunk)
+    query = "SELECT bar_uid FROM tdx_bar WHERE " + " AND ".join(clauses)
+    query += " ORDER BY bar_uid"
+    if limit is not None:
+        query += " LIMIT ?"
+        parameters.append(limit)
+    return query, tuple(parameters)
+
+
+def _scan_tdx_bar_candidates(
+    connection: Any,
+    cutoff: str,
+    protected_bar_uids: tuple[str, ...],
+    batch_size: int,
+) -> tuple[int, str]:
+    query, parameters = _tdx_bar_candidate_query(cutoff, protected_bar_uids)
+    digest = sha256()
+    count = 0
+    result = connection.exec_driver_sql(query, parameters)
+    while rows := result.fetchmany(batch_size):
+        for row in rows:
+            digest.update(str(row[0]).encode("utf-8"))
+            digest.update(b"\0")
+            count += 1
+    return count, digest.hexdigest()
+
+
+def _tdx_bar_retention_hash(
+    cutoff: str,
+    candidate_count: int,
+    candidate_digest: str,
+    manifest_catalog_hash: str,
+) -> str:
+    return _canonical_hash(
+        {
+            "candidate_count": candidate_count,
+            "candidate_digest": candidate_digest,
+            "cutoff": cutoff,
+            "manifest_catalog_hash": manifest_catalog_hash,
+        }
+    )
+
+
+def _same_tdx_bar_retention_plan(
+    left: TdxBarRetentionPlan,
+    right: TdxBarRetentionPlan,
+) -> bool:
+    return (
+        left.candidate_count == right.candidate_count
+        and left.candidate_hash == right.candidate_hash
+        and left.cutoff == right.cutoff
+        and left.manifest_catalog_hash == right.manifest_catalog_hash
+        and left.protected_bar_uids == right.protected_bar_uids
+    )
 
 
 def _validate_manifest_quotes(connection: Any, quote_uids: tuple[str, ...], as_of: str) -> set[str]:

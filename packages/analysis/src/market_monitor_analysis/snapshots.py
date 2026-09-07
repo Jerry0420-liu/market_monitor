@@ -391,8 +391,7 @@ class SnapshotBuilder:
             ):
                 raise SnapshotFreshnessError("realtime quote source time is after as-of")
             if any(
-            parse_rfc3339(str(bar_by_uid[uid].source_time))
-                > snapshot_time
+                parse_rfc3339(str(bar_by_uid[uid].source_time)) > snapshot_time
                 for uid in realtime_current_bar_uids
             ):
                 raise SnapshotFreshnessError("realtime current bar is not complete at as-of")
@@ -411,7 +410,7 @@ class SnapshotBuilder:
             source_times = [
                 *(parse_rfc3339(str(row.source_time)) for row in quote_by_uid.values()),
                 *(
-            parse_rfc3339(str(row.source_time))
+                    parse_rfc3339(str(row.source_time))
                     for row in bar_by_uid.values()
                     if str(row.bar_uid) in set(realtime_current_bar_uids)
                 ),

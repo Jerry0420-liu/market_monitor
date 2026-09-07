@@ -11,7 +11,7 @@ testpaths = ["apps/api/tests", "tests"]
 
 [tool.ruff]
 line-length = 100
-target-version = "py314"
+target-version = "py313"
 extend-exclude = [".m9-final-clean-copy-*"]
 
 [tool.ruff.lint]

@@ -7,6 +7,13 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parents[2]
 
 
+def test_capacity_monitor_bounds_backup_set_count() -> None:
+    monitor = (ROOT / "deploy/monitoring/market-monitor-capacity.sh").read_text(encoding="utf-8")
+
+    assert "MAX_BACKUP_SETS=${MARKET_MONITOR_MAX_BACKUP_SETS:-3}" in monitor
+    assert "backup_sets=" in monitor
+
+
 def test_release_assets_are_present_and_keep_the_runtime_local_and_hardened() -> None:
     dockerfile = (ROOT / "Dockerfile").read_text(encoding="utf-8")
     compose = (ROOT / "compose.yaml").read_text(encoding="utf-8")

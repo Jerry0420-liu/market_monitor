@@ -41,6 +41,7 @@ class Settings:
     static_root: Path | None
     release_mode: bool
     delivery_poll_seconds: float
+    production_worker_poll_seconds: float
 
 
 def load_settings(environ: Mapping[str, str] | None = None) -> Settings:
@@ -73,6 +74,12 @@ def load_settings(environ: Mapping[str, str] | None = None) -> Settings:
         0.05,
         60.0,
     )
+    production_worker_poll_seconds = _bounded_float(
+        values.get("MARKET_MONITOR_WORKER_POLL_SECONDS", "1"),
+        "production worker poll interval",
+        0.05,
+        60.0,
+    )
     return Settings(
         environment=environment,
         data_directory=Path(raw_data_directory),
@@ -86,6 +93,7 @@ def load_settings(environ: Mapping[str, str] | None = None) -> Settings:
         static_root=static_root,
         release_mode=release_mode,
         delivery_poll_seconds=delivery_poll_seconds,
+        production_worker_poll_seconds=production_worker_poll_seconds,
     )
 
 

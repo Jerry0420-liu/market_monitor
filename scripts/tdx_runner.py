@@ -970,9 +970,7 @@ def _shadow_metric_bars(
         local.replace(hour=0, minute=0, second=0, microsecond=0).astimezone(UTC)
     )
     complete_cutoff = format_rfc3339(as_of)
-    fresh_current_cutoff = format_rfc3339(
-        as_of - _REALTIME_OBSERVATION_MAX_AGE
-    )
+    fresh_current_cutoff = format_rfc3339(as_of - _REALTIME_OBSERVATION_MAX_AGE)
     same_values = ",".join("(?,?)" for _ in range(10))
     daily_values = ",".join("(?,?)" for _ in range(40))
     same_parameters = tuple(

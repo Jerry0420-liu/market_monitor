@@ -16,9 +16,12 @@ WriterQueue.
 4. Start `python scripts/run_local.py`.
 5. In another terminal, run `python scripts/dev.py smoke-local --expect-web`.
 
-The process initializes/migrates its local SQLite database, starts one WriterQueue and one bounded
-delivery loop, and serves the built Web client and API from the same origin. Stop it with Ctrl+C;
-the delivery loop stops before the writer and database close.
+The process initializes/migrates its local SQLite database, starts one WriterQueue, one bounded
+delivery loop, and the continuous production worker in the same process. The worker remains idle
+while `MARKET_MONITOR_OFFICIAL_ENABLED=false` or `MARKET_MONITOR_THRESHOLD_ACTIVATION=0`; when
+explicitly enabled, it uses the existing TradingClock and CR-003 pipeline without a second
+SQLite writer. Stop it with Ctrl+C; the worker and delivery loop stop before the writer and database
+close.
 
 ## Compose packaging
 
@@ -76,8 +79,15 @@ values are `MARKET_MONITOR_OFFICIAL_ENABLED=false` and
 by the staged package. The separate `python scripts/dev.py official-run` entry point remains
 disabled until the next-session Shadow review, Owner acceptance, and explicit activation.
 
+When explicitly enabled for a supervised production run, `MARKET_MONITOR_TDX_BAR_RETENTION_DAYS`
+keeps five trading days by default. Retention deletes only old raw 1m bars in bounded WriterQueue
+batches, protects bars referenced by Input Manifests, and leaves daily baselines and derived
+evidence untouched. Keep the API/worker as the only process owning the data directory.
+
 The reverse-proxy file under `deploy/nginx/` is a substitution template only. Replace
 `__MARKET_MONITOR_DOMAIN__` and install an Owner-controlled certificate through the host's normal
 HTTPS tooling; no domain or private key is stored here. Run
 `deploy/monitoring/market-monitor-capacity.sh` from the host monitor to enforce free-space
-headroom for data and backup paths.
+headroom for data and backup paths. The monitor also fails when more than three backup sets exist
+by default (`MARKET_MONITOR_MAX_BACKUP_SETS`); rotate only verified, no-longer-needed sets under
+Owner control.

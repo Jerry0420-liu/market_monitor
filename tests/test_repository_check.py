@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import hashlib
+import shutil
 from pathlib import Path
 
 
@@ -146,3 +147,29 @@ def test_machine_specific_path_is_reported(tmp_path: Path) -> None:
         "machine-specific absolute path in: config.py" in error
         for error in check_repository(tmp_path)
     )
+
+
+def test_repository_check_allows_arbitrary_clone_directory(tmp_path: Path) -> None:
+    from scripts.check_repository import check_repository
+
+    source = Path(__file__).resolve().parents[1]
+    clone = tmp_path / "whatever-project-name"
+    shutil.copytree(
+        source,
+        clone,
+        ignore=shutil.ignore_patterns(
+            ".git",
+            ".venv",
+            "node_modules",
+            "dist",
+            "build",
+            "__pycache__",
+            ".pytest_cache",
+            ".mypy_cache",
+            ".ruff_cache",
+            "playwright-report",
+            "test-results",
+        ),
+    )
+
+    assert check_repository(clone) == []

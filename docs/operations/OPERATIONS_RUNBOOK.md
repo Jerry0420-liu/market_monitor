@@ -13,6 +13,8 @@ file is bounded and preferable for local deployment. Keep these safety defaults:
 ```text
 MARKET_MONITOR_BIND_HOST=127.0.0.1
 MARKET_MONITOR_WORKERS=1
+MARKET_MONITOR_WORKER_POLL_SECONDS=1
+MARKET_MONITOR_TDX_BAR_RETENTION_DAYS=5
 MARKET_MONITOR_WEBHOOK_ENABLED=false
 ```
 
@@ -43,7 +45,9 @@ python scripts/dev.py m9-operations verify-backup --path <backup-set>
 
 A complete backup contains the SQLite snapshot, all referenced Artifacts, canonical manifest, and
 manifest digest. Treat it as sensitive data. A failed backup never authorizes deletion of the live
-directory; retain the prior verified backup and inspect the redacted error code.
+directory; retain the prior verified backup and inspect the redacted error code. The host capacity
+monitor defaults to at most three backup sets (`MARKET_MONITOR_MAX_BACKUP_SETS`); it reports a
+failure above that bound so an Owner can remove only a verified, no-longer-needed set.
 
 ## Offline restore, RECOVERING, and rewarm
 
@@ -80,6 +84,12 @@ python scripts/dev.py m9-operations retain --data-dir <data-dir> --cutoff <rfc33
 Only after reviewing the candidate count may an operator use `--apply`; an optional
 `--expected-count` fences an accidental change in candidates. A malformed manifest or evidence
 drift fails closed.
+
+The continuous worker applies automatic raw 1m-bar retention after live cycles. The default is five
+trading days and `MARKET_MONITOR_TDX_BAR_RETENTION_DAYS` accepts 1 through 30. It uses the local
+trading-day boundary, deletes in short WriterQueue batches, protects Input Manifest bar references,
+and does not delete daily baselines, evaluations, events, notifications, or audit records. A
+retention error is logged and is never treated as a silent success.
 
 Use a bounded checkpoint and vacuum only while the service is stopped:
 
@@ -130,7 +140,8 @@ claiming the shadow gate has passed.
 The production-shaped Compose asset is `deploy/compose.production.yaml`. It is intentionally
 staged but disabled: `MARKET_MONITOR_OFFICIAL_ENABLED=false` and
 `MARKET_MONITOR_THRESHOLD_ACTIVATION=0`. Keep the Web/API process as the only WriterQueue owner;
-do not start an additional process against the same SQLite data root. Validate the package with:
+the continuous production worker is owned by that same process when explicitly enabled. Do not
+start an additional process against the same SQLite data root. Validate the package with:
 
 ```text
 docker compose -f deploy/compose.production.yaml config

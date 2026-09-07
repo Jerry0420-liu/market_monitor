@@ -19,6 +19,7 @@ jobs:
         with:
           node-version: 24.18.0
           cache: npm
+      - run: npm install --global npm@12.0.2
       - run: python scripts/dev.py install
       - run: npx playwright install-deps chromium
       - run: docker compose config

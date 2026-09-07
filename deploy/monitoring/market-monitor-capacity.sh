@@ -4,6 +4,7 @@ set -eu
 DATA_DIR=${MARKET_MONITOR_HOST_DATA_DIR:-/var/lib/market-monitor}
 BACKUP_DIR=${MARKET_MONITOR_HOST_BACKUP_DIR:-/var/backups/market-monitor}
 MIN_FREE_PERCENT=${MARKET_MONITOR_MIN_FREE_PERCENT:-20}
+MAX_BACKUP_SETS=${MARKET_MONITOR_MAX_BACKUP_SETS:-3}
 
 check_path() {
     label=$1
@@ -22,4 +23,9 @@ check_path() {
 status=0
 check_path data "$DATA_DIR" || status=$?
 check_path backup "$BACKUP_DIR" || status=$?
+if [ -d "$BACKUP_DIR" ]; then
+    backup_sets=$(find "$BACKUP_DIR" -mindepth 1 -maxdepth 1 -type d ! -name '.*' | wc -l | tr -d ' ')
+    printf 'backup_sets=%s max_backup_sets=%s\n' "$backup_sets" "$MAX_BACKUP_SETS"
+    [ "$backup_sets" -le "$MAX_BACKUP_SETS" ] || status=2
+fi
 exit "$status"

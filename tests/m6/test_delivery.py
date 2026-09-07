@@ -214,7 +214,7 @@ def test_webhook_is_disabled_by_default_and_sends_idempotency_header_when_enable
     calls: list[tuple[Any, float]] = []
 
     class Response:
-        def __enter__(self) -> Response:
+        def __enter__(self) -> "Response":
             return self
 
         def __exit__(self, *_: Any) -> None:

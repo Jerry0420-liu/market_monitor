@@ -60,6 +60,7 @@ from market_monitor_api.writes import (
     VersionConflictError,
     WriteService,
 )
+from scripts.production_worker import build_worker
 
 SESSION_COOKIE = "market_monitor_session"
 _SPA_STATIC_PATHS = frozenset(
@@ -531,6 +532,8 @@ def create_app_from_settings(environ: Mapping[str, str] | None = None) -> FastAP
         runtime: DatabaseRuntime | None = None
         writer: WriterQueue | None = None
         delivery_loop: DeliveryLoop | None = None
+        production_worker = None
+        native_cycle_runner = None
         try:
             runtime_lock = RuntimeLock.acquire(settings.data_directory)
             runtime = DatabaseRuntime.open(data_paths)
@@ -567,8 +570,23 @@ def create_app_from_settings(environ: Mapping[str, str] | None = None) -> FastAP
             )
             application.state.delivery_loop = delivery_loop
             delivery_loop.start()
+            production_worker, native_cycle_runner = build_worker(
+                runtime,
+                writer,
+                artifacts,
+                values,
+                poll_seconds=settings.production_worker_poll_seconds,
+            )
+            application.state.production_worker = production_worker
+            production_worker.start()
             yield
         finally:
+            if production_worker is not None:
+                production_worker.close()
+            if native_cycle_runner is not None:
+                native_cycle_runner.close()
+            if hasattr(application.state, "production_worker"):
+                del application.state.production_worker
             if delivery_loop is not None:
                 delivery_loop.close()
             if hasattr(application.state, "delivery_loop"):
