@@ -1,9 +1,10 @@
 from __future__ import annotations
 
-from datetime import datetime, timedelta, timezone
+from datetime import UTC, datetime, timedelta, timezone
 from threading import Event, Lock, Thread
 
 from market_monitor_analysis.production_worker import ContinuousProductionWorker
+
 from scripts.production_worker import _bar_retention_cutoff
 
 CHINA = timezone(timedelta(hours=8))
@@ -28,7 +29,7 @@ class RetentionClock:
 def test_bar_retention_cutoff_keeps_current_and_previous_five_trading_days() -> None:
     cutoff = _bar_retention_cutoff(RetentionClock(), datetime(2026, 9, 7, 10, tzinfo=CHINA), 5)
 
-    assert cutoff == datetime(2026, 9, 1, tzinfo=CHINA).astimezone(timezone.utc)
+    assert cutoff == datetime(2026, 9, 1, tzinfo=CHINA).astimezone(UTC)
 
 
 class FakeClock:
