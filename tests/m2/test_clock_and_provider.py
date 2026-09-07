@@ -112,23 +112,45 @@ def test_production_calendar_import_rerun_is_idempotent(
     from scripts.tdx_runner import _import_trading_calendar
 
     runtime, writer, _ = m2_runtime
-    path = (
-        Path(__file__).resolve().parents[2]
-        / "deploy"
-        / "calendars"
-        / "sse-szse-2026-07-27-to-08-25.json"
-    )
+    path = Path(__file__).resolve().parents[2] / "deploy" / "calendars" / "sse-szse-2026.json"
 
     first = _import_trading_calendar(path, runtime, writer)
     second = _import_trading_calendar(path, runtime, writer)
 
-    assert first["days"] == 316
-    assert first["inserted_days"] == 316
+    assert first["days"] == 730
+    assert first["inserted_days"] == 730
     assert second["inserted_days"] == 0
     with runtime.read_connection() as connection:
         assert (
             connection.exec_driver_sql("SELECT count(*) FROM trading_calendar_day").scalar_one()
-            == 316
+            == 730
+        )
+
+
+def test_full_year_production_calendar_covers_both_exchanges_and_boundary(
+    m2_runtime: tuple[Any, Any, Any],
+) -> None:
+    from scripts.tdx_runner import _import_trading_calendar
+
+    runtime, writer, _ = m2_runtime
+    path = Path(__file__).resolve().parents[2] / "deploy" / "calendars" / "sse-szse-2026.json"
+    result = _import_trading_calendar(path, runtime, writer)
+    assert result["inserted_days"] == 730
+
+    clock = TradingClock(runtime, writer)
+    for exchange in ("SSE", "SZSE"):
+        assert clock.phase_at(exchange, datetime(2026, 9, 8, 2, tzinfo=UTC)) == "CONTINUOUS_AM"
+        assert clock.phase_at(exchange, datetime(2026, 9, 25, 4, tzinfo=UTC)) == "NON_TRADING_DAY"
+        readiness = clock.calendar_coverage_readiness(
+            exchange,
+            datetime(2026, 12, 31, 6, tzinfo=UTC),
+            minimum_future_trading_days=0,
+        )
+        assert readiness.ready
+        assert readiness.coverage_end == "2026-12-31"
+        assert (
+            clock.phase_at(exchange, datetime(2027, 1, 1, 2, tzinfo=UTC))
+            == "CALENDAR_COVERAGE_MISSING"
         )
 
 

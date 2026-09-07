@@ -252,17 +252,12 @@ def test_metric_shadow_refuses_calendar_without_five_future_trading_days(
 def test_owner_approved_calendar_has_explicit_daily_coverage_through_year_end() -> None:
     from scripts.tdx_runner import _calendar_content_hash, _validate_calendar_provenance
 
-    path = (
-        Path(__file__).resolve().parents[2]
-        / "deploy"
-        / "calendars"
-        / "sse-szse-2026-07-27-to-08-25.json"
-    )
+    path = Path(__file__).resolve().parents[2] / "deploy" / "calendars" / "sse-szse-2026.json"
     document = json.loads(path.read_text(encoding="utf-8"))
     generated_at, content_hash = _validate_calendar_provenance(document)
     assert generated_at == document["generated_at"]
     assert content_hash == _calendar_content_hash(document)
-    first = date(2026, 7, 27)
+    first = date(2026, 1, 1)
     last = date(2026, 12, 31)
     expected_dates = tuple(
         (first + timedelta(days=offset)).isoformat() for offset in range((last - first).days + 1)
@@ -276,9 +271,23 @@ def test_owner_approved_calendar_has_explicit_daily_coverage_through_year_end() 
         "SSE": expected_dates,
         "SZSE": expected_dates,
     }
-    assert len(document["days"]) == 316
+    assert len(document["days"]) == 730
 
     official_closures = {
+        "2026-01-01",
+        "2026-01-02",
+        "2026-01-03",
+        "2026-02-16",
+        "2026-02-17",
+        "2026-02-18",
+        "2026-02-19",
+        "2026-02-20",
+        "2026-02-23",
+        "2026-04-06",
+        "2026-05-01",
+        "2026-05-04",
+        "2026-05-05",
+        "2026-06-19",
         "2026-09-25",
         "2026-09-26",
         "2026-09-27",
@@ -301,7 +310,7 @@ def test_owner_approved_calendar_has_explicit_daily_coverage_through_year_end() 
                 "CONTINUOUS_PM",
             ]
 
-    tomorrow = [item for item in document["days"] if item["trading_date"] == "2026-08-28"]
+    tomorrow = [item for item in document["days"] if item["trading_date"] == "2026-09-08"]
     assert len(tomorrow) == 2
     assert all(len(item["sessions"]) == 2 for item in tomorrow)
     provenance_exchanges = {source["exchange"] for source in document["provenance"]["sources"]}
