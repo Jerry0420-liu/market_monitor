@@ -34,4 +34,4 @@ COPY scripts/__init__.py scripts/official_runner.py scripts/production_worker.py
 COPY --from=web-build --chown=marketmonitor:marketmonitor /workspace/apps/web/dist apps/web/dist
 
 USER marketmonitor
-ENTRYPOINT ["python", "scripts/run_local.py"]
+ENTRYPOINT ["python", "-m", "scripts.run_local"]
