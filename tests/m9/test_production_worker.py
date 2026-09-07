@@ -2,8 +2,11 @@ from __future__ import annotations
 
 from datetime import UTC, datetime, timedelta, timezone
 from threading import Event, Lock, Thread
+from typing import cast
 
 from market_monitor_analysis.production_worker import ContinuousProductionWorker
+
+from market_monitor_data.clock import TradingClock
 
 from scripts.production_worker import _bar_retention_cutoff
 
@@ -27,7 +30,11 @@ class RetentionClock:
 
 
 def test_bar_retention_cutoff_keeps_current_and_previous_five_trading_days() -> None:
-    cutoff = _bar_retention_cutoff(RetentionClock(), datetime(2026, 9, 7, 10, tzinfo=CHINA), 5)
+    cutoff = _bar_retention_cutoff(
+        cast(TradingClock, RetentionClock()),
+        datetime(2026, 9, 7, 10, tzinfo=CHINA),
+        5,
+    )
 
     assert cutoff == datetime(2026, 9, 1, tzinfo=CHINA).astimezone(UTC)
 

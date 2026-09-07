@@ -41,7 +41,7 @@ class RuntimeLock:
 
 def _lock(descriptor: int) -> None:
     if os.name == "nt":
-        import msvcrt
+        msvcrt = cast(Any, __import__("msvcrt"))
 
         msvcrt.locking(descriptor, msvcrt.LK_NBLCK, 1)
         return
@@ -52,7 +52,7 @@ def _lock(descriptor: int) -> None:
 
 def _unlock(descriptor: int) -> None:
     if os.name == "nt":
-        import msvcrt
+        msvcrt = cast(Any, __import__("msvcrt"))
 
         os.lseek(descriptor, 0, os.SEEK_SET)
         msvcrt.locking(descriptor, msvcrt.LK_UNLCK, 1)
