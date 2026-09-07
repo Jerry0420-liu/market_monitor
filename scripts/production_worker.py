@@ -202,9 +202,9 @@ def _bar_retention_cutoff(
     previous = clock.previous_valid_trading_dates(
         "SSE",
         local_date.isoformat(),
-        keep_days - 1,
+        keep_days,
     )
-    if len(previous) != keep_days - 1:
+    if len(previous) != keep_days:
         return None
     oldest = min((local_date, *(date.fromisoformat(value) for value in previous)))
     return datetime.combine(oldest, time.min, _CHINA).astimezone(UTC)

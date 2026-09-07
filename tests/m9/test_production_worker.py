@@ -4,8 +4,33 @@ from datetime import datetime, timedelta, timezone
 from threading import Event, Lock, Thread
 
 from market_monitor_analysis.production_worker import ContinuousProductionWorker
+from scripts.production_worker import _bar_retention_cutoff
 
 CHINA = timezone(timedelta(hours=8))
+
+
+class RetentionClock:
+    def previous_valid_trading_dates(
+        self, exchange: str, before: str, count: int
+    ) -> tuple[str, ...]:
+        assert exchange == "SSE"
+        assert before == "2026-09-07"
+        assert count == 5
+        return (
+            "2026-09-01",
+            "2026-09-02",
+            "2026-09-03",
+            "2026-09-04",
+            "2026-09-05",
+        )
+
+
+def test_bar_retention_cutoff_keeps_current_and_previous_five_trading_days() -> None:
+    cutoff = _bar_retention_cutoff(
+        RetentionClock(), datetime(2026, 9, 7, 10, tzinfo=CHINA), 5
+    )
+
+    assert cutoff == datetime(2026, 9, 1, tzinfo=CHINA).astimezone(timezone.utc)
 
 
 class FakeClock:
