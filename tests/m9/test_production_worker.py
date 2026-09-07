@@ -26,9 +26,7 @@ class RetentionClock:
 
 
 def test_bar_retention_cutoff_keeps_current_and_previous_five_trading_days() -> None:
-    cutoff = _bar_retention_cutoff(
-        RetentionClock(), datetime(2026, 9, 7, 10, tzinfo=CHINA), 5
-    )
+    cutoff = _bar_retention_cutoff(RetentionClock(), datetime(2026, 9, 7, 10, tzinfo=CHINA), 5)
 
     assert cutoff == datetime(2026, 9, 1, tzinfo=CHINA).astimezone(timezone.utc)
 
