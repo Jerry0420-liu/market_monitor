@@ -5,7 +5,6 @@ from threading import Event, Lock, Thread
 from typing import cast
 
 from market_monitor_analysis.production_worker import ContinuousProductionWorker
-
 from market_monitor_data.clock import TradingClock
 
 from scripts.production_worker import _bar_retention_cutoff
