@@ -18,6 +18,8 @@ Contribution workflow and local verification are in [`development/`](development
 ## Operations
 
 Deployment, backup, restore, recovery, and data-use notices are in [`operations/`](operations/).
+Production instrument-reference bootstrap instructions are in
+[`operations/REFERENCE_BOOTSTRAP.md`](operations/REFERENCE_BOOTSTRAP.md).
 
 ## Acceptance
 

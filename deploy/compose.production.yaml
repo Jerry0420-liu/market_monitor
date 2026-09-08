@@ -31,11 +31,13 @@ services:
       MARKET_MONITOR_OFFICIAL_ENABLED: "false"
       MARKET_MONITOR_THRESHOLD_ACTIVATION: "0"
       MARKET_MONITOR_TRADING_CALENDAR_FILE: /etc/market-monitor/calendar.json
+      MARKET_MONITOR_LISTING_REFERENCE_FILE: /etc/market-monitor/listing-reference.json
     volumes:
       - market_monitor_data:/var/lib/market-monitor
       - market_monitor_artifacts:/var/lib/market-monitor/artifacts
       - market_monitor_backups:/var/backups/market-monitor
       - ./calendars/sse-szse-2026.json:/etc/market-monitor/calendar.json:ro
+      - ./references/listing-reference-2026-09-08.json:/etc/market-monitor/listing-reference.json:ro
     secrets:
       - owner_password
     healthcheck:
