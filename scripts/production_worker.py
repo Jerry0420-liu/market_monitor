@@ -11,6 +11,7 @@ from collections.abc import Mapping
 from datetime import UTC, date, datetime, time, timedelta, timezone
 from pathlib import Path
 from threading import Event
+from typing import Literal
 
 from market_monitor_analysis.official_orchestrator import (
     OfficialOrchestrator,
@@ -20,6 +21,7 @@ from market_monitor_analysis.official_orchestrator import (
 from market_monitor_analysis.production_worker import ContinuousProductionWorker
 from market_monitor_api.runtime_lock import RuntimeLock
 from market_monitor_data.clock import TradingClock
+from market_monitor_data.reference import ReferenceRepository
 from market_monitor_data.tdx.client import TdxLiveClient
 from market_monitor_data.tdx.protocol import TdxProtocol
 from market_monitor_data.tdx.transport import TdxServerPool
@@ -52,10 +54,16 @@ class NativeTdxCycleRunner:
         clock: TradingClock,
         bar_retention_trading_days: int,
     ) -> None:
-        if not settings.official_enabled or settings.threshold_activation == 0:
-            raise ValueError("Native TDX worker requires an explicitly enabled official runtime")
-        if settings.subject_uid is None:
-            raise ValueError("Native TDX worker requires an official subject UID")
+        evaluation_disposition: Literal["OFFICIAL", "SHADOW"] = (
+            "OFFICIAL"
+            if settings.official_enabled and settings.threshold_activation > 0
+            else "SHADOW"
+        )
+        subject_uid = settings.subject_uid
+        if subject_uid is None:
+            if evaluation_disposition == "OFFICIAL":
+                raise ValueError("Native TDX worker requires an official subject UID")
+            subject_uid = ReferenceRepository(runtime, writer).ensure_analysis_subject("MARKET")
         protocol = TdxProtocol()
         self._pools = tuple(TdxServerPool(settings.servers, protocol) for _ in range(5))
         gateways = tuple(TdxLiveClient(pool, protocol) for pool in self._pools)
@@ -64,26 +72,35 @@ class NativeTdxCycleRunner:
             writer,
             artifacts,
             gateways[0],
-            subject_uid=settings.subject_uid,
+            subject_uid=subject_uid,
             threshold_activation=settings.threshold_activation,
             trading_calendar_file=settings.trading_calendar_file,
             listing_reference_file=settings.listing_reference_file,
             minute_gateways=gateways[1:],
             webhook_url=settings.webhook_url,
             webhook_enabled=settings.webhook_enabled,
+            evaluation_disposition=evaluation_disposition,
         )
         self._orchestrator = OfficialOrchestrator(
             self._pipeline,
             SqliteCycleJournal(runtime, writer),
-            OfficialOrchestratorConfig(official_enabled=True),
+            OfficialOrchestratorConfig(
+                official_enabled=evaluation_disposition == "OFFICIAL",
+                evaluation_disposition=evaluation_disposition,
+            ),
         )
-        self._subject_uid = settings.subject_uid
+        self._subject_uid = subject_uid
+        self._evaluation_disposition = evaluation_disposition
         self._runtime = runtime
         self._writer = writer
         self._artifacts = artifacts
         self._clock = clock
         self._bar_retention_trading_days = bar_retention_trading_days
         self._last_retention_day: str | None = None
+
+    @property
+    def evaluation_disposition(self) -> str:
+        return self._evaluation_disposition
 
     def __call__(self, cycle_key: str, observed_at: datetime) -> object:
         result = self._orchestrator.run(self._subject_uid, cycle_key, observed_at)
@@ -150,7 +167,7 @@ def build_worker(
     environ: Mapping[str, str] | None = None,
     *,
     poll_seconds: float = 1.0,
-) -> tuple[ContinuousProductionWorker, NativeTdxCycleRunner | None]:
+) -> tuple[ContinuousProductionWorker, NativeTdxCycleRunner]:
     values = os.environ if environ is None else environ
     settings = OfficialRuntimeSettings.from_environment(
         values,
@@ -163,17 +180,13 @@ def build_worker(
         )
     )
     clock = TradingClock(runtime, writer)
-    cycle_runner = (
-        NativeTdxCycleRunner(
-            runtime,
-            writer,
-            artifacts,
-            settings,
-            clock,
-            retention_days,
-        )
-        if settings.official_enabled and settings.threshold_activation > 0
-        else None
+    cycle_runner = NativeTdxCycleRunner(
+        runtime,
+        writer,
+        artifacts,
+        settings,
+        clock,
+        retention_days,
     )
     worker = ContinuousProductionWorker(
         clock,

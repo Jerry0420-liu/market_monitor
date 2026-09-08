@@ -13,7 +13,7 @@ from dataclasses import dataclass, field
 from datetime import datetime
 from enum import StrEnum
 from types import MappingProxyType
-from typing import Any, Protocol
+from typing import Any, Literal, Protocol
 
 from market_monitor_persistence.database import DatabaseRuntime
 from market_monitor_persistence.values import format_rfc3339, new_uid
@@ -29,6 +29,7 @@ class CycleStatus(StrEnum):
     COMMITTED = "COMMITTED"
     IDEMPOTENT = "IDEMPOTENT"
     BLOCKED = "BLOCKED"
+    SHADOW_COMPLETED = "SHADOW_COMPLETED"
 
 
 class _JournalStatus(StrEnum):
@@ -158,7 +159,7 @@ class OfficialPipeline(Protocol):
     def seal_snapshot(self, subject_uid: str, cycle_key: str, observed_at: datetime) -> str: ...
 
     def run_metrics(
-        self, snapshot_uid: str, permit: OfficialExecutionPermit
+        self, snapshot_uid: str, permit: OfficialExecutionPermit | None
     ) -> OfficialMetricOutput: ...
 
     def expected_projection_version(self, subject_uid: str) -> int: ...
@@ -176,6 +177,7 @@ class OfficialOrchestratorConfig:
     channels: tuple[str, ...] = ("IN_APP",)
     deliver_after_commit: bool = True
     minimum_activation_count: int = 2
+    evaluation_disposition: Literal["OFFICIAL", "SHADOW"] = "OFFICIAL"
 
     def __post_init__(self) -> None:
         channels = tuple(sorted(set(self.channels)))
@@ -183,6 +185,8 @@ class OfficialOrchestratorConfig:
             raise ValueError("official notification channels are invalid")
         if self.minimum_activation_count < 2:
             raise ValueError("official execution requires a Guardian/Scout threshold pair")
+        if self.evaluation_disposition not in {"OFFICIAL", "SHADOW"}:
+            raise ValueError("evaluation disposition must be OFFICIAL or SHADOW")
         object.__setattr__(self, "channels", channels)
 
 
@@ -416,7 +420,7 @@ class OfficialOrchestrator:
         blocked = self._stage_gate(cycle_key, subject_uid, "BOOT", self._pipeline.boot(observed_at))
         if blocked is not None:
             return blocked
-        if not self._config.official_enabled:
+        if self._config.evaluation_disposition == "OFFICIAL" and not self._config.official_enabled:
             return self._blocked(cycle_key, subject_uid, "BOOT", "OFFICIAL_DISABLED")
 
         blocked = self._stage_gate(
@@ -464,7 +468,10 @@ class OfficialOrchestrator:
 
         threshold = self._pipeline.threshold_readiness(observed_at)
         activation_count = _activation_count(threshold.data)
-        if not threshold.ready or activation_count < self._config.minimum_activation_count:
+        if not threshold.ready or (
+            self._config.evaluation_disposition == "OFFICIAL"
+            and activation_count < self._config.minimum_activation_count
+        ):
             return self._blocked(
                 cycle_key,
                 subject_uid,
@@ -482,6 +489,9 @@ class OfficialOrchestrator:
                 "THRESHOLD_NOT_FIT",
                 threshold.data,
             )
+
+        if self._config.evaluation_disposition == "SHADOW":
+            return self._run_shadow(subject_uid, cycle_key, observed_at, threshold, phase)
 
         checkpoint = self._journal.begin(cycle_key, subject_uid, observed_at)
         if checkpoint.status == _JournalStatus.COMMITTED:
@@ -633,6 +643,51 @@ class OfficialOrchestrator:
                 details={"error": type(error).__name__},
             )
             raise
+
+    def _run_shadow(
+        self,
+        subject_uid: str,
+        cycle_key: str,
+        observed_at: datetime,
+        threshold: StageStatus,
+        phase: str,
+    ) -> OfficialCycleResult:
+        snapshot_uid = self._pipeline.seal_snapshot(subject_uid, cycle_key, observed_at)
+        metric = self._pipeline.run_metrics(snapshot_uid, None)
+        details = {
+            "evaluation_disposition": "SHADOW",
+            "market_phase": phase,
+            "snapshot_uid": snapshot_uid,
+            "threshold_activation_count": _activation_count(threshold.data),
+            "fitness_status": metric.fitness_status,
+            "availability_state": metric.availability_state,
+            "guardian_metrics": dict(metric.guardian_metrics),
+            "scout_metrics": dict(metric.scout_metrics),
+            "official_side_effects": 0,
+        }
+        if metric.fitness_status in {"UNFIT", "UNKNOWN"}:
+            return self._blocked(
+                cycle_key,
+                subject_uid,
+                "METRIC",
+                f"METRIC_{metric.fitness_status}",
+                details,
+            )
+        if metric.availability_state != "AVAILABLE" or metric.lifecycle_state is None:
+            return self._blocked(
+                cycle_key,
+                subject_uid,
+                "METRIC",
+                "METRIC_NOT_AVAILABLE",
+                details,
+            )
+        return OfficialCycleResult(
+            CycleStatus.SHADOW_COMPLETED,
+            cycle_key,
+            subject_uid,
+            "COMPLETED",
+            details=details,
+        )
 
     def close(self) -> None:
         if self._closed:

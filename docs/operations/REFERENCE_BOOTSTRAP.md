@@ -19,3 +19,9 @@ docker compose -f deploy/compose.production.yaml run --rm --no-deps --entrypoint
 The command uses the existing artifact-backed reference importer. It imports
 reference/master data only; it does not contact TDX, download historical market
 data, run catch-up, or open the OFFICIAL gate.
+
+The 2026-09-08 artifact contains 2,329 SSE and 2,899 SZSE listed stock facts.
+The SSE snapshot uses the official `stockType=10` endpoint across 24 pages;
+three B-only rows are excluded because they have no A-share code. Frozen Primary
+prefix rules produce 2,328 SSE and 2,898 SZSE candidates; the remaining `689`
+and `302` rows are explicit frozen-prefix exclusions.

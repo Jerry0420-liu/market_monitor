@@ -15,7 +15,7 @@ from collections.abc import Callable, Mapping, Sequence
 from dataclasses import dataclass
 from datetime import UTC, datetime
 from pathlib import Path
-from typing import cast
+from typing import Literal, cast
 
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT))
@@ -103,6 +103,8 @@ _REQUIRED_TDX_CAPABILITIES = (
 _PROVIDER_TDX_CAPABILITIES = tuple(
     value for value in _REQUIRED_TDX_CAPABILITIES if value != "MINUTE_BARS"
 )
+_SHADOW_GUARDIAN_THRESHOLD_VERSION = "guardian-thresholds-v1.0-prod"
+_SHADOW_SCOUT_THRESHOLD_VERSION = "scout-thresholds-v1.0-prod"
 
 
 @dataclass(frozen=True, slots=True)
@@ -179,16 +181,20 @@ class NativeTdxOfficialPipeline(OfficialPipeline):
         minute_gateways: Sequence[TdxGateway] = (),
         webhook_url: str | None = None,
         webhook_enabled: bool = False,
+        evaluation_disposition: Literal["OFFICIAL", "SHADOW"] = "OFFICIAL",
         now: Callable[[], datetime] | None = None,
     ) -> None:
         if not subject_uid.strip():
             raise ValueError("official pipeline requires a subject UID")
+        if evaluation_disposition not in {"OFFICIAL", "SHADOW"}:
+            raise ValueError("evaluation disposition must be OFFICIAL or SHADOW")
         self._runtime = runtime
         self._writer = writer
         self._artifacts = artifacts
         self._gateway = gateway
         self._subject_uid = subject_uid
         self._threshold_activation = threshold_activation
+        self._evaluation_disposition = evaluation_disposition
         self._calendar_file = trading_calendar_file
         self._listing_file = listing_reference_file
         self._now = now or (lambda: datetime.now(UTC))
@@ -380,6 +386,30 @@ class NativeTdxOfficialPipeline(OfficialPipeline):
         return self._clock.phase_at("SSE", observed_at)
 
     def threshold_readiness(self, observed_at: datetime) -> StageStatus:
+        if self._evaluation_disposition == "SHADOW":
+            try:
+                registry = ThresholdRegistry(self._runtime, self._writer)
+                guardian = registry.resolve_explicit(
+                    "GUARDIAN", _SHADOW_GUARDIAN_THRESHOLD_VERSION, observed_at
+                )
+                scout = registry.resolve_explicit(
+                    "SCOUT", _SHADOW_SCOUT_THRESHOLD_VERSION, observed_at
+                )
+            except ThresholdUnavailableError as error:
+                return StageStatus(False, "FIT", str(error), {"activation_count": 0})
+            return StageStatus(
+                True,
+                "FIT",
+                "explicit threshold definitions resolved for SHADOW",
+                {
+                    "activation_count": 0,
+                    "threshold_activation": 0,
+                    "guardian_threshold_uid": guardian.uid,
+                    "scout_threshold_uid": scout.uid,
+                    "guardian_threshold_version": guardian.version,
+                    "scout_threshold_version": scout.version,
+                },
+            )
         if self._threshold_activation == 0:
             return StageStatus(
                 False,
@@ -424,7 +454,7 @@ class NativeTdxOfficialPipeline(OfficialPipeline):
             observed_at,
             cycle_key,
             minute_cohort=self._last_minute,
-            disposition="OFFICIAL",
+            disposition=self._evaluation_disposition,
             subject_uid=subject_uid,
         )
         if len(snapshots) != 1:
@@ -432,9 +462,16 @@ class NativeTdxOfficialPipeline(OfficialPipeline):
         return snapshots[0]
 
     def run_metrics(
-        self, snapshot_uid: str, permit: OfficialExecutionPermit
+        self, snapshot_uid: str, permit: OfficialExecutionPermit | None
     ) -> OfficialMetricOutput:
-        result = self._metrics.run_official(snapshot_uid, permit)
+        if permit is None:
+            result = self._metrics.run(
+                snapshot_uid,
+                guardian_threshold_version=_SHADOW_GUARDIAN_THRESHOLD_VERSION,
+                scout_threshold_version=_SHADOW_SCOUT_THRESHOLD_VERSION,
+            )
+        else:
+            result = self._metrics.run_official(snapshot_uid, permit)
         available = result.quality.fitness_status != "UNFIT"
         return OfficialMetricOutput(
             result.producer_version,

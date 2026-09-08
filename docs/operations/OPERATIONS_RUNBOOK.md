@@ -140,7 +140,8 @@ claiming the shadow gate has passed.
 The production-shaped Compose asset is `deploy/compose.production.yaml`. It is intentionally
 staged but disabled: `MARKET_MONITOR_OFFICIAL_ENABLED=false` and
 `MARKET_MONITOR_THRESHOLD_ACTIVATION=0`. Keep the Web/API process as the only WriterQueue owner;
-the continuous production worker is owned by that same process when explicitly enabled. Do not
+the continuous production worker is owned by that same process and runs only non-official Shadow
+evaluation while the gate is closed. Do not
 start an additional process against the same SQLite data root. Validate the package with:
 
 ```text

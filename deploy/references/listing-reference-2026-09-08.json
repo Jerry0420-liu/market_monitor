@@ -1,23 +1,36 @@
 {
   "schema_version": 1,
   "provenance": {
-    "source_ref": "official SSE/SZSE listing snapshots retrieved 2026-09-08; see provenance.sources",
+    "source_ref": "official SSE stockType=10 and SZSE listing snapshots retrieved 2026-09-08; frozen Primary prefix rules applied by provider",
     "as_of": "2026-09-08",
-    "generated_at": "2026-09-08T10:36:18.280137+08:00",
+    "generated_at": "2026-09-08T12:05:09.964076+08:00",
     "sources": [
       {
         "exchange": "SSE",
         "url": "https://www.sse.com.cn/assortment/stock/list/share/",
         "data_endpoint": "https://query.sse.com.cn/security/stock/getStockListData2.do",
         "stock_types": [
-          "1",
-          "8"
-        ]
+          "10"
+        ],
+        "pagination": {
+          "page_size": 100,
+          "pages": 24,
+          "rows": 2332,
+          "valid_a_rows": 2329,
+          "non_a_rows": 3,
+          "non_a_reason": "B-only rows have no SECURITY_CODE_A"
+        }
       },
       {
         "exchange": "SZSE",
         "url": "https://www.szse.cn/market/product/stock/list/index.html",
-        "data_endpoint": "https://www.szse.cn/api/report/ShowReport?SHOWTYPE=xlsx&CATALOGID=1110x&TABKEY=tab1&random=0.31415926"
+        "data_endpoint": "https://www.szse.cn/api/report/ShowReport?SHOWTYPE=xlsx&CATALOGID=1110x&TABKEY=tab1&random=0.31415926",
+        "artifact_rows": 2899,
+        "primary_candidate_rows": 2898,
+        "frozen_excluded_rows": 1,
+        "frozen_exclusion_prefixes": {
+          "302": 1
+        }
       }
     ]
   },
@@ -7073,6 +7086,16 @@
       "listing_effective_at": "2016-08-02T00:00:00+08:00"
     },
     {
+      "external_code": "1:600925",
+      "instrument_kind": "STOCK",
+      "exchange": "SSE",
+      "trading_code": "600925",
+      "name": "苏能股份",
+      "listing_status": "LISTED",
+      "trading_status": "TRADING",
+      "listing_effective_at": "2023-03-29T00:00:00+08:00"
+    },
+    {
       "external_code": "1:600926",
       "instrument_kind": "STOCK",
       "exchange": "SSE",
@@ -7113,6 +7136,16 @@
       "listing_effective_at": "2018-03-26T00:00:00+08:00"
     },
     {
+      "external_code": "1:600930",
+      "instrument_kind": "STOCK",
+      "exchange": "SSE",
+      "trading_code": "600930",
+      "name": "华电新能",
+      "listing_status": "LISTED",
+      "trading_status": "TRADING",
+      "listing_effective_at": "2025-07-16T00:00:00+08:00"
+    },
+    {
       "external_code": "1:600933",
       "instrument_kind": "STOCK",
       "exchange": "SSE",
@@ -7141,6 +7174,16 @@
       "listing_status": "LISTED",
       "trading_status": "TRADING",
       "listing_effective_at": "2016-08-15T00:00:00+08:00"
+    },
+    {
+      "external_code": "1:600938",
+      "instrument_kind": "STOCK",
+      "exchange": "SSE",
+      "trading_code": "600938",
+      "name": "中国海油",
+      "listing_status": "LISTED",
+      "trading_status": "TRADING",
+      "listing_effective_at": "2022-04-21T00:00:00+08:00"
     },
     {
       "external_code": "1:600939",
@@ -7723,6 +7766,36 @@
       "listing_effective_at": "2015-01-21T00:00:00+08:00"
     },
     {
+      "external_code": "1:601022",
+      "instrument_kind": "STOCK",
+      "exchange": "SSE",
+      "trading_code": "601022",
+      "name": "宁波远洋",
+      "listing_status": "LISTED",
+      "trading_status": "TRADING",
+      "listing_effective_at": "2022-12-08T00:00:00+08:00"
+    },
+    {
+      "external_code": "1:601026",
+      "instrument_kind": "STOCK",
+      "exchange": "SSE",
+      "trading_code": "601026",
+      "name": "道生天合",
+      "listing_status": "LISTED",
+      "trading_status": "TRADING",
+      "listing_effective_at": "2025-10-17T00:00:00+08:00"
+    },
+    {
+      "external_code": "1:601033",
+      "instrument_kind": "STOCK",
+      "exchange": "SSE",
+      "trading_code": "601033",
+      "name": "永兴股份",
+      "listing_status": "LISTED",
+      "trading_status": "TRADING",
+      "listing_effective_at": "2024-01-18T00:00:00+08:00"
+    },
+    {
       "external_code": "1:601038",
       "instrument_kind": "STOCK",
       "exchange": "SSE",
@@ -7741,6 +7814,36 @@
       "listing_status": "LISTED",
       "trading_status": "TRADING",
       "listing_effective_at": "2011-06-30T00:00:00+08:00"
+    },
+    {
+      "external_code": "1:601059",
+      "instrument_kind": "STOCK",
+      "exchange": "SSE",
+      "trading_code": "601059",
+      "name": "信达证券",
+      "listing_status": "LISTED",
+      "trading_status": "TRADING",
+      "listing_effective_at": "2023-02-01T00:00:00+08:00"
+    },
+    {
+      "external_code": "1:601061",
+      "instrument_kind": "STOCK",
+      "exchange": "SSE",
+      "trading_code": "601061",
+      "name": "中信金属",
+      "listing_status": "LISTED",
+      "trading_status": "TRADING",
+      "listing_effective_at": "2023-04-10T00:00:00+08:00"
+    },
+    {
+      "external_code": "1:601065",
+      "instrument_kind": "STOCK",
+      "exchange": "SSE",
+      "trading_code": "601065",
+      "name": "江盐集团",
+      "listing_status": "LISTED",
+      "trading_status": "TRADING",
+      "listing_effective_at": "2023-04-10T00:00:00+08:00"
     },
     {
       "external_code": "1:601066",
@@ -7783,6 +7886,16 @@
       "listing_effective_at": "2019-10-29T00:00:00+08:00"
     },
     {
+      "external_code": "1:601083",
+      "instrument_kind": "STOCK",
+      "exchange": "SSE",
+      "trading_code": "601083",
+      "name": "锦江航运",
+      "listing_status": "LISTED",
+      "trading_status": "TRADING",
+      "listing_effective_at": "2023-12-05T00:00:00+08:00"
+    },
+    {
       "external_code": "1:601086",
       "instrument_kind": "STOCK",
       "exchange": "SSE",
@@ -7801,6 +7914,26 @@
       "listing_status": "LISTED",
       "trading_status": "TRADING",
       "listing_effective_at": "2007-10-09T00:00:00+08:00"
+    },
+    {
+      "external_code": "1:601089",
+      "instrument_kind": "STOCK",
+      "exchange": "SSE",
+      "trading_code": "601089",
+      "name": "福元医药",
+      "listing_status": "LISTED",
+      "trading_status": "TRADING",
+      "listing_effective_at": "2022-06-30T00:00:00+08:00"
+    },
+    {
+      "external_code": "1:601096",
+      "instrument_kind": "STOCK",
+      "exchange": "SSE",
+      "trading_code": "601096",
+      "name": "宏盛华源",
+      "listing_status": "LISTED",
+      "trading_status": "TRADING",
+      "listing_effective_at": "2023-12-22T00:00:00+08:00"
     },
     {
       "external_code": "1:601098",
@@ -7883,6 +8016,16 @@
       "listing_effective_at": "2006-08-18T00:00:00+08:00"
     },
     {
+      "external_code": "1:601112",
+      "instrument_kind": "STOCK",
+      "exchange": "SSE",
+      "trading_code": "601112",
+      "name": "振石股份",
+      "listing_status": "LISTED",
+      "trading_status": "TRADING",
+      "listing_effective_at": "2026-01-29T00:00:00+08:00"
+    },
+    {
       "external_code": "1:601113",
       "instrument_kind": "STOCK",
       "exchange": "SSE",
@@ -7923,6 +8066,26 @@
       "listing_effective_at": "2011-01-07T00:00:00+08:00"
     },
     {
+      "external_code": "1:601121",
+      "instrument_kind": "STOCK",
+      "exchange": "SSE",
+      "trading_code": "601121",
+      "name": "宝地矿业",
+      "listing_status": "LISTED",
+      "trading_status": "TRADING",
+      "listing_effective_at": "2023-03-10T00:00:00+08:00"
+    },
+    {
+      "external_code": "1:601123",
+      "instrument_kind": "STOCK",
+      "exchange": "SSE",
+      "trading_code": "601123",
+      "name": "马矿股份",
+      "listing_status": "LISTED",
+      "trading_status": "TRADING",
+      "listing_effective_at": "2026-09-01T00:00:00+08:00"
+    },
+    {
       "external_code": "1:601126",
       "instrument_kind": "STOCK",
       "exchange": "SSE",
@@ -7951,6 +8114,26 @@
       "listing_status": "LISTED",
       "trading_status": "TRADING",
       "listing_effective_at": "2016-09-30T00:00:00+08:00"
+    },
+    {
+      "external_code": "1:601133",
+      "instrument_kind": "STOCK",
+      "exchange": "SSE",
+      "trading_code": "601133",
+      "name": "柏诚股份",
+      "listing_status": "LISTED",
+      "trading_status": "TRADING",
+      "listing_effective_at": "2023-04-10T00:00:00+08:00"
+    },
+    {
+      "external_code": "1:601136",
+      "instrument_kind": "STOCK",
+      "exchange": "SSE",
+      "trading_code": "601136",
+      "name": "首创证券",
+      "listing_status": "LISTED",
+      "trading_status": "TRADING",
+      "listing_effective_at": "2022-12-22T00:00:00+08:00"
     },
     {
       "external_code": "1:601137",
@@ -9693,6 +9876,16 @@
       "listing_effective_at": "2012-05-18T00:00:00+08:00"
     },
     {
+      "external_code": "1:603004",
+      "instrument_kind": "STOCK",
+      "exchange": "SSE",
+      "trading_code": "603004",
+      "name": "鼎龙科技",
+      "listing_status": "LISTED",
+      "trading_status": "TRADING",
+      "listing_effective_at": "2023-12-27T00:00:00+08:00"
+    },
+    {
       "external_code": "1:603005",
       "instrument_kind": "STOCK",
       "exchange": "SSE",
@@ -9781,6 +9974,16 @@
       "listing_status": "LISTED",
       "trading_status": "TRADING",
       "listing_effective_at": "2018-05-09T00:00:00+08:00"
+    },
+    {
+      "external_code": "1:603014",
+      "instrument_kind": "STOCK",
+      "exchange": "SSE",
+      "trading_code": "603014",
+      "name": "威高血净",
+      "listing_status": "LISTED",
+      "trading_status": "TRADING",
+      "listing_effective_at": "2025-05-19T00:00:00+08:00"
     },
     {
       "external_code": "1:603015",
@@ -10073,6 +10276,16 @@
       "listing_effective_at": "2021-11-16T00:00:00+08:00"
     },
     {
+      "external_code": "1:603049",
+      "instrument_kind": "STOCK",
+      "exchange": "SSE",
+      "trading_code": "603049",
+      "name": "中策橡胶",
+      "listing_status": "LISTED",
+      "trading_status": "TRADING",
+      "listing_effective_at": "2025-06-05T00:00:00+08:00"
+    },
+    {
       "external_code": "1:603050",
       "instrument_kind": "STOCK",
       "exchange": "SSE",
@@ -10091,6 +10304,16 @@
       "listing_status": "LISTED",
       "trading_status": "TRADING",
       "listing_effective_at": "2022-03-25T00:00:00+08:00"
+    },
+    {
+      "external_code": "1:603052",
+      "instrument_kind": "STOCK",
+      "exchange": "SSE",
+      "trading_code": "603052",
+      "name": "可川科技",
+      "listing_status": "LISTED",
+      "trading_status": "TRADING",
+      "listing_effective_at": "2022-10-11T00:00:00+08:00"
     },
     {
       "external_code": "1:603053",
@@ -10123,6 +10346,16 @@
       "listing_effective_at": "2018-01-16T00:00:00+08:00"
     },
     {
+      "external_code": "1:603057",
+      "instrument_kind": "STOCK",
+      "exchange": "SSE",
+      "trading_code": "603057",
+      "name": "紫燕食品",
+      "listing_status": "LISTED",
+      "trading_status": "TRADING",
+      "listing_effective_at": "2022-09-26T00:00:00+08:00"
+    },
+    {
       "external_code": "1:603058",
       "instrument_kind": "STOCK",
       "exchange": "SSE",
@@ -10153,6 +10386,26 @@
       "listing_effective_at": "2016-11-09T00:00:00+08:00"
     },
     {
+      "external_code": "1:603061",
+      "instrument_kind": "STOCK",
+      "exchange": "SSE",
+      "trading_code": "603061",
+      "name": "金海通",
+      "listing_status": "LISTED",
+      "trading_status": "TRADING",
+      "listing_effective_at": "2023-03-03T00:00:00+08:00"
+    },
+    {
+      "external_code": "1:603062",
+      "instrument_kind": "STOCK",
+      "exchange": "SSE",
+      "trading_code": "603062",
+      "name": "麦加芯彩",
+      "listing_status": "LISTED",
+      "trading_status": "TRADING",
+      "listing_effective_at": "2023-11-07T00:00:00+08:00"
+    },
+    {
       "external_code": "1:603063",
       "instrument_kind": "STOCK",
       "exchange": "SSE",
@@ -10161,6 +10414,16 @@
       "listing_status": "LISTED",
       "trading_status": "TRADING",
       "listing_effective_at": "2017-07-28T00:00:00+08:00"
+    },
+    {
+      "external_code": "1:603065",
+      "instrument_kind": "STOCK",
+      "exchange": "SSE",
+      "trading_code": "603065",
+      "name": "宿迁联盛",
+      "listing_status": "LISTED",
+      "trading_status": "TRADING",
+      "listing_effective_at": "2023-03-21T00:00:00+08:00"
     },
     {
       "external_code": "1:603066",
@@ -10223,6 +10486,36 @@
       "listing_effective_at": "2021-12-16T00:00:00+08:00"
     },
     {
+      "external_code": "1:603072",
+      "instrument_kind": "STOCK",
+      "exchange": "SSE",
+      "trading_code": "603072",
+      "name": "天和磁材",
+      "listing_status": "LISTED",
+      "trading_status": "TRADING",
+      "listing_effective_at": "2025-01-03T00:00:00+08:00"
+    },
+    {
+      "external_code": "1:603073",
+      "instrument_kind": "STOCK",
+      "exchange": "SSE",
+      "trading_code": "603073",
+      "name": "彩蝶实业",
+      "listing_status": "LISTED",
+      "trading_status": "TRADING",
+      "listing_effective_at": "2023-03-16T00:00:00+08:00"
+    },
+    {
+      "external_code": "1:603075",
+      "instrument_kind": "STOCK",
+      "exchange": "SSE",
+      "trading_code": "603075",
+      "name": "热威股份",
+      "listing_status": "LISTED",
+      "trading_status": "TRADING",
+      "listing_effective_at": "2023-09-11T00:00:00+08:00"
+    },
+    {
       "external_code": "1:603076",
       "instrument_kind": "STOCK",
       "exchange": "SSE",
@@ -10281,6 +10574,16 @@
       "listing_status": "LISTED",
       "trading_status": "TRADING",
       "listing_effective_at": "2017-04-20T00:00:00+08:00"
+    },
+    {
+      "external_code": "1:603082",
+      "instrument_kind": "STOCK",
+      "exchange": "SSE",
+      "trading_code": "603082",
+      "name": "北自科技",
+      "listing_status": "LISTED",
+      "trading_status": "TRADING",
+      "listing_effective_at": "2024-01-30T00:00:00+08:00"
     },
     {
       "external_code": "1:603083",
@@ -10353,6 +10656,26 @@
       "listing_effective_at": "2016-08-31T00:00:00+08:00"
     },
     {
+      "external_code": "1:603091",
+      "instrument_kind": "STOCK",
+      "exchange": "SSE",
+      "trading_code": "603091",
+      "name": "众鑫股份",
+      "listing_status": "LISTED",
+      "trading_status": "TRADING",
+      "listing_effective_at": "2024-09-20T00:00:00+08:00"
+    },
+    {
+      "external_code": "1:603092",
+      "instrument_kind": "STOCK",
+      "exchange": "SSE",
+      "trading_code": "603092",
+      "name": "德力佳",
+      "listing_status": "LISTED",
+      "trading_status": "TRADING",
+      "listing_effective_at": "2025-11-07T00:00:00+08:00"
+    },
+    {
       "external_code": "1:603093",
       "instrument_kind": "STOCK",
       "exchange": "SSE",
@@ -10381,6 +10704,16 @@
       "listing_status": "LISTED",
       "trading_status": "TRADING",
       "listing_effective_at": "2017-04-25T00:00:00+08:00"
+    },
+    {
+      "external_code": "1:603097",
+      "instrument_kind": "STOCK",
+      "exchange": "SSE",
+      "trading_code": "603097",
+      "name": "江苏华辰",
+      "listing_status": "LISTED",
+      "trading_status": "TRADING",
+      "listing_effective_at": "2022-05-12T00:00:00+08:00"
     },
     {
       "external_code": "1:603098",
@@ -10461,6 +10794,16 @@
       "listing_status": "LISTED",
       "trading_status": "TRADING",
       "listing_effective_at": "2017-09-20T00:00:00+08:00"
+    },
+    {
+      "external_code": "1:603107",
+      "instrument_kind": "STOCK",
+      "exchange": "SSE",
+      "trading_code": "603107",
+      "name": "上海汽配",
+      "listing_status": "LISTED",
+      "trading_status": "TRADING",
+      "listing_effective_at": "2023-11-01T00:00:00+08:00"
     },
     {
       "external_code": "1:603108",
@@ -10563,6 +10906,26 @@
       "listing_effective_at": "2015-02-25T00:00:00+08:00"
     },
     {
+      "external_code": "1:603119",
+      "instrument_kind": "STOCK",
+      "exchange": "SSE",
+      "trading_code": "603119",
+      "name": "浙江荣泰",
+      "listing_status": "LISTED",
+      "trading_status": "TRADING",
+      "listing_effective_at": "2023-08-01T00:00:00+08:00"
+    },
+    {
+      "external_code": "1:603120",
+      "instrument_kind": "STOCK",
+      "exchange": "SSE",
+      "trading_code": "603120",
+      "name": "肯特催化",
+      "listing_status": "LISTED",
+      "trading_status": "TRADING",
+      "listing_effective_at": "2025-04-16T00:00:00+08:00"
+    },
+    {
       "external_code": "1:603121",
       "instrument_kind": "STOCK",
       "exchange": "SSE",
@@ -10591,6 +10954,26 @@
       "listing_status": "LISTED",
       "trading_status": "TRADING",
       "listing_effective_at": "2012-05-03T00:00:00+08:00"
+    },
+    {
+      "external_code": "1:603124",
+      "instrument_kind": "STOCK",
+      "exchange": "SSE",
+      "trading_code": "603124",
+      "name": "江南新材",
+      "listing_status": "LISTED",
+      "trading_status": "TRADING",
+      "listing_effective_at": "2025-03-20T00:00:00+08:00"
+    },
+    {
+      "external_code": "1:603125",
+      "instrument_kind": "STOCK",
+      "exchange": "SSE",
+      "trading_code": "603125",
+      "name": "常青科技",
+      "listing_status": "LISTED",
+      "trading_status": "TRADING",
+      "listing_effective_at": "2023-04-10T00:00:00+08:00"
     },
     {
       "external_code": "1:603126",
@@ -10633,6 +11016,16 @@
       "listing_effective_at": "2017-08-18T00:00:00+08:00"
     },
     {
+      "external_code": "1:603130",
+      "instrument_kind": "STOCK",
+      "exchange": "SSE",
+      "trading_code": "603130",
+      "name": "云中马",
+      "listing_status": "LISTED",
+      "trading_status": "TRADING",
+      "listing_effective_at": "2022-11-18T00:00:00+08:00"
+    },
+    {
       "external_code": "1:603131",
       "instrument_kind": "STOCK",
       "exchange": "SSE",
@@ -10653,6 +11046,16 @@
       "listing_effective_at": "2022-02-22T00:00:00+08:00"
     },
     {
+      "external_code": "1:603135",
+      "instrument_kind": "STOCK",
+      "exchange": "SSE",
+      "trading_code": "603135",
+      "name": "中重科技",
+      "listing_status": "LISTED",
+      "trading_status": "TRADING",
+      "listing_effective_at": "2023-04-10T00:00:00+08:00"
+    },
+    {
       "external_code": "1:603136",
       "instrument_kind": "STOCK",
       "exchange": "SSE",
@@ -10661,6 +11064,16 @@
       "listing_status": "LISTED",
       "trading_status": "TRADING",
       "listing_effective_at": "2017-09-27T00:00:00+08:00"
+    },
+    {
+      "external_code": "1:603137",
+      "instrument_kind": "STOCK",
+      "exchange": "SSE",
+      "trading_code": "603137",
+      "name": "恒尚节能",
+      "listing_status": "LISTED",
+      "trading_status": "TRADING",
+      "listing_effective_at": "2023-04-19T00:00:00+08:00"
     },
     {
       "external_code": "1:603138",
@@ -10691,6 +11104,26 @@
       "listing_status": "LISTED",
       "trading_status": "TRADING",
       "listing_effective_at": "2022-01-24T00:00:00+08:00"
+    },
+    {
+      "external_code": "1:603151",
+      "instrument_kind": "STOCK",
+      "exchange": "SSE",
+      "trading_code": "603151",
+      "name": "邦基科技",
+      "listing_status": "LISTED",
+      "trading_status": "TRADING",
+      "listing_effective_at": "2022-10-19T00:00:00+08:00"
+    },
+    {
+      "external_code": "1:603153",
+      "instrument_kind": "STOCK",
+      "exchange": "SSE",
+      "trading_code": "603153",
+      "name": "上海建科",
+      "listing_status": "LISTED",
+      "trading_status": "TRADING",
+      "listing_effective_at": "2023-03-13T00:00:00+08:00"
     },
     {
       "external_code": "1:603155",
@@ -10753,6 +11186,26 @@
       "listing_effective_at": "2018-01-05T00:00:00+08:00"
     },
     {
+      "external_code": "1:603162",
+      "instrument_kind": "STOCK",
+      "exchange": "SSE",
+      "trading_code": "603162",
+      "name": "海通发展",
+      "listing_status": "LISTED",
+      "trading_status": "TRADING",
+      "listing_effective_at": "2023-03-29T00:00:00+08:00"
+    },
+    {
+      "external_code": "1:603163",
+      "instrument_kind": "STOCK",
+      "exchange": "SSE",
+      "trading_code": "603163",
+      "name": "圣晖集成",
+      "listing_status": "LISTED",
+      "trading_status": "TRADING",
+      "listing_effective_at": "2022-10-13T00:00:00+08:00"
+    },
+    {
       "external_code": "1:603165",
       "instrument_kind": "STOCK",
       "exchange": "SSE",
@@ -10803,6 +11256,16 @@
       "listing_effective_at": "2014-10-09T00:00:00+08:00"
     },
     {
+      "external_code": "1:603170",
+      "instrument_kind": "STOCK",
+      "exchange": "SSE",
+      "trading_code": "603170",
+      "name": "宝立食品",
+      "listing_status": "LISTED",
+      "trading_status": "TRADING",
+      "listing_effective_at": "2022-07-15T00:00:00+08:00"
+    },
+    {
       "external_code": "1:603171",
       "instrument_kind": "STOCK",
       "exchange": "SSE",
@@ -10811,6 +11274,36 @@
       "listing_status": "LISTED",
       "trading_status": "TRADING",
       "listing_effective_at": "2021-06-30T00:00:00+08:00"
+    },
+    {
+      "external_code": "1:603172",
+      "instrument_kind": "STOCK",
+      "exchange": "SSE",
+      "trading_code": "603172",
+      "name": "万丰股份",
+      "listing_status": "LISTED",
+      "trading_status": "TRADING",
+      "listing_effective_at": "2023-05-10T00:00:00+08:00"
+    },
+    {
+      "external_code": "1:603173",
+      "instrument_kind": "STOCK",
+      "exchange": "SSE",
+      "trading_code": "603173",
+      "name": "福斯达",
+      "listing_status": "LISTED",
+      "trading_status": "TRADING",
+      "listing_effective_at": "2023-01-30T00:00:00+08:00"
+    },
+    {
+      "external_code": "1:603175",
+      "instrument_kind": "STOCK",
+      "exchange": "SSE",
+      "trading_code": "603175",
+      "name": "超颖电子",
+      "listing_status": "LISTED",
+      "trading_status": "TRADING",
+      "listing_effective_at": "2025-10-24T00:00:00+08:00"
     },
     {
       "external_code": "1:603176",
@@ -10873,6 +11366,16 @@
       "listing_effective_at": "2017-08-24T00:00:00+08:00"
     },
     {
+      "external_code": "1:603182",
+      "instrument_kind": "STOCK",
+      "exchange": "SSE",
+      "trading_code": "603182",
+      "name": "嘉华股份",
+      "listing_status": "LISTED",
+      "trading_status": "TRADING",
+      "listing_effective_at": "2022-09-09T00:00:00+08:00"
+    },
+    {
       "external_code": "1:603183",
       "instrument_kind": "STOCK",
       "exchange": "SSE",
@@ -10933,6 +11436,26 @@
       "listing_effective_at": "2016-09-14T00:00:00+08:00"
     },
     {
+      "external_code": "1:603190",
+      "instrument_kind": "STOCK",
+      "exchange": "SSE",
+      "trading_code": "603190",
+      "name": "亚通精工",
+      "listing_status": "LISTED",
+      "trading_status": "TRADING",
+      "listing_effective_at": "2023-02-17T00:00:00+08:00"
+    },
+    {
+      "external_code": "1:603191",
+      "instrument_kind": "STOCK",
+      "exchange": "SSE",
+      "trading_code": "603191",
+      "name": "望变电气",
+      "listing_status": "LISTED",
+      "trading_status": "TRADING",
+      "listing_effective_at": "2022-04-28T00:00:00+08:00"
+    },
+    {
       "external_code": "1:603192",
       "instrument_kind": "STOCK",
       "exchange": "SSE",
@@ -10941,6 +11464,26 @@
       "listing_status": "LISTED",
       "trading_status": "TRADING",
       "listing_effective_at": "2018-08-28T00:00:00+08:00"
+    },
+    {
+      "external_code": "1:603193",
+      "instrument_kind": "STOCK",
+      "exchange": "SSE",
+      "trading_code": "603193",
+      "name": "润本股份",
+      "listing_status": "LISTED",
+      "trading_status": "TRADING",
+      "listing_effective_at": "2023-10-17T00:00:00+08:00"
+    },
+    {
+      "external_code": "1:603194",
+      "instrument_kind": "STOCK",
+      "exchange": "SSE",
+      "trading_code": "603194",
+      "name": "中力股份",
+      "listing_status": "LISTED",
+      "trading_status": "TRADING",
+      "listing_effective_at": "2024-12-24T00:00:00+08:00"
     },
     {
       "external_code": "1:603195",
@@ -11003,6 +11546,26 @@
       "listing_effective_at": "2017-06-01T00:00:00+08:00"
     },
     {
+      "external_code": "1:603201",
+      "instrument_kind": "STOCK",
+      "exchange": "SSE",
+      "trading_code": "603201",
+      "name": "常润股份",
+      "listing_status": "LISTED",
+      "trading_status": "TRADING",
+      "listing_effective_at": "2022-07-29T00:00:00+08:00"
+    },
+    {
+      "external_code": "1:603202",
+      "instrument_kind": "STOCK",
+      "exchange": "SSE",
+      "trading_code": "603202",
+      "name": "天有为",
+      "listing_status": "LISTED",
+      "trading_status": "TRADING",
+      "listing_effective_at": "2025-04-24T00:00:00+08:00"
+    },
+    {
       "external_code": "1:603203",
       "instrument_kind": "STOCK",
       "exchange": "SSE",
@@ -11011,6 +11574,36 @@
       "listing_status": "LISTED",
       "trading_status": "TRADING",
       "listing_effective_at": "2016-11-08T00:00:00+08:00"
+    },
+    {
+      "external_code": "1:603205",
+      "instrument_kind": "STOCK",
+      "exchange": "SSE",
+      "trading_code": "603205",
+      "name": "健尔康",
+      "listing_status": "LISTED",
+      "trading_status": "TRADING",
+      "listing_effective_at": "2024-11-07T00:00:00+08:00"
+    },
+    {
+      "external_code": "1:603206",
+      "instrument_kind": "STOCK",
+      "exchange": "SSE",
+      "trading_code": "603206",
+      "name": "嘉环科技",
+      "listing_status": "LISTED",
+      "trading_status": "TRADING",
+      "listing_effective_at": "2022-05-06T00:00:00+08:00"
+    },
+    {
+      "external_code": "1:603207",
+      "instrument_kind": "STOCK",
+      "exchange": "SSE",
+      "trading_code": "603207",
+      "name": "小方制药",
+      "listing_status": "LISTED",
+      "trading_status": "TRADING",
+      "listing_effective_at": "2024-08-26T00:00:00+08:00"
     },
     {
       "external_code": "1:603208",
@@ -11031,6 +11624,26 @@
       "listing_status": "LISTED",
       "trading_status": "TRADING",
       "listing_effective_at": "2022-03-24T00:00:00+08:00"
+    },
+    {
+      "external_code": "1:603210",
+      "instrument_kind": "STOCK",
+      "exchange": "SSE",
+      "trading_code": "603210",
+      "name": "泰鸿万立",
+      "listing_status": "LISTED",
+      "trading_status": "TRADING",
+      "listing_effective_at": "2025-04-09T00:00:00+08:00"
+    },
+    {
+      "external_code": "1:603211",
+      "instrument_kind": "STOCK",
+      "exchange": "SSE",
+      "trading_code": "603211",
+      "name": "晋拓股份",
+      "listing_status": "LISTED",
+      "trading_status": "TRADING",
+      "listing_effective_at": "2022-07-25T00:00:00+08:00"
     },
     {
       "external_code": "1:603212",
@@ -11213,6 +11826,16 @@
       "listing_effective_at": "2021-12-24T00:00:00+08:00"
     },
     {
+      "external_code": "1:603231",
+      "instrument_kind": "STOCK",
+      "exchange": "SSE",
+      "trading_code": "603231",
+      "name": "索宝蛋白",
+      "listing_status": "LISTED",
+      "trading_status": "TRADING",
+      "listing_effective_at": "2023-12-15T00:00:00+08:00"
+    },
+    {
       "external_code": "1:603232",
       "instrument_kind": "STOCK",
       "exchange": "SSE",
@@ -11233,6 +11856,16 @@
       "listing_effective_at": "2017-07-31T00:00:00+08:00"
     },
     {
+      "external_code": "1:603235",
+      "instrument_kind": "STOCK",
+      "exchange": "SSE",
+      "trading_code": "603235",
+      "name": "天新药业",
+      "listing_status": "LISTED",
+      "trading_status": "TRADING",
+      "listing_effective_at": "2022-07-12T00:00:00+08:00"
+    },
+    {
       "external_code": "1:603236",
       "instrument_kind": "STOCK",
       "exchange": "SSE",
@@ -11241,6 +11874,16 @@
       "listing_status": "LISTED",
       "trading_status": "TRADING",
       "listing_effective_at": "2019-07-16T00:00:00+08:00"
+    },
+    {
+      "external_code": "1:603237",
+      "instrument_kind": "STOCK",
+      "exchange": "SSE",
+      "trading_code": "603237",
+      "name": "五芳斋",
+      "listing_status": "LISTED",
+      "trading_status": "TRADING",
+      "listing_effective_at": "2022-08-31T00:00:00+08:00"
     },
     {
       "external_code": "1:603238",
@@ -11263,6 +11906,26 @@
       "listing_effective_at": "2016-12-30T00:00:00+08:00"
     },
     {
+      "external_code": "1:603248",
+      "instrument_kind": "STOCK",
+      "exchange": "SSE",
+      "trading_code": "603248",
+      "name": "锡华科技",
+      "listing_status": "LISTED",
+      "trading_status": "TRADING",
+      "listing_effective_at": "2025-12-23T00:00:00+08:00"
+    },
+    {
+      "external_code": "1:603255",
+      "instrument_kind": "STOCK",
+      "exchange": "SSE",
+      "trading_code": "603255",
+      "name": "鼎际得",
+      "listing_status": "LISTED",
+      "trading_status": "TRADING",
+      "listing_effective_at": "2022-08-18T00:00:00+08:00"
+    },
+    {
       "external_code": "1:603256",
       "instrument_kind": "STOCK",
       "exchange": "SSE",
@@ -11271,6 +11934,16 @@
       "listing_status": "LISTED",
       "trading_status": "TRADING",
       "listing_effective_at": "2019-07-19T00:00:00+08:00"
+    },
+    {
+      "external_code": "1:603257",
+      "instrument_kind": "STOCK",
+      "exchange": "SSE",
+      "trading_code": "603257",
+      "name": "中国瑞林",
+      "listing_status": "LISTED",
+      "trading_status": "TRADING",
+      "listing_effective_at": "2025-04-08T00:00:00+08:00"
     },
     {
       "external_code": "1:603258",
@@ -11313,6 +11986,16 @@
       "listing_effective_at": "2022-03-15T00:00:00+08:00"
     },
     {
+      "external_code": "1:603262",
+      "instrument_kind": "STOCK",
+      "exchange": "SSE",
+      "trading_code": "603262",
+      "name": "技源集团",
+      "listing_status": "LISTED",
+      "trading_status": "TRADING",
+      "listing_effective_at": "2025-07-23T00:00:00+08:00"
+    },
+    {
       "external_code": "1:603266",
       "instrument_kind": "STOCK",
       "exchange": "SSE",
@@ -11353,6 +12036,66 @@
       "listing_effective_at": "2017-05-17T00:00:00+08:00"
     },
     {
+      "external_code": "1:603270",
+      "instrument_kind": "STOCK",
+      "exchange": "SSE",
+      "trading_code": "603270",
+      "name": "金帝股份",
+      "listing_status": "LISTED",
+      "trading_status": "TRADING",
+      "listing_effective_at": "2023-09-01T00:00:00+08:00"
+    },
+    {
+      "external_code": "1:603271",
+      "instrument_kind": "STOCK",
+      "exchange": "SSE",
+      "trading_code": "603271",
+      "name": "永杰新材",
+      "listing_status": "LISTED",
+      "trading_status": "TRADING",
+      "listing_effective_at": "2025-03-11T00:00:00+08:00"
+    },
+    {
+      "external_code": "1:603272",
+      "instrument_kind": "STOCK",
+      "exchange": "SSE",
+      "trading_code": "603272",
+      "name": "*ST联翔",
+      "listing_status": "LISTED",
+      "trading_status": "TRADING",
+      "listing_effective_at": "2022-05-20T00:00:00+08:00"
+    },
+    {
+      "external_code": "1:603273",
+      "instrument_kind": "STOCK",
+      "exchange": "SSE",
+      "trading_code": "603273",
+      "name": "天元智能",
+      "listing_status": "LISTED",
+      "trading_status": "TRADING",
+      "listing_effective_at": "2023-10-23T00:00:00+08:00"
+    },
+    {
+      "external_code": "1:603275",
+      "instrument_kind": "STOCK",
+      "exchange": "SSE",
+      "trading_code": "603275",
+      "name": "众辰科技",
+      "listing_status": "LISTED",
+      "trading_status": "TRADING",
+      "listing_effective_at": "2023-08-23T00:00:00+08:00"
+    },
+    {
+      "external_code": "1:603276",
+      "instrument_kind": "STOCK",
+      "exchange": "SSE",
+      "trading_code": "603276",
+      "name": "恒兴新材",
+      "listing_status": "LISTED",
+      "trading_status": "TRADING",
+      "listing_effective_at": "2023-09-25T00:00:00+08:00"
+    },
+    {
       "external_code": "1:603277",
       "instrument_kind": "STOCK",
       "exchange": "SSE",
@@ -11383,6 +12126,36 @@
       "listing_effective_at": "2019-07-29T00:00:00+08:00"
     },
     {
+      "external_code": "1:603280",
+      "instrument_kind": "STOCK",
+      "exchange": "SSE",
+      "trading_code": "603280",
+      "name": "南方路机",
+      "listing_status": "LISTED",
+      "trading_status": "TRADING",
+      "listing_effective_at": "2022-11-08T00:00:00+08:00"
+    },
+    {
+      "external_code": "1:603281",
+      "instrument_kind": "STOCK",
+      "exchange": "SSE",
+      "trading_code": "603281",
+      "name": "江瀚新材",
+      "listing_status": "LISTED",
+      "trading_status": "TRADING",
+      "listing_effective_at": "2023-01-31T00:00:00+08:00"
+    },
+    {
+      "external_code": "1:603282",
+      "instrument_kind": "STOCK",
+      "exchange": "SSE",
+      "trading_code": "603282",
+      "name": "亚光股份",
+      "listing_status": "LISTED",
+      "trading_status": "TRADING",
+      "listing_effective_at": "2023-03-15T00:00:00+08:00"
+    },
+    {
       "external_code": "1:603283",
       "instrument_kind": "STOCK",
       "exchange": "SSE",
@@ -11391,6 +12164,26 @@
       "listing_status": "LISTED",
       "trading_status": "TRADING",
       "listing_effective_at": "2017-12-25T00:00:00+08:00"
+    },
+    {
+      "external_code": "1:603284",
+      "instrument_kind": "STOCK",
+      "exchange": "SSE",
+      "trading_code": "603284",
+      "name": "林平发展",
+      "listing_status": "LISTED",
+      "trading_status": "TRADING",
+      "listing_effective_at": "2026-02-10T00:00:00+08:00"
+    },
+    {
+      "external_code": "1:603285",
+      "instrument_kind": "STOCK",
+      "exchange": "SSE",
+      "trading_code": "603285",
+      "name": "键邦股份",
+      "listing_status": "LISTED",
+      "trading_status": "TRADING",
+      "listing_effective_at": "2024-07-05T00:00:00+08:00"
     },
     {
       "external_code": "1:603286",
@@ -11431,6 +12224,36 @@
       "listing_status": "LISTED",
       "trading_status": "TRADING",
       "listing_effective_at": "2020-02-04T00:00:00+08:00"
+    },
+    {
+      "external_code": "1:603291",
+      "instrument_kind": "STOCK",
+      "exchange": "SSE",
+      "trading_code": "603291",
+      "name": "联合水务",
+      "listing_status": "LISTED",
+      "trading_status": "TRADING",
+      "listing_effective_at": "2023-03-27T00:00:00+08:00"
+    },
+    {
+      "external_code": "1:603293",
+      "instrument_kind": "STOCK",
+      "exchange": "SSE",
+      "trading_code": "603293",
+      "name": "埃泰克",
+      "listing_status": "LISTED",
+      "trading_status": "TRADING",
+      "listing_effective_at": "2026-04-16T00:00:00+08:00"
+    },
+    {
+      "external_code": "1:603296",
+      "instrument_kind": "STOCK",
+      "exchange": "SSE",
+      "trading_code": "603296",
+      "name": "华勤技术",
+      "listing_status": "LISTED",
+      "trading_status": "TRADING",
+      "listing_effective_at": "2023-08-08T00:00:00+08:00"
     },
     {
       "external_code": "1:603297",
@@ -11513,6 +12336,16 @@
       "listing_effective_at": "2014-09-26T00:00:00+08:00"
     },
     {
+      "external_code": "1:603307",
+      "instrument_kind": "STOCK",
+      "exchange": "SSE",
+      "trading_code": "603307",
+      "name": "扬州金泉",
+      "listing_status": "LISTED",
+      "trading_status": "TRADING",
+      "listing_effective_at": "2023-02-16T00:00:00+08:00"
+    },
+    {
       "external_code": "1:603308",
       "instrument_kind": "STOCK",
       "exchange": "SSE",
@@ -11533,6 +12366,16 @@
       "listing_effective_at": "2015-03-02T00:00:00+08:00"
     },
     {
+      "external_code": "1:603310",
+      "instrument_kind": "STOCK",
+      "exchange": "SSE",
+      "trading_code": "603310",
+      "name": "巍华新材",
+      "listing_status": "LISTED",
+      "trading_status": "TRADING",
+      "listing_effective_at": "2024-08-14T00:00:00+08:00"
+    },
+    {
       "external_code": "1:603311",
       "instrument_kind": "STOCK",
       "exchange": "SSE",
@@ -11541,6 +12384,16 @@
       "listing_status": "LISTED",
       "trading_status": "TRADING",
       "listing_effective_at": "2015-05-18T00:00:00+08:00"
+    },
+    {
+      "external_code": "1:603312",
+      "instrument_kind": "STOCK",
+      "exchange": "SSE",
+      "trading_code": "603312",
+      "name": "西典新能",
+      "listing_status": "LISTED",
+      "trading_status": "TRADING",
+      "listing_effective_at": "2024-01-11T00:00:00+08:00"
     },
     {
       "external_code": "1:603313",
@@ -11653,6 +12506,16 @@
       "listing_effective_at": "2021-04-07T00:00:00+08:00"
     },
     {
+      "external_code": "1:603325",
+      "instrument_kind": "STOCK",
+      "exchange": "SSE",
+      "trading_code": "603325",
+      "name": "博隆技术",
+      "listing_status": "LISTED",
+      "trading_status": "TRADING",
+      "listing_effective_at": "2024-01-10T00:00:00+08:00"
+    },
+    {
       "external_code": "1:603326",
       "instrument_kind": "STOCK",
       "exchange": "SSE",
@@ -11733,6 +12596,16 @@
       "listing_effective_at": "2012-05-07T00:00:00+08:00"
     },
     {
+      "external_code": "1:603334",
+      "instrument_kind": "STOCK",
+      "exchange": "SSE",
+      "trading_code": "603334",
+      "name": "丰倍生物",
+      "listing_status": "LISTED",
+      "trading_status": "TRADING",
+      "listing_effective_at": "2025-11-05T00:00:00+08:00"
+    },
+    {
       "external_code": "1:603335",
       "instrument_kind": "STOCK",
       "exchange": "SSE",
@@ -11783,6 +12656,26 @@
       "listing_effective_at": "2016-05-19T00:00:00+08:00"
     },
     {
+      "external_code": "1:603341",
+      "instrument_kind": "STOCK",
+      "exchange": "SSE",
+      "trading_code": "603341",
+      "name": "龙旗科技",
+      "listing_status": "LISTED",
+      "trading_status": "TRADING",
+      "listing_effective_at": "2024-03-01T00:00:00+08:00"
+    },
+    {
+      "external_code": "1:603344",
+      "instrument_kind": "STOCK",
+      "exchange": "SSE",
+      "trading_code": "603344",
+      "name": "星德胜",
+      "listing_status": "LISTED",
+      "trading_status": "TRADING",
+      "listing_effective_at": "2024-03-20T00:00:00+08:00"
+    },
+    {
       "external_code": "1:603345",
       "instrument_kind": "STOCK",
       "exchange": "SSE",
@@ -11803,6 +12696,16 @@
       "listing_effective_at": "2018-04-26T00:00:00+08:00"
     },
     {
+      "external_code": "1:603350",
+      "instrument_kind": "STOCK",
+      "exchange": "SSE",
+      "trading_code": "603350",
+      "name": "安乃达",
+      "listing_status": "LISTED",
+      "trading_status": "TRADING",
+      "listing_effective_at": "2024-07-03T00:00:00+08:00"
+    },
+    {
       "external_code": "1:603351",
       "instrument_kind": "STOCK",
       "exchange": "SSE",
@@ -11811,6 +12714,16 @@
       "listing_status": "LISTED",
       "trading_status": "TRADING",
       "listing_effective_at": "2019-01-30T00:00:00+08:00"
+    },
+    {
+      "external_code": "1:603352",
+      "instrument_kind": "STOCK",
+      "exchange": "SSE",
+      "trading_code": "603352",
+      "name": "至信股份",
+      "listing_status": "LISTED",
+      "trading_status": "TRADING",
+      "listing_effective_at": "2026-01-15T00:00:00+08:00"
     },
     {
       "external_code": "1:603353",
@@ -11943,6 +12856,46 @@
       "listing_effective_at": "2014-07-03T00:00:00+08:00"
     },
     {
+      "external_code": "1:603370",
+      "instrument_kind": "STOCK",
+      "exchange": "SSE",
+      "trading_code": "603370",
+      "name": "华新精科",
+      "listing_status": "LISTED",
+      "trading_status": "TRADING",
+      "listing_effective_at": "2025-09-05T00:00:00+08:00"
+    },
+    {
+      "external_code": "1:603373",
+      "instrument_kind": "STOCK",
+      "exchange": "SSE",
+      "trading_code": "603373",
+      "name": "安邦护卫",
+      "listing_status": "LISTED",
+      "trading_status": "TRADING",
+      "listing_effective_at": "2023-12-20T00:00:00+08:00"
+    },
+    {
+      "external_code": "1:603375",
+      "instrument_kind": "STOCK",
+      "exchange": "SSE",
+      "trading_code": "603375",
+      "name": "盛景微",
+      "listing_status": "LISTED",
+      "trading_status": "TRADING",
+      "listing_effective_at": "2024-01-24T00:00:00+08:00"
+    },
+    {
+      "external_code": "1:603376",
+      "instrument_kind": "STOCK",
+      "exchange": "SSE",
+      "trading_code": "603376",
+      "name": "大明电子",
+      "listing_status": "LISTED",
+      "trading_status": "TRADING",
+      "listing_effective_at": "2025-11-06T00:00:00+08:00"
+    },
+    {
       "external_code": "1:603377",
       "instrument_kind": "STOCK",
       "exchange": "SSE",
@@ -11981,6 +12934,26 @@
       "listing_status": "LISTED",
       "trading_status": "TRADING",
       "listing_effective_at": "2017-06-22T00:00:00+08:00"
+    },
+    {
+      "external_code": "1:603381",
+      "instrument_kind": "STOCK",
+      "exchange": "SSE",
+      "trading_code": "603381",
+      "name": "永臻股份",
+      "listing_status": "LISTED",
+      "trading_status": "TRADING",
+      "listing_effective_at": "2024-06-26T00:00:00+08:00"
+    },
+    {
+      "external_code": "1:603382",
+      "instrument_kind": "STOCK",
+      "exchange": "SSE",
+      "trading_code": "603382",
+      "name": "海阳科技",
+      "listing_status": "LISTED",
+      "trading_status": "TRADING",
+      "listing_effective_at": "2025-06-12T00:00:00+08:00"
     },
     {
       "external_code": "1:603383",
@@ -12053,6 +13026,16 @@
       "listing_effective_at": "2019-11-25T00:00:00+08:00"
     },
     {
+      "external_code": "1:603391",
+      "instrument_kind": "STOCK",
+      "exchange": "SSE",
+      "trading_code": "603391",
+      "name": "力聚热能",
+      "listing_status": "LISTED",
+      "trading_status": "TRADING",
+      "listing_effective_at": "2024-07-31T00:00:00+08:00"
+    },
+    {
       "external_code": "1:603392",
       "instrument_kind": "STOCK",
       "exchange": "SSE",
@@ -12071,6 +13054,16 @@
       "listing_status": "LISTED",
       "trading_status": "TRADING",
       "listing_effective_at": "2016-09-12T00:00:00+08:00"
+    },
+    {
+      "external_code": "1:603395",
+      "instrument_kind": "STOCK",
+      "exchange": "SSE",
+      "trading_code": "603395",
+      "name": "红四方",
+      "listing_status": "LISTED",
+      "trading_status": "TRADING",
+      "listing_effective_at": "2024-11-26T00:00:00+08:00"
     },
     {
       "external_code": "1:603396",
@@ -12103,6 +13096,46 @@
       "listing_effective_at": "2012-08-24T00:00:00+08:00"
     },
     {
+      "external_code": "1:603400",
+      "instrument_kind": "STOCK",
+      "exchange": "SSE",
+      "trading_code": "603400",
+      "name": "华之杰",
+      "listing_status": "LISTED",
+      "trading_status": "TRADING",
+      "listing_effective_at": "2025-06-20T00:00:00+08:00"
+    },
+    {
+      "external_code": "1:603402",
+      "instrument_kind": "STOCK",
+      "exchange": "SSE",
+      "trading_code": "603402",
+      "name": "陕西旅游",
+      "listing_status": "LISTED",
+      "trading_status": "TRADING",
+      "listing_effective_at": "2026-01-06T00:00:00+08:00"
+    },
+    {
+      "external_code": "1:603406",
+      "instrument_kind": "STOCK",
+      "exchange": "SSE",
+      "trading_code": "603406",
+      "name": "天富龙",
+      "listing_status": "LISTED",
+      "trading_status": "TRADING",
+      "listing_effective_at": "2025-08-08T00:00:00+08:00"
+    },
+    {
+      "external_code": "1:603407",
+      "instrument_kind": "STOCK",
+      "exchange": "SSE",
+      "trading_code": "603407",
+      "name": "长裕集团",
+      "listing_status": "LISTED",
+      "trading_status": "TRADING",
+      "listing_effective_at": "2026-05-11T00:00:00+08:00"
+    },
+    {
       "external_code": "1:603408",
       "instrument_kind": "STOCK",
       "exchange": "SSE",
@@ -12113,6 +13146,16 @@
       "listing_effective_at": "2020-07-30T00:00:00+08:00"
     },
     {
+      "external_code": "1:603409",
+      "instrument_kind": "STOCK",
+      "exchange": "SSE",
+      "trading_code": "603409",
+      "name": "汇通控股",
+      "listing_status": "LISTED",
+      "trading_status": "TRADING",
+      "listing_effective_at": "2025-03-04T00:00:00+08:00"
+    },
+    {
       "external_code": "1:603416",
       "instrument_kind": "STOCK",
       "exchange": "SSE",
@@ -12121,6 +13164,16 @@
       "listing_status": "LISTED",
       "trading_status": "TRADING",
       "listing_effective_at": "2016-12-21T00:00:00+08:00"
+    },
+    {
+      "external_code": "1:603418",
+      "instrument_kind": "STOCK",
+      "exchange": "SSE",
+      "trading_code": "603418",
+      "name": "友升股份",
+      "listing_status": "LISTED",
+      "trading_status": "TRADING",
+      "listing_effective_at": "2025-09-23T00:00:00+08:00"
     },
     {
       "external_code": "1:603421",
@@ -12143,6 +13196,16 @@
       "listing_effective_at": "2017-01-24T00:00:00+08:00"
     },
     {
+      "external_code": "1:603435",
+      "instrument_kind": "STOCK",
+      "exchange": "SSE",
+      "trading_code": "603435",
+      "name": "嘉德利",
+      "listing_status": "LISTED",
+      "trading_status": "TRADING",
+      "listing_effective_at": "2026-05-22T00:00:00+08:00"
+    },
+    {
       "external_code": "1:603439",
       "instrument_kind": "STOCK",
       "exchange": "SSE",
@@ -12161,6 +13224,16 @@
       "listing_status": "LISTED",
       "trading_status": "TRADING",
       "listing_effective_at": "2017-01-04T00:00:00+08:00"
+    },
+    {
+      "external_code": "1:603448",
+      "instrument_kind": "STOCK",
+      "exchange": "SSE",
+      "trading_code": "603448",
+      "name": "天博智能",
+      "listing_status": "LISTED",
+      "trading_status": "TRADING",
+      "listing_effective_at": "2026-09-07T00:00:00+08:00"
     },
     {
       "external_code": "1:603456",
@@ -12183,6 +13256,16 @@
       "listing_effective_at": "2017-08-09T00:00:00+08:00"
     },
     {
+      "external_code": "1:603459",
+      "instrument_kind": "STOCK",
+      "exchange": "SSE",
+      "trading_code": "603459",
+      "name": "红板科技",
+      "listing_status": "LISTED",
+      "trading_status": "TRADING",
+      "listing_effective_at": "2026-04-08T00:00:00+08:00"
+    },
+    {
       "external_code": "1:603466",
       "instrument_kind": "STOCK",
       "exchange": "SSE",
@@ -12191,6 +13274,16 @@
       "listing_status": "LISTED",
       "trading_status": "TRADING",
       "listing_effective_at": "2017-10-20T00:00:00+08:00"
+    },
+    {
+      "external_code": "1:603468",
+      "instrument_kind": "STOCK",
+      "exchange": "SSE",
+      "trading_code": "603468",
+      "name": "津富士达",
+      "listing_status": "LISTED",
+      "trading_status": "TRADING",
+      "listing_effective_at": "2026-08-06T00:00:00+08:00"
     },
     {
       "external_code": "1:603477",
@@ -16343,6 +17436,16 @@
       "listing_effective_at": "2019-09-30T00:00:00+08:00"
     },
     {
+      "external_code": "1:688031",
+      "instrument_kind": "STOCK",
+      "exchange": "SSE",
+      "trading_code": "688031",
+      "name": "星环科技",
+      "listing_status": "LISTED",
+      "trading_status": "TRADING",
+      "listing_effective_at": "2022-10-18T00:00:00+08:00"
+    },
+    {
       "external_code": "1:688032",
       "instrument_kind": "STOCK",
       "exchange": "SSE",
@@ -16361,6 +17464,16 @@
       "listing_status": "LISTED",
       "trading_status": "TRADING",
       "listing_effective_at": "2019-07-22T00:00:00+08:00"
+    },
+    {
+      "external_code": "1:688035",
+      "instrument_kind": "STOCK",
+      "exchange": "SSE",
+      "trading_code": "688035",
+      "name": "德邦科技",
+      "listing_status": "LISTED",
+      "trading_status": "TRADING",
+      "listing_effective_at": "2022-09-19T00:00:00+08:00"
     },
     {
       "external_code": "1:688036",
@@ -16403,6 +17516,46 @@
       "listing_effective_at": "2019-12-11T00:00:00+08:00"
     },
     {
+      "external_code": "1:688041",
+      "instrument_kind": "STOCK",
+      "exchange": "SSE",
+      "trading_code": "688041",
+      "name": "海光信息",
+      "listing_status": "LISTED",
+      "trading_status": "TRADING",
+      "listing_effective_at": "2022-08-12T00:00:00+08:00"
+    },
+    {
+      "external_code": "1:688045",
+      "instrument_kind": "STOCK",
+      "exchange": "SSE",
+      "trading_code": "688045",
+      "name": "必易微",
+      "listing_status": "LISTED",
+      "trading_status": "TRADING",
+      "listing_effective_at": "2022-05-26T00:00:00+08:00"
+    },
+    {
+      "external_code": "1:688046",
+      "instrument_kind": "STOCK",
+      "exchange": "SSE",
+      "trading_code": "688046",
+      "name": "药康生物",
+      "listing_status": "LISTED",
+      "trading_status": "TRADING",
+      "listing_effective_at": "2022-04-25T00:00:00+08:00"
+    },
+    {
+      "external_code": "1:688047",
+      "instrument_kind": "STOCK",
+      "exchange": "SSE",
+      "trading_code": "688047",
+      "name": "龙芯中科",
+      "listing_status": "LISTED",
+      "trading_status": "TRADING",
+      "listing_effective_at": "2022-06-24T00:00:00+08:00"
+    },
+    {
       "external_code": "1:688048",
       "instrument_kind": "STOCK",
       "exchange": "SSE",
@@ -16441,6 +17594,26 @@
       "listing_status": "LISTED",
       "trading_status": "TRADING",
       "listing_effective_at": "2020-03-20T00:00:00+08:00"
+    },
+    {
+      "external_code": "1:688052",
+      "instrument_kind": "STOCK",
+      "exchange": "SSE",
+      "trading_code": "688052",
+      "name": "纳芯微",
+      "listing_status": "LISTED",
+      "trading_status": "TRADING",
+      "listing_effective_at": "2022-04-22T00:00:00+08:00"
+    },
+    {
+      "external_code": "1:688053",
+      "instrument_kind": "STOCK",
+      "exchange": "SSE",
+      "trading_code": "688053",
+      "name": "ST思科瑞",
+      "listing_status": "LISTED",
+      "trading_status": "TRADING",
+      "listing_effective_at": "2022-07-08T00:00:00+08:00"
     },
     {
       "external_code": "1:688055",
@@ -16501,6 +17674,16 @@
       "listing_status": "LISTED",
       "trading_status": "TRADING",
       "listing_effective_at": "2020-07-10T00:00:00+08:00"
+    },
+    {
+      "external_code": "1:688061",
+      "instrument_kind": "STOCK",
+      "exchange": "SSE",
+      "trading_code": "688061",
+      "name": "灿瑞科技",
+      "listing_status": "LISTED",
+      "trading_status": "TRADING",
+      "listing_effective_at": "2022-10-18T00:00:00+08:00"
     },
     {
       "external_code": "1:688062",
@@ -16593,6 +17776,26 @@
       "listing_effective_at": "2021-07-29T00:00:00+08:00"
     },
     {
+      "external_code": "1:688072",
+      "instrument_kind": "STOCK",
+      "exchange": "SSE",
+      "trading_code": "688072",
+      "name": "拓荆科技",
+      "listing_status": "LISTED",
+      "trading_status": "TRADING",
+      "listing_effective_at": "2022-04-20T00:00:00+08:00"
+    },
+    {
+      "external_code": "1:688073",
+      "instrument_kind": "STOCK",
+      "exchange": "SSE",
+      "trading_code": "688073",
+      "name": "毕得医药",
+      "listing_status": "LISTED",
+      "trading_status": "TRADING",
+      "listing_effective_at": "2022-10-11T00:00:00+08:00"
+    },
+    {
       "external_code": "1:688075",
       "instrument_kind": "STOCK",
       "exchange": "SSE",
@@ -16681,6 +17884,16 @@
       "listing_status": "LISTED",
       "trading_status": "TRADING",
       "listing_effective_at": "2021-03-11T00:00:00+08:00"
+    },
+    {
+      "external_code": "1:688084",
+      "instrument_kind": "STOCK",
+      "exchange": "SSE",
+      "trading_code": "688084",
+      "name": "晶品特装",
+      "listing_status": "LISTED",
+      "trading_status": "TRADING",
+      "listing_effective_at": "2022-12-08T00:00:00+08:00"
     },
     {
       "external_code": "1:688085",
@@ -16943,6 +18156,16 @@
       "listing_effective_at": "2021-05-06T00:00:00+08:00"
     },
     {
+      "external_code": "1:688114",
+      "instrument_kind": "STOCK",
+      "exchange": "SSE",
+      "trading_code": "688114",
+      "name": "华大智造",
+      "listing_status": "LISTED",
+      "trading_status": "TRADING",
+      "listing_effective_at": "2022-09-09T00:00:00+08:00"
+    },
+    {
       "external_code": "1:688115",
       "instrument_kind": "STOCK",
       "exchange": "SSE",
@@ -16983,6 +18206,26 @@
       "listing_effective_at": "2019-12-04T00:00:00+08:00"
     },
     {
+      "external_code": "1:688119",
+      "instrument_kind": "STOCK",
+      "exchange": "SSE",
+      "trading_code": "688119",
+      "name": "中钢洛耐",
+      "listing_status": "LISTED",
+      "trading_status": "TRADING",
+      "listing_effective_at": "2022-06-06T00:00:00+08:00"
+    },
+    {
+      "external_code": "1:688120",
+      "instrument_kind": "STOCK",
+      "exchange": "SSE",
+      "trading_code": "688120",
+      "name": "华海清科",
+      "listing_status": "LISTED",
+      "trading_status": "TRADING",
+      "listing_effective_at": "2022-06-08T00:00:00+08:00"
+    },
+    {
       "external_code": "1:688121",
       "instrument_kind": "STOCK",
       "exchange": "SSE",
@@ -17011,6 +18254,16 @@
       "listing_status": "LISTED",
       "trading_status": "TRADING",
       "listing_effective_at": "2019-12-23T00:00:00+08:00"
+    },
+    {
+      "external_code": "1:688125",
+      "instrument_kind": "STOCK",
+      "exchange": "SSE",
+      "trading_code": "688125",
+      "name": "安达智能",
+      "listing_status": "LISTED",
+      "trading_status": "TRADING",
+      "listing_effective_at": "2022-04-15T00:00:00+08:00"
     },
     {
       "external_code": "1:688126",
@@ -17053,6 +18306,16 @@
       "listing_effective_at": "2020-10-23T00:00:00+08:00"
     },
     {
+      "external_code": "1:688130",
+      "instrument_kind": "STOCK",
+      "exchange": "SSE",
+      "trading_code": "688130",
+      "name": "晶华微",
+      "listing_status": "LISTED",
+      "trading_status": "TRADING",
+      "listing_effective_at": "2022-07-29T00:00:00+08:00"
+    },
+    {
       "external_code": "1:688131",
       "instrument_kind": "STOCK",
       "exchange": "SSE",
@@ -17061,6 +18324,16 @@
       "listing_status": "LISTED",
       "trading_status": "TRADING",
       "listing_effective_at": "2021-06-08T00:00:00+08:00"
+    },
+    {
+      "external_code": "1:688132",
+      "instrument_kind": "STOCK",
+      "exchange": "SSE",
+      "trading_code": "688132",
+      "name": "邦彦技术",
+      "listing_status": "LISTED",
+      "trading_status": "TRADING",
+      "listing_effective_at": "2022-09-23T00:00:00+08:00"
     },
     {
       "external_code": "1:688133",
@@ -17093,6 +18366,16 @@
       "listing_effective_at": "2020-12-14T00:00:00+08:00"
     },
     {
+      "external_code": "1:688137",
+      "instrument_kind": "STOCK",
+      "exchange": "SSE",
+      "trading_code": "688137",
+      "name": "近岸蛋白",
+      "listing_status": "LISTED",
+      "trading_status": "TRADING",
+      "listing_effective_at": "2022-09-29T00:00:00+08:00"
+    },
+    {
       "external_code": "1:688138",
       "instrument_kind": "STOCK",
       "exchange": "SSE",
@@ -17111,6 +18394,46 @@
       "listing_status": "LISTED",
       "trading_status": "TRADING",
       "listing_effective_at": "2019-10-25T00:00:00+08:00"
+    },
+    {
+      "external_code": "1:688141",
+      "instrument_kind": "STOCK",
+      "exchange": "SSE",
+      "trading_code": "688141",
+      "name": "杰华特",
+      "listing_status": "LISTED",
+      "trading_status": "TRADING",
+      "listing_effective_at": "2022-12-23T00:00:00+08:00"
+    },
+    {
+      "external_code": "1:688143",
+      "instrument_kind": "STOCK",
+      "exchange": "SSE",
+      "trading_code": "688143",
+      "name": "长盈通",
+      "listing_status": "LISTED",
+      "trading_status": "TRADING",
+      "listing_effective_at": "2022-12-12T00:00:00+08:00"
+    },
+    {
+      "external_code": "1:688146",
+      "instrument_kind": "STOCK",
+      "exchange": "SSE",
+      "trading_code": "688146",
+      "name": "中船特气",
+      "listing_status": "LISTED",
+      "trading_status": "TRADING",
+      "listing_effective_at": "2023-04-21T00:00:00+08:00"
+    },
+    {
+      "external_code": "1:688147",
+      "instrument_kind": "STOCK",
+      "exchange": "SSE",
+      "trading_code": "688147",
+      "name": "微导纳米",
+      "listing_status": "LISTED",
+      "trading_status": "TRADING",
+      "listing_effective_at": "2022-12-23T00:00:00+08:00"
     },
     {
       "external_code": "1:688148",
@@ -17141,6 +18464,26 @@
       "listing_status": "LISTED",
       "trading_status": "TRADING",
       "listing_effective_at": "2021-12-06T00:00:00+08:00"
+    },
+    {
+      "external_code": "1:688152",
+      "instrument_kind": "STOCK",
+      "exchange": "SSE",
+      "trading_code": "688152",
+      "name": "麒麟信安",
+      "listing_status": "LISTED",
+      "trading_status": "TRADING",
+      "listing_effective_at": "2022-10-28T00:00:00+08:00"
+    },
+    {
+      "external_code": "1:688153",
+      "instrument_kind": "STOCK",
+      "exchange": "SSE",
+      "trading_code": "688153",
+      "name": "唯捷创芯",
+      "listing_status": "LISTED",
+      "trading_status": "TRADING",
+      "listing_effective_at": "2022-04-12T00:00:00+08:00"
     },
     {
       "external_code": "1:688155",
@@ -17283,6 +18626,16 @@
       "listing_effective_at": "2020-02-21T00:00:00+08:00"
     },
     {
+      "external_code": "1:688170",
+      "instrument_kind": "STOCK",
+      "exchange": "SSE",
+      "trading_code": "688170",
+      "name": "德龙激光",
+      "listing_status": "LISTED",
+      "trading_status": "TRADING",
+      "listing_effective_at": "2022-04-29T00:00:00+08:00"
+    },
+    {
       "external_code": "1:688171",
       "instrument_kind": "STOCK",
       "exchange": "SSE",
@@ -17291,6 +18644,16 @@
       "listing_status": "LISTED",
       "trading_status": "TRADING",
       "listing_effective_at": "2022-01-27T00:00:00+08:00"
+    },
+    {
+      "external_code": "1:688172",
+      "instrument_kind": "STOCK",
+      "exchange": "SSE",
+      "trading_code": "688172",
+      "name": "燕东微",
+      "listing_status": "LISTED",
+      "trading_status": "TRADING",
+      "listing_effective_at": "2022-12-16T00:00:00+08:00"
     },
     {
       "external_code": "1:688173",
@@ -17391,6 +18754,16 @@
       "listing_status": "LISTED",
       "trading_status": "TRADING",
       "listing_effective_at": "2021-02-25T00:00:00+08:00"
+    },
+    {
+      "external_code": "1:688184",
+      "instrument_kind": "STOCK",
+      "exchange": "SSE",
+      "trading_code": "688184",
+      "name": "ST帕瓦",
+      "listing_status": "LISTED",
+      "trading_status": "TRADING",
+      "listing_effective_at": "2022-09-19T00:00:00+08:00"
     },
     {
       "external_code": "1:688185",
@@ -17563,6 +18936,26 @@
       "listing_effective_at": "2019-11-05T00:00:00+08:00"
     },
     {
+      "external_code": "1:688203",
+      "instrument_kind": "STOCK",
+      "exchange": "SSE",
+      "trading_code": "688203",
+      "name": "海正生材",
+      "listing_status": "LISTED",
+      "trading_status": "TRADING",
+      "listing_effective_at": "2022-08-16T00:00:00+08:00"
+    },
+    {
+      "external_code": "1:688205",
+      "instrument_kind": "STOCK",
+      "exchange": "SSE",
+      "trading_code": "688205",
+      "name": "德科立",
+      "listing_status": "LISTED",
+      "trading_status": "TRADING",
+      "listing_effective_at": "2022-08-09T00:00:00+08:00"
+    },
+    {
       "external_code": "1:688206",
       "instrument_kind": "STOCK",
       "exchange": "SSE",
@@ -17593,6 +18986,16 @@
       "listing_effective_at": "2020-02-13T00:00:00+08:00"
     },
     {
+      "external_code": "1:688209",
+      "instrument_kind": "STOCK",
+      "exchange": "SSE",
+      "trading_code": "688209",
+      "name": "英集芯",
+      "listing_status": "LISTED",
+      "trading_status": "TRADING",
+      "listing_effective_at": "2022-04-19T00:00:00+08:00"
+    },
+    {
       "external_code": "1:688210",
       "instrument_kind": "STOCK",
       "exchange": "SSE",
@@ -17621,6 +19024,16 @@
       "listing_status": "LISTED",
       "trading_status": "TRADING",
       "listing_effective_at": "2021-11-15T00:00:00+08:00"
+    },
+    {
+      "external_code": "1:688213",
+      "instrument_kind": "STOCK",
+      "exchange": "SSE",
+      "trading_code": "688213",
+      "name": "思特威",
+      "listing_status": "LISTED",
+      "trading_status": "TRADING",
+      "listing_effective_at": "2022-05-20T00:00:00+08:00"
     },
     {
       "external_code": "1:688215",
@@ -17773,6 +19186,16 @@
       "listing_effective_at": "2021-12-01T00:00:00+08:00"
     },
     {
+      "external_code": "1:688231",
+      "instrument_kind": "STOCK",
+      "exchange": "SSE",
+      "trading_code": "688231",
+      "name": "隆达股份",
+      "listing_status": "LISTED",
+      "trading_status": "TRADING",
+      "listing_effective_at": "2022-07-22T00:00:00+08:00"
+    },
+    {
       "external_code": "1:688232",
       "instrument_kind": "STOCK",
       "exchange": "SSE",
@@ -17823,6 +19246,16 @@
       "listing_effective_at": "2021-12-30T00:00:00+08:00"
     },
     {
+      "external_code": "1:688237",
+      "instrument_kind": "STOCK",
+      "exchange": "SSE",
+      "trading_code": "688237",
+      "name": "超卓航科",
+      "listing_status": "LISTED",
+      "trading_status": "TRADING",
+      "listing_effective_at": "2022-07-01T00:00:00+08:00"
+    },
+    {
       "external_code": "1:688238",
       "instrument_kind": "STOCK",
       "exchange": "SSE",
@@ -17843,6 +19276,16 @@
       "listing_effective_at": "2021-07-05T00:00:00+08:00"
     },
     {
+      "external_code": "1:688244",
+      "instrument_kind": "STOCK",
+      "exchange": "SSE",
+      "trading_code": "688244",
+      "name": "永信至诚",
+      "listing_status": "LISTED",
+      "trading_status": "TRADING",
+      "listing_effective_at": "2022-10-19T00:00:00+08:00"
+    },
+    {
       "external_code": "1:688246",
       "instrument_kind": "STOCK",
       "exchange": "SSE",
@@ -17853,6 +19296,16 @@
       "listing_effective_at": "2021-12-14T00:00:00+08:00"
     },
     {
+      "external_code": "1:688247",
+      "instrument_kind": "STOCK",
+      "exchange": "SSE",
+      "trading_code": "688247",
+      "name": "宣泰医药",
+      "listing_status": "LISTED",
+      "trading_status": "TRADING",
+      "listing_effective_at": "2022-08-25T00:00:00+08:00"
+    },
+    {
       "external_code": "1:688248",
       "instrument_kind": "STOCK",
       "exchange": "SSE",
@@ -17861,6 +19314,46 @@
       "listing_status": "LISTED",
       "trading_status": "TRADING",
       "listing_effective_at": "2021-12-22T00:00:00+08:00"
+    },
+    {
+      "external_code": "1:688249",
+      "instrument_kind": "STOCK",
+      "exchange": "SSE",
+      "trading_code": "688249",
+      "name": "晶合集成",
+      "listing_status": "LISTED",
+      "trading_status": "TRADING",
+      "listing_effective_at": "2023-05-05T00:00:00+08:00"
+    },
+    {
+      "external_code": "1:688251",
+      "instrument_kind": "STOCK",
+      "exchange": "SSE",
+      "trading_code": "688251",
+      "name": "井松智能",
+      "listing_status": "LISTED",
+      "trading_status": "TRADING",
+      "listing_effective_at": "2022-06-06T00:00:00+08:00"
+    },
+    {
+      "external_code": "1:688252",
+      "instrument_kind": "STOCK",
+      "exchange": "SSE",
+      "trading_code": "688252",
+      "name": "天德钰",
+      "listing_status": "LISTED",
+      "trading_status": "TRADING",
+      "listing_effective_at": "2022-09-27T00:00:00+08:00"
+    },
+    {
+      "external_code": "1:688253",
+      "instrument_kind": "STOCK",
+      "exchange": "SSE",
+      "trading_code": "688253",
+      "name": "英诺特",
+      "listing_status": "LISTED",
+      "trading_status": "TRADING",
+      "listing_effective_at": "2022-07-28T00:00:00+08:00"
     },
     {
       "external_code": "1:688255",
@@ -18003,6 +19496,16 @@
       "listing_effective_at": "2022-01-27T00:00:00+08:00"
     },
     {
+      "external_code": "1:688271",
+      "instrument_kind": "STOCK",
+      "exchange": "SSE",
+      "trading_code": "688271",
+      "name": "联影医疗",
+      "listing_status": "LISTED",
+      "trading_status": "TRADING",
+      "listing_effective_at": "2022-08-22T00:00:00+08:00"
+    },
+    {
       "external_code": "1:688272",
       "instrument_kind": "STOCK",
       "exchange": "SSE",
@@ -18011,6 +19514,26 @@
       "listing_status": "LISTED",
       "trading_status": "TRADING",
       "listing_effective_at": "2021-10-18T00:00:00+08:00"
+    },
+    {
+      "external_code": "1:688273",
+      "instrument_kind": "STOCK",
+      "exchange": "SSE",
+      "trading_code": "688273",
+      "name": "麦澜德",
+      "listing_status": "LISTED",
+      "trading_status": "TRADING",
+      "listing_effective_at": "2022-08-11T00:00:00+08:00"
+    },
+    {
+      "external_code": "1:688275",
+      "instrument_kind": "STOCK",
+      "exchange": "SSE",
+      "trading_code": "688275",
+      "name": "万润新能",
+      "listing_status": "LISTED",
+      "trading_status": "TRADING",
+      "listing_effective_at": "2022-09-29T00:00:00+08:00"
     },
     {
       "external_code": "1:688276",
@@ -18041,6 +19564,16 @@
       "listing_status": "LISTED",
       "trading_status": "TRADING",
       "listing_effective_at": "2020-01-17T00:00:00+08:00"
+    },
+    {
+      "external_code": "1:688279",
+      "instrument_kind": "STOCK",
+      "exchange": "SSE",
+      "trading_code": "688279",
+      "name": "峰岹科技",
+      "listing_status": "LISTED",
+      "trading_status": "TRADING",
+      "listing_effective_at": "2022-04-20T00:00:00+08:00"
     },
     {
       "external_code": "1:688280",
@@ -18103,6 +19636,16 @@
       "listing_effective_at": "2020-08-10T00:00:00+08:00"
     },
     {
+      "external_code": "1:688287",
+      "instrument_kind": "STOCK",
+      "exchange": "SSE",
+      "trading_code": "688287",
+      "name": "退市观典",
+      "listing_status": "LISTED",
+      "trading_status": "TRADING",
+      "listing_effective_at": "2022-05-25T00:00:00+08:00"
+    },
+    {
       "external_code": "1:688288",
       "instrument_kind": "STOCK",
       "exchange": "SSE",
@@ -18123,6 +19666,46 @@
       "listing_effective_at": "2020-08-28T00:00:00+08:00"
     },
     {
+      "external_code": "1:688290",
+      "instrument_kind": "STOCK",
+      "exchange": "SSE",
+      "trading_code": "688290",
+      "name": "景业智能",
+      "listing_status": "LISTED",
+      "trading_status": "TRADING",
+      "listing_effective_at": "2022-04-29T00:00:00+08:00"
+    },
+    {
+      "external_code": "1:688291",
+      "instrument_kind": "STOCK",
+      "exchange": "SSE",
+      "trading_code": "688291",
+      "name": "金橙子",
+      "listing_status": "LISTED",
+      "trading_status": "TRADING",
+      "listing_effective_at": "2022-10-26T00:00:00+08:00"
+    },
+    {
+      "external_code": "1:688292",
+      "instrument_kind": "STOCK",
+      "exchange": "SSE",
+      "trading_code": "688292",
+      "name": "浩瀚深度",
+      "listing_status": "LISTED",
+      "trading_status": "TRADING",
+      "listing_effective_at": "2022-08-18T00:00:00+08:00"
+    },
+    {
+      "external_code": "1:688293",
+      "instrument_kind": "STOCK",
+      "exchange": "SSE",
+      "trading_code": "688293",
+      "name": "奥浦迈",
+      "listing_status": "LISTED",
+      "trading_status": "TRADING",
+      "listing_effective_at": "2022-09-02T00:00:00+08:00"
+    },
+    {
       "external_code": "1:688295",
       "instrument_kind": "STOCK",
       "exchange": "SSE",
@@ -18141,6 +19724,16 @@
       "listing_status": "LISTED",
       "trading_status": "TRADING",
       "listing_effective_at": "2021-07-27T00:00:00+08:00"
+    },
+    {
+      "external_code": "1:688297",
+      "instrument_kind": "STOCK",
+      "exchange": "SSE",
+      "trading_code": "688297",
+      "name": "中无人机",
+      "listing_status": "LISTED",
+      "trading_status": "TRADING",
+      "listing_effective_at": "2022-06-29T00:00:00+08:00"
     },
     {
       "external_code": "1:688298",
@@ -18183,6 +19776,16 @@
       "listing_effective_at": "2020-09-18T00:00:00+08:00"
     },
     {
+      "external_code": "1:688302",
+      "instrument_kind": "STOCK",
+      "exchange": "SSE",
+      "trading_code": "688302",
+      "name": "海创药业",
+      "listing_status": "LISTED",
+      "trading_status": "TRADING",
+      "listing_effective_at": "2022-04-12T00:00:00+08:00"
+    },
+    {
       "external_code": "1:688303",
       "instrument_kind": "STOCK",
       "exchange": "SSE",
@@ -18211,6 +19814,16 @@
       "listing_status": "LISTED",
       "trading_status": "TRADING",
       "listing_effective_at": "2022-03-22T00:00:00+08:00"
+    },
+    {
+      "external_code": "1:688307",
+      "instrument_kind": "STOCK",
+      "exchange": "SSE",
+      "trading_code": "688307",
+      "name": "中润光学",
+      "listing_status": "LISTED",
+      "trading_status": "TRADING",
+      "listing_effective_at": "2023-02-16T00:00:00+08:00"
     },
     {
       "external_code": "1:688308",
@@ -18333,6 +19946,16 @@
       "listing_effective_at": "2021-06-08T00:00:00+08:00"
     },
     {
+      "external_code": "1:688320",
+      "instrument_kind": "STOCK",
+      "exchange": "SSE",
+      "trading_code": "688320",
+      "name": "禾川科技",
+      "listing_status": "LISTED",
+      "trading_status": "TRADING",
+      "listing_effective_at": "2022-04-28T00:00:00+08:00"
+    },
+    {
       "external_code": "1:688321",
       "instrument_kind": "STOCK",
       "exchange": "SSE",
@@ -18343,6 +19966,16 @@
       "listing_effective_at": "2019-08-12T00:00:00+08:00"
     },
     {
+      "external_code": "1:688322",
+      "instrument_kind": "STOCK",
+      "exchange": "SSE",
+      "trading_code": "688322",
+      "name": "奥比中光",
+      "listing_status": "LISTED",
+      "trading_status": "TRADING",
+      "listing_effective_at": "2022-07-07T00:00:00+08:00"
+    },
+    {
       "external_code": "1:688323",
       "instrument_kind": "STOCK",
       "exchange": "SSE",
@@ -18351,6 +19984,36 @@
       "listing_status": "LISTED",
       "trading_status": "TRADING",
       "listing_effective_at": "2021-04-28T00:00:00+08:00"
+    },
+    {
+      "external_code": "1:688325",
+      "instrument_kind": "STOCK",
+      "exchange": "SSE",
+      "trading_code": "688325",
+      "name": "赛微微电",
+      "listing_status": "LISTED",
+      "trading_status": "TRADING",
+      "listing_effective_at": "2022-04-22T00:00:00+08:00"
+    },
+    {
+      "external_code": "1:688326",
+      "instrument_kind": "STOCK",
+      "exchange": "SSE",
+      "trading_code": "688326",
+      "name": "经纬恒润",
+      "listing_status": "LISTED",
+      "trading_status": "TRADING",
+      "listing_effective_at": "2022-04-19T00:00:00+08:00"
+    },
+    {
+      "external_code": "1:688327",
+      "instrument_kind": "STOCK",
+      "exchange": "SSE",
+      "trading_code": "688327",
+      "name": "云从科技",
+      "listing_status": "LISTED",
+      "trading_status": "TRADING",
+      "listing_effective_at": "2022-05-27T00:00:00+08:00"
     },
     {
       "external_code": "1:688328",
@@ -18393,6 +20056,16 @@
       "listing_effective_at": "2022-03-31T00:00:00+08:00"
     },
     {
+      "external_code": "1:688332",
+      "instrument_kind": "STOCK",
+      "exchange": "SSE",
+      "trading_code": "688332",
+      "name": "中科蓝讯",
+      "listing_status": "LISTED",
+      "trading_status": "TRADING",
+      "listing_effective_at": "2022-07-15T00:00:00+08:00"
+    },
+    {
       "external_code": "1:688333",
       "instrument_kind": "STOCK",
       "exchange": "SSE",
@@ -18401,6 +20074,16 @@
       "listing_status": "LISTED",
       "trading_status": "TRADING",
       "listing_effective_at": "2019-07-22T00:00:00+08:00"
+    },
+    {
+      "external_code": "1:688334",
+      "instrument_kind": "STOCK",
+      "exchange": "SSE",
+      "trading_code": "688334",
+      "name": "西高院",
+      "listing_status": "LISTED",
+      "trading_status": "TRADING",
+      "listing_effective_at": "2023-06-19T00:00:00+08:00"
     },
     {
       "external_code": "1:688335",
@@ -18453,6 +20136,16 @@
       "listing_effective_at": "2020-08-10T00:00:00+08:00"
     },
     {
+      "external_code": "1:688343",
+      "instrument_kind": "STOCK",
+      "exchange": "SSE",
+      "trading_code": "688343",
+      "name": "云天励飞",
+      "listing_status": "LISTED",
+      "trading_status": "TRADING",
+      "listing_effective_at": "2023-04-04T00:00:00+08:00"
+    },
+    {
       "external_code": "1:688345",
       "instrument_kind": "STOCK",
       "exchange": "SSE",
@@ -18463,6 +20156,36 @@
       "listing_effective_at": "2021-06-11T00:00:00+08:00"
     },
     {
+      "external_code": "1:688347",
+      "instrument_kind": "STOCK",
+      "exchange": "SSE",
+      "trading_code": "688347",
+      "name": "华虹宏力",
+      "listing_status": "LISTED",
+      "trading_status": "TRADING",
+      "listing_effective_at": "2023-08-07T00:00:00+08:00"
+    },
+    {
+      "external_code": "1:688348",
+      "instrument_kind": "STOCK",
+      "exchange": "SSE",
+      "trading_code": "688348",
+      "name": "昱能科技",
+      "listing_status": "LISTED",
+      "trading_status": "TRADING",
+      "listing_effective_at": "2022-06-08T00:00:00+08:00"
+    },
+    {
+      "external_code": "1:688349",
+      "instrument_kind": "STOCK",
+      "exchange": "SSE",
+      "trading_code": "688349",
+      "name": "三一重能",
+      "listing_status": "LISTED",
+      "trading_status": "TRADING",
+      "listing_effective_at": "2022-06-22T00:00:00+08:00"
+    },
+    {
       "external_code": "1:688350",
       "instrument_kind": "STOCK",
       "exchange": "SSE",
@@ -18471,6 +20194,36 @@
       "listing_status": "LISTED",
       "trading_status": "TRADING",
       "listing_effective_at": "2021-01-28T00:00:00+08:00"
+    },
+    {
+      "external_code": "1:688351",
+      "instrument_kind": "STOCK",
+      "exchange": "SSE",
+      "trading_code": "688351",
+      "name": "微电生理",
+      "listing_status": "LISTED",
+      "trading_status": "TRADING",
+      "listing_effective_at": "2022-08-31T00:00:00+08:00"
+    },
+    {
+      "external_code": "1:688352",
+      "instrument_kind": "STOCK",
+      "exchange": "SSE",
+      "trading_code": "688352",
+      "name": "颀中科技",
+      "listing_status": "LISTED",
+      "trading_status": "TRADING",
+      "listing_effective_at": "2023-04-20T00:00:00+08:00"
+    },
+    {
+      "external_code": "1:688353",
+      "instrument_kind": "STOCK",
+      "exchange": "SSE",
+      "trading_code": "688353",
+      "name": "华盛锂电",
+      "listing_status": "LISTED",
+      "trading_status": "TRADING",
+      "listing_effective_at": "2022-07-13T00:00:00+08:00"
     },
     {
       "external_code": "1:688355",
@@ -18533,6 +20286,26 @@
       "listing_effective_at": "2020-06-02T00:00:00+08:00"
     },
     {
+      "external_code": "1:688361",
+      "instrument_kind": "STOCK",
+      "exchange": "SSE",
+      "trading_code": "688361",
+      "name": "中科飞测",
+      "listing_status": "LISTED",
+      "trading_status": "TRADING",
+      "listing_effective_at": "2023-05-19T00:00:00+08:00"
+    },
+    {
+      "external_code": "1:688362",
+      "instrument_kind": "STOCK",
+      "exchange": "SSE",
+      "trading_code": "688362",
+      "name": "甬矽电子",
+      "listing_status": "LISTED",
+      "trading_status": "TRADING",
+      "listing_effective_at": "2022-11-16T00:00:00+08:00"
+    },
+    {
       "external_code": "1:688363",
       "instrument_kind": "STOCK",
       "exchange": "SSE",
@@ -18593,6 +20366,66 @@
       "listing_effective_at": "2019-10-31T00:00:00+08:00"
     },
     {
+      "external_code": "1:688370",
+      "instrument_kind": "STOCK",
+      "exchange": "SSE",
+      "trading_code": "688370",
+      "name": "丛麟科技",
+      "listing_status": "LISTED",
+      "trading_status": "TRADING",
+      "listing_effective_at": "2022-08-25T00:00:00+08:00"
+    },
+    {
+      "external_code": "1:688371",
+      "instrument_kind": "STOCK",
+      "exchange": "SSE",
+      "trading_code": "688371",
+      "name": "菲沃泰",
+      "listing_status": "LISTED",
+      "trading_status": "TRADING",
+      "listing_effective_at": "2022-08-02T00:00:00+08:00"
+    },
+    {
+      "external_code": "1:688372",
+      "instrument_kind": "STOCK",
+      "exchange": "SSE",
+      "trading_code": "688372",
+      "name": "伟测科技",
+      "listing_status": "LISTED",
+      "trading_status": "TRADING",
+      "listing_effective_at": "2022-10-26T00:00:00+08:00"
+    },
+    {
+      "external_code": "1:688373",
+      "instrument_kind": "STOCK",
+      "exchange": "SSE",
+      "trading_code": "688373",
+      "name": "盟科药业",
+      "listing_status": "LISTED",
+      "trading_status": "TRADING",
+      "listing_effective_at": "2022-08-05T00:00:00+08:00"
+    },
+    {
+      "external_code": "1:688375",
+      "instrument_kind": "STOCK",
+      "exchange": "SSE",
+      "trading_code": "688375",
+      "name": "国博电子",
+      "listing_status": "LISTED",
+      "trading_status": "TRADING",
+      "listing_effective_at": "2022-07-22T00:00:00+08:00"
+    },
+    {
+      "external_code": "1:688376",
+      "instrument_kind": "STOCK",
+      "exchange": "SSE",
+      "trading_code": "688376",
+      "name": "美埃科技",
+      "listing_status": "LISTED",
+      "trading_status": "TRADING",
+      "listing_effective_at": "2022-11-18T00:00:00+08:00"
+    },
+    {
       "external_code": "1:688377",
       "instrument_kind": "STOCK",
       "exchange": "SSE",
@@ -18621,6 +20454,36 @@
       "listing_status": "LISTED",
       "trading_status": "TRADING",
       "listing_effective_at": "2020-08-19T00:00:00+08:00"
+    },
+    {
+      "external_code": "1:688380",
+      "instrument_kind": "STOCK",
+      "exchange": "SSE",
+      "trading_code": "688380",
+      "name": "中微半导",
+      "listing_status": "LISTED",
+      "trading_status": "TRADING",
+      "listing_effective_at": "2022-08-05T00:00:00+08:00"
+    },
+    {
+      "external_code": "1:688381",
+      "instrument_kind": "STOCK",
+      "exchange": "SSE",
+      "trading_code": "688381",
+      "name": "帝奥微",
+      "listing_status": "LISTED",
+      "trading_status": "TRADING",
+      "listing_effective_at": "2022-08-23T00:00:00+08:00"
+    },
+    {
+      "external_code": "1:688382",
+      "instrument_kind": "STOCK",
+      "exchange": "SSE",
+      "trading_code": "688382",
+      "name": "益方生物",
+      "listing_status": "LISTED",
+      "trading_status": "TRADING",
+      "listing_effective_at": "2022-07-25T00:00:00+08:00"
     },
     {
       "external_code": "1:688383",
@@ -18653,6 +20516,16 @@
       "listing_effective_at": "2020-10-16T00:00:00+08:00"
     },
     {
+      "external_code": "1:688387",
+      "instrument_kind": "STOCK",
+      "exchange": "SSE",
+      "trading_code": "688387",
+      "name": "信科移动",
+      "listing_status": "LISTED",
+      "trading_status": "TRADING",
+      "listing_effective_at": "2022-09-26T00:00:00+08:00"
+    },
+    {
       "external_code": "1:688388",
       "instrument_kind": "STOCK",
       "exchange": "SSE",
@@ -18681,6 +20554,26 @@
       "listing_status": "LISTED",
       "trading_status": "TRADING",
       "listing_effective_at": "2020-09-04T00:00:00+08:00"
+    },
+    {
+      "external_code": "1:688391",
+      "instrument_kind": "STOCK",
+      "exchange": "SSE",
+      "trading_code": "688391",
+      "name": "钜泉科技",
+      "listing_status": "LISTED",
+      "trading_status": "TRADING",
+      "listing_effective_at": "2022-09-13T00:00:00+08:00"
+    },
+    {
+      "external_code": "1:688392",
+      "instrument_kind": "STOCK",
+      "exchange": "SSE",
+      "trading_code": "688392",
+      "name": "骄成超声",
+      "listing_status": "LISTED",
+      "trading_status": "TRADING",
+      "listing_effective_at": "2022-09-27T00:00:00+08:00"
     },
     {
       "external_code": "1:688393",
@@ -18733,6 +20626,36 @@
       "listing_effective_at": "2019-12-05T00:00:00+08:00"
     },
     {
+      "external_code": "1:688400",
+      "instrument_kind": "STOCK",
+      "exchange": "SSE",
+      "trading_code": "688400",
+      "name": "凌云光",
+      "listing_status": "LISTED",
+      "trading_status": "TRADING",
+      "listing_effective_at": "2022-07-06T00:00:00+08:00"
+    },
+    {
+      "external_code": "1:688401",
+      "instrument_kind": "STOCK",
+      "exchange": "SSE",
+      "trading_code": "688401",
+      "name": "路维光电",
+      "listing_status": "LISTED",
+      "trading_status": "TRADING",
+      "listing_effective_at": "2022-08-17T00:00:00+08:00"
+    },
+    {
+      "external_code": "1:688403",
+      "instrument_kind": "STOCK",
+      "exchange": "SSE",
+      "trading_code": "688403",
+      "name": "汇成股份",
+      "listing_status": "LISTED",
+      "trading_status": "TRADING",
+      "listing_effective_at": "2022-08-18T00:00:00+08:00"
+    },
+    {
       "external_code": "1:688408",
       "instrument_kind": "STOCK",
       "exchange": "SSE",
@@ -18741,6 +20664,46 @@
       "listing_status": "LISTED",
       "trading_status": "TRADING",
       "listing_effective_at": "2020-08-28T00:00:00+08:00"
+    },
+    {
+      "external_code": "1:688409",
+      "instrument_kind": "STOCK",
+      "exchange": "SSE",
+      "trading_code": "688409",
+      "name": "富创精密",
+      "listing_status": "LISTED",
+      "trading_status": "TRADING",
+      "listing_effective_at": "2022-10-10T00:00:00+08:00"
+    },
+    {
+      "external_code": "1:688410",
+      "instrument_kind": "STOCK",
+      "exchange": "SSE",
+      "trading_code": "688410",
+      "name": "山外山",
+      "listing_status": "LISTED",
+      "trading_status": "TRADING",
+      "listing_effective_at": "2022-12-26T00:00:00+08:00"
+    },
+    {
+      "external_code": "1:688411",
+      "instrument_kind": "STOCK",
+      "exchange": "SSE",
+      "trading_code": "688411",
+      "name": "海博思创",
+      "listing_status": "LISTED",
+      "trading_status": "TRADING",
+      "listing_effective_at": "2025-01-27T00:00:00+08:00"
+    },
+    {
+      "external_code": "1:688416",
+      "instrument_kind": "STOCK",
+      "exchange": "SSE",
+      "trading_code": "688416",
+      "name": "恒烁股份",
+      "listing_status": "LISTED",
+      "trading_status": "TRADING",
+      "listing_effective_at": "2022-08-29T00:00:00+08:00"
     },
     {
       "external_code": "1:688418",
@@ -18753,6 +20716,26 @@
       "listing_effective_at": "2020-07-22T00:00:00+08:00"
     },
     {
+      "external_code": "1:688419",
+      "instrument_kind": "STOCK",
+      "exchange": "SSE",
+      "trading_code": "688419",
+      "name": "耐科装备",
+      "listing_status": "LISTED",
+      "trading_status": "TRADING",
+      "listing_effective_at": "2022-11-07T00:00:00+08:00"
+    },
+    {
+      "external_code": "1:688420",
+      "instrument_kind": "STOCK",
+      "exchange": "SSE",
+      "trading_code": "688420",
+      "name": "美腾科技",
+      "listing_status": "LISTED",
+      "trading_status": "TRADING",
+      "listing_effective_at": "2022-12-09T00:00:00+08:00"
+    },
+    {
       "external_code": "1:688425",
       "instrument_kind": "STOCK",
       "exchange": "SSE",
@@ -18763,6 +20746,126 @@
       "listing_effective_at": "2021-06-22T00:00:00+08:00"
     },
     {
+      "external_code": "1:688426",
+      "instrument_kind": "STOCK",
+      "exchange": "SSE",
+      "trading_code": "688426",
+      "name": "康为世纪",
+      "listing_status": "LISTED",
+      "trading_status": "TRADING",
+      "listing_effective_at": "2022-10-25T00:00:00+08:00"
+    },
+    {
+      "external_code": "1:688428",
+      "instrument_kind": "STOCK",
+      "exchange": "SSE",
+      "trading_code": "688428",
+      "name": "诺诚健华",
+      "listing_status": "LISTED",
+      "trading_status": "TRADING",
+      "listing_effective_at": "2022-09-21T00:00:00+08:00"
+    },
+    {
+      "external_code": "1:688429",
+      "instrument_kind": "STOCK",
+      "exchange": "SSE",
+      "trading_code": "688429",
+      "name": "时创能源",
+      "listing_status": "LISTED",
+      "trading_status": "TRADING",
+      "listing_effective_at": "2023-06-29T00:00:00+08:00"
+    },
+    {
+      "external_code": "1:688432",
+      "instrument_kind": "STOCK",
+      "exchange": "SSE",
+      "trading_code": "688432",
+      "name": "有研硅",
+      "listing_status": "LISTED",
+      "trading_status": "TRADING",
+      "listing_effective_at": "2022-11-10T00:00:00+08:00"
+    },
+    {
+      "external_code": "1:688433",
+      "instrument_kind": "STOCK",
+      "exchange": "SSE",
+      "trading_code": "688433",
+      "name": "华曙高科",
+      "listing_status": "LISTED",
+      "trading_status": "TRADING",
+      "listing_effective_at": "2023-04-17T00:00:00+08:00"
+    },
+    {
+      "external_code": "1:688435",
+      "instrument_kind": "STOCK",
+      "exchange": "SSE",
+      "trading_code": "688435",
+      "name": "英方软件",
+      "listing_status": "LISTED",
+      "trading_status": "TRADING",
+      "listing_effective_at": "2023-01-19T00:00:00+08:00"
+    },
+    {
+      "external_code": "1:688439",
+      "instrument_kind": "STOCK",
+      "exchange": "SSE",
+      "trading_code": "688439",
+      "name": "振华风光",
+      "listing_status": "LISTED",
+      "trading_status": "TRADING",
+      "listing_effective_at": "2022-08-26T00:00:00+08:00"
+    },
+    {
+      "external_code": "1:688443",
+      "instrument_kind": "STOCK",
+      "exchange": "SSE",
+      "trading_code": "688443",
+      "name": "智翔金泰",
+      "listing_status": "LISTED",
+      "trading_status": "TRADING",
+      "listing_effective_at": "2023-06-20T00:00:00+08:00"
+    },
+    {
+      "external_code": "1:688448",
+      "instrument_kind": "STOCK",
+      "exchange": "SSE",
+      "trading_code": "688448",
+      "name": "磁谷科技",
+      "listing_status": "LISTED",
+      "trading_status": "TRADING",
+      "listing_effective_at": "2022-09-21T00:00:00+08:00"
+    },
+    {
+      "external_code": "1:688449",
+      "instrument_kind": "STOCK",
+      "exchange": "SSE",
+      "trading_code": "688449",
+      "name": "联芸科技",
+      "listing_status": "LISTED",
+      "trading_status": "TRADING",
+      "listing_effective_at": "2024-11-29T00:00:00+08:00"
+    },
+    {
+      "external_code": "1:688450",
+      "instrument_kind": "STOCK",
+      "exchange": "SSE",
+      "trading_code": "688450",
+      "name": "光格科技",
+      "listing_status": "LISTED",
+      "trading_status": "TRADING",
+      "listing_effective_at": "2023-07-24T00:00:00+08:00"
+    },
+    {
+      "external_code": "1:688455",
+      "instrument_kind": "STOCK",
+      "exchange": "SSE",
+      "trading_code": "688455",
+      "name": "科捷智能",
+      "listing_status": "LISTED",
+      "trading_status": "TRADING",
+      "listing_effective_at": "2022-09-15T00:00:00+08:00"
+    },
+    {
       "external_code": "1:688456",
       "instrument_kind": "STOCK",
       "exchange": "SSE",
@@ -18771,6 +20874,26 @@
       "listing_status": "LISTED",
       "trading_status": "TRADING",
       "listing_effective_at": "2021-03-17T00:00:00+08:00"
+    },
+    {
+      "external_code": "1:688458",
+      "instrument_kind": "STOCK",
+      "exchange": "SSE",
+      "trading_code": "688458",
+      "name": "美芯晟",
+      "listing_status": "LISTED",
+      "trading_status": "TRADING",
+      "listing_effective_at": "2023-05-22T00:00:00+08:00"
+    },
+    {
+      "external_code": "1:688459",
+      "instrument_kind": "STOCK",
+      "exchange": "SSE",
+      "trading_code": "688459",
+      "name": "哈铁科技",
+      "listing_status": "LISTED",
+      "trading_status": "TRADING",
+      "listing_effective_at": "2022-10-12T00:00:00+08:00"
     },
     {
       "external_code": "1:688466",
@@ -18793,6 +20916,96 @@
       "listing_effective_at": "2021-04-09T00:00:00+08:00"
     },
     {
+      "external_code": "1:688469",
+      "instrument_kind": "STOCK",
+      "exchange": "SSE",
+      "trading_code": "688469",
+      "name": "芯联集成",
+      "listing_status": "LISTED",
+      "trading_status": "TRADING",
+      "listing_effective_at": "2023-05-10T00:00:00+08:00"
+    },
+    {
+      "external_code": "1:688472",
+      "instrument_kind": "STOCK",
+      "exchange": "SSE",
+      "trading_code": "688472",
+      "name": "阿特斯",
+      "listing_status": "LISTED",
+      "trading_status": "TRADING",
+      "listing_effective_at": "2023-06-09T00:00:00+08:00"
+    },
+    {
+      "external_code": "1:688475",
+      "instrument_kind": "STOCK",
+      "exchange": "SSE",
+      "trading_code": "688475",
+      "name": "萤石网络",
+      "listing_status": "LISTED",
+      "trading_status": "TRADING",
+      "listing_effective_at": "2022-12-28T00:00:00+08:00"
+    },
+    {
+      "external_code": "1:688478",
+      "instrument_kind": "STOCK",
+      "exchange": "SSE",
+      "trading_code": "688478",
+      "name": "晶升股份",
+      "listing_status": "LISTED",
+      "trading_status": "TRADING",
+      "listing_effective_at": "2023-04-24T00:00:00+08:00"
+    },
+    {
+      "external_code": "1:688479",
+      "instrument_kind": "STOCK",
+      "exchange": "SSE",
+      "trading_code": "688479",
+      "name": "友车科技",
+      "listing_status": "LISTED",
+      "trading_status": "TRADING",
+      "listing_effective_at": "2023-05-11T00:00:00+08:00"
+    },
+    {
+      "external_code": "1:688480",
+      "instrument_kind": "STOCK",
+      "exchange": "SSE",
+      "trading_code": "688480",
+      "name": "赛恩斯",
+      "listing_status": "LISTED",
+      "trading_status": "TRADING",
+      "listing_effective_at": "2022-11-25T00:00:00+08:00"
+    },
+    {
+      "external_code": "1:688484",
+      "instrument_kind": "STOCK",
+      "exchange": "SSE",
+      "trading_code": "688484",
+      "name": "南芯科技",
+      "listing_status": "LISTED",
+      "trading_status": "TRADING",
+      "listing_effective_at": "2023-04-07T00:00:00+08:00"
+    },
+    {
+      "external_code": "1:688485",
+      "instrument_kind": "STOCK",
+      "exchange": "SSE",
+      "trading_code": "688485",
+      "name": "九州一轨",
+      "listing_status": "LISTED",
+      "trading_status": "TRADING",
+      "listing_effective_at": "2023-01-18T00:00:00+08:00"
+    },
+    {
+      "external_code": "1:688486",
+      "instrument_kind": "STOCK",
+      "exchange": "SSE",
+      "trading_code": "688486",
+      "name": "龙迅股份",
+      "listing_status": "LISTED",
+      "trading_status": "TRADING",
+      "listing_effective_at": "2023-02-21T00:00:00+08:00"
+    },
+    {
       "external_code": "1:688488",
       "instrument_kind": "STOCK",
       "exchange": "SSE",
@@ -18801,6 +21014,36 @@
       "listing_status": "LISTED",
       "trading_status": "TRADING",
       "listing_effective_at": "2020-07-20T00:00:00+08:00"
+    },
+    {
+      "external_code": "1:688489",
+      "instrument_kind": "STOCK",
+      "exchange": "SSE",
+      "trading_code": "688489",
+      "name": "三未信安",
+      "listing_status": "LISTED",
+      "trading_status": "TRADING",
+      "listing_effective_at": "2022-12-02T00:00:00+08:00"
+    },
+    {
+      "external_code": "1:688496",
+      "instrument_kind": "STOCK",
+      "exchange": "SSE",
+      "trading_code": "688496",
+      "name": "*ST清越",
+      "listing_status": "LISTED",
+      "trading_status": "TRADING",
+      "listing_effective_at": "2022-12-28T00:00:00+08:00"
+    },
+    {
+      "external_code": "1:688498",
+      "instrument_kind": "STOCK",
+      "exchange": "SSE",
+      "trading_code": "688498",
+      "name": "源杰科技",
+      "listing_status": "LISTED",
+      "trading_status": "TRADING",
+      "listing_effective_at": "2022-12-21T00:00:00+08:00"
     },
     {
       "external_code": "1:688499",
@@ -18833,6 +21076,26 @@
       "listing_effective_at": "2021-07-16T00:00:00+08:00"
     },
     {
+      "external_code": "1:688502",
+      "instrument_kind": "STOCK",
+      "exchange": "SSE",
+      "trading_code": "688502",
+      "name": "茂莱光学",
+      "listing_status": "LISTED",
+      "trading_status": "TRADING",
+      "listing_effective_at": "2023-03-09T00:00:00+08:00"
+    },
+    {
+      "external_code": "1:688503",
+      "instrument_kind": "STOCK",
+      "exchange": "SSE",
+      "trading_code": "688503",
+      "name": "聚和材料",
+      "listing_status": "LISTED",
+      "trading_status": "TRADING",
+      "listing_effective_at": "2022-12-09T00:00:00+08:00"
+    },
+    {
       "external_code": "1:688505",
       "instrument_kind": "STOCK",
       "exchange": "SSE",
@@ -18841,6 +21104,26 @@
       "listing_status": "LISTED",
       "trading_status": "TRADING",
       "listing_effective_at": "2020-06-19T00:00:00+08:00"
+    },
+    {
+      "external_code": "1:688506",
+      "instrument_kind": "STOCK",
+      "exchange": "SSE",
+      "trading_code": "688506",
+      "name": "百利天恒",
+      "listing_status": "LISTED",
+      "trading_status": "TRADING",
+      "listing_effective_at": "2023-01-06T00:00:00+08:00"
+    },
+    {
+      "external_code": "1:688507",
+      "instrument_kind": "STOCK",
+      "exchange": "SSE",
+      "trading_code": "688507",
+      "name": "索辰科技",
+      "listing_status": "LISTED",
+      "trading_status": "TRADING",
+      "listing_effective_at": "2023-04-18T00:00:00+08:00"
     },
     {
       "external_code": "1:688508",
@@ -18883,6 +21166,16 @@
       "listing_effective_at": "2021-07-30T00:00:00+08:00"
     },
     {
+      "external_code": "1:688512",
+      "instrument_kind": "STOCK",
+      "exchange": "SSE",
+      "trading_code": "688512",
+      "name": "慧智微",
+      "listing_status": "LISTED",
+      "trading_status": "TRADING",
+      "listing_effective_at": "2023-05-16T00:00:00+08:00"
+    },
+    {
       "external_code": "1:688513",
       "instrument_kind": "STOCK",
       "exchange": "SSE",
@@ -18891,6 +21184,16 @@
       "listing_status": "LISTED",
       "trading_status": "TRADING",
       "listing_effective_at": "2020-09-02T00:00:00+08:00"
+    },
+    {
+      "external_code": "1:688515",
+      "instrument_kind": "STOCK",
+      "exchange": "SSE",
+      "trading_code": "688515",
+      "name": "裕太微",
+      "listing_status": "LISTED",
+      "trading_status": "TRADING",
+      "listing_effective_at": "2023-02-10T00:00:00+08:00"
     },
     {
       "external_code": "1:688516",
@@ -18953,6 +21256,36 @@
       "listing_effective_at": "2020-08-18T00:00:00+08:00"
     },
     {
+      "external_code": "1:688522",
+      "instrument_kind": "STOCK",
+      "exchange": "SSE",
+      "trading_code": "688522",
+      "name": "纳睿雷达",
+      "listing_status": "LISTED",
+      "trading_status": "TRADING",
+      "listing_effective_at": "2023-03-01T00:00:00+08:00"
+    },
+    {
+      "external_code": "1:688523",
+      "instrument_kind": "STOCK",
+      "exchange": "SSE",
+      "trading_code": "688523",
+      "name": "航天环宇",
+      "listing_status": "LISTED",
+      "trading_status": "TRADING",
+      "listing_effective_at": "2023-06-02T00:00:00+08:00"
+    },
+    {
+      "external_code": "1:688525",
+      "instrument_kind": "STOCK",
+      "exchange": "SSE",
+      "trading_code": "688525",
+      "name": "佰维存储",
+      "listing_status": "LISTED",
+      "trading_status": "TRADING",
+      "listing_effective_at": "2022-12-30T00:00:00+08:00"
+    },
+    {
       "external_code": "1:688526",
       "instrument_kind": "STOCK",
       "exchange": "SSE",
@@ -18983,6 +21316,26 @@
       "listing_effective_at": "2020-11-09T00:00:00+08:00"
     },
     {
+      "external_code": "1:688530",
+      "instrument_kind": "STOCK",
+      "exchange": "SSE",
+      "trading_code": "688530",
+      "name": "欧莱新材",
+      "listing_status": "LISTED",
+      "trading_status": "TRADING",
+      "listing_effective_at": "2024-05-09T00:00:00+08:00"
+    },
+    {
+      "external_code": "1:688531",
+      "instrument_kind": "STOCK",
+      "exchange": "SSE",
+      "trading_code": "688531",
+      "name": "日联科技",
+      "listing_status": "LISTED",
+      "trading_status": "TRADING",
+      "listing_effective_at": "2023-03-31T00:00:00+08:00"
+    },
+    {
       "external_code": "1:688533",
       "instrument_kind": "STOCK",
       "exchange": "SSE",
@@ -18991,6 +21344,16 @@
       "listing_status": "LISTED",
       "trading_status": "TRADING",
       "listing_effective_at": "2021-04-19T00:00:00+08:00"
+    },
+    {
+      "external_code": "1:688535",
+      "instrument_kind": "STOCK",
+      "exchange": "SSE",
+      "trading_code": "688535",
+      "name": "华海诚科",
+      "listing_status": "LISTED",
+      "trading_status": "TRADING",
+      "listing_effective_at": "2023-04-04T00:00:00+08:00"
     },
     {
       "external_code": "1:688536",
@@ -19013,6 +21376,56 @@
       "listing_effective_at": "2021-05-28T00:00:00+08:00"
     },
     {
+      "external_code": "1:688539",
+      "instrument_kind": "STOCK",
+      "exchange": "SSE",
+      "trading_code": "688539",
+      "name": "高华科技",
+      "listing_status": "LISTED",
+      "trading_status": "TRADING",
+      "listing_effective_at": "2023-04-18T00:00:00+08:00"
+    },
+    {
+      "external_code": "1:688543",
+      "instrument_kind": "STOCK",
+      "exchange": "SSE",
+      "trading_code": "688543",
+      "name": "国科军工",
+      "listing_status": "LISTED",
+      "trading_status": "TRADING",
+      "listing_effective_at": "2023-06-21T00:00:00+08:00"
+    },
+    {
+      "external_code": "1:688545",
+      "instrument_kind": "STOCK",
+      "exchange": "SSE",
+      "trading_code": "688545",
+      "name": "兴福电子",
+      "listing_status": "LISTED",
+      "trading_status": "TRADING",
+      "listing_effective_at": "2025-01-22T00:00:00+08:00"
+    },
+    {
+      "external_code": "1:688548",
+      "instrument_kind": "STOCK",
+      "exchange": "SSE",
+      "trading_code": "688548",
+      "name": "广钢气体",
+      "listing_status": "LISTED",
+      "trading_status": "TRADING",
+      "listing_effective_at": "2023-08-15T00:00:00+08:00"
+    },
+    {
+      "external_code": "1:688549",
+      "instrument_kind": "STOCK",
+      "exchange": "SSE",
+      "trading_code": "688549",
+      "name": "中巨芯",
+      "listing_status": "LISTED",
+      "trading_status": "TRADING",
+      "listing_effective_at": "2023-09-08T00:00:00+08:00"
+    },
+    {
       "external_code": "1:688550",
       "instrument_kind": "STOCK",
       "exchange": "SSE",
@@ -19031,6 +21444,16 @@
       "listing_status": "LISTED",
       "trading_status": "TRADING",
       "listing_effective_at": "2020-09-10T00:00:00+08:00"
+    },
+    {
+      "external_code": "1:688552",
+      "instrument_kind": "STOCK",
+      "exchange": "SSE",
+      "trading_code": "688552",
+      "name": "航天南湖",
+      "listing_status": "LISTED",
+      "trading_status": "TRADING",
+      "listing_effective_at": "2023-05-18T00:00:00+08:00"
     },
     {
       "external_code": "1:688553",
@@ -19103,6 +21526,26 @@
       "listing_effective_at": "2020-07-22T00:00:00+08:00"
     },
     {
+      "external_code": "1:688562",
+      "instrument_kind": "STOCK",
+      "exchange": "SSE",
+      "trading_code": "688562",
+      "name": "航天软件",
+      "listing_status": "LISTED",
+      "trading_status": "TRADING",
+      "listing_effective_at": "2023-05-24T00:00:00+08:00"
+    },
+    {
+      "external_code": "1:688563",
+      "instrument_kind": "STOCK",
+      "exchange": "SSE",
+      "trading_code": "688563",
+      "name": "航材股份",
+      "listing_status": "LISTED",
+      "trading_status": "TRADING",
+      "listing_effective_at": "2023-07-19T00:00:00+08:00"
+    },
+    {
       "external_code": "1:688565",
       "instrument_kind": "STOCK",
       "exchange": "SSE",
@@ -19153,6 +21596,16 @@
       "listing_effective_at": "2020-08-31T00:00:00+08:00"
     },
     {
+      "external_code": "1:688570",
+      "instrument_kind": "STOCK",
+      "exchange": "SSE",
+      "trading_code": "688570",
+      "name": "天玛智控",
+      "listing_status": "LISTED",
+      "trading_status": "TRADING",
+      "listing_effective_at": "2023-06-05T00:00:00+08:00"
+    },
+    {
       "external_code": "1:688571",
       "instrument_kind": "STOCK",
       "exchange": "SSE",
@@ -19163,6 +21616,16 @@
       "listing_effective_at": "2020-12-11T00:00:00+08:00"
     },
     {
+      "external_code": "1:688573",
+      "instrument_kind": "STOCK",
+      "exchange": "SSE",
+      "trading_code": "688573",
+      "name": "信宇人",
+      "listing_status": "LISTED",
+      "trading_status": "TRADING",
+      "listing_effective_at": "2023-08-17T00:00:00+08:00"
+    },
+    {
       "external_code": "1:688575",
       "instrument_kind": "STOCK",
       "exchange": "SSE",
@@ -19171,6 +21634,16 @@
       "listing_status": "LISTED",
       "trading_status": "TRADING",
       "listing_effective_at": "2021-05-17T00:00:00+08:00"
+    },
+    {
+      "external_code": "1:688576",
+      "instrument_kind": "STOCK",
+      "exchange": "SSE",
+      "trading_code": "688576",
+      "name": "西山科技",
+      "listing_status": "LISTED",
+      "trading_status": "TRADING",
+      "listing_effective_at": "2023-06-06T00:00:00+08:00"
     },
     {
       "external_code": "1:688577",
@@ -19211,6 +21684,46 @@
       "listing_status": "LISTED",
       "trading_status": "TRADING",
       "listing_effective_at": "2020-07-21T00:00:00+08:00"
+    },
+    {
+      "external_code": "1:688581",
+      "instrument_kind": "STOCK",
+      "exchange": "SSE",
+      "trading_code": "688581",
+      "name": "安杰思",
+      "listing_status": "LISTED",
+      "trading_status": "TRADING",
+      "listing_effective_at": "2023-05-19T00:00:00+08:00"
+    },
+    {
+      "external_code": "1:688582",
+      "instrument_kind": "STOCK",
+      "exchange": "SSE",
+      "trading_code": "688582",
+      "name": "芯动联科",
+      "listing_status": "LISTED",
+      "trading_status": "TRADING",
+      "listing_effective_at": "2023-06-30T00:00:00+08:00"
+    },
+    {
+      "external_code": "1:688583",
+      "instrument_kind": "STOCK",
+      "exchange": "SSE",
+      "trading_code": "688583",
+      "name": "思看科技",
+      "listing_status": "LISTED",
+      "trading_status": "TRADING",
+      "listing_effective_at": "2025-01-15T00:00:00+08:00"
+    },
+    {
+      "external_code": "1:688584",
+      "instrument_kind": "STOCK",
+      "exchange": "SSE",
+      "trading_code": "688584",
+      "name": "上海合晶",
+      "listing_status": "LISTED",
+      "trading_status": "TRADING",
+      "listing_effective_at": "2024-02-08T00:00:00+08:00"
     },
     {
       "external_code": "1:688585",
@@ -19261,6 +21774,36 @@
       "listing_status": "LISTED",
       "trading_status": "TRADING",
       "listing_effective_at": "2020-12-07T00:00:00+08:00"
+    },
+    {
+      "external_code": "1:688591",
+      "instrument_kind": "STOCK",
+      "exchange": "SSE",
+      "trading_code": "688591",
+      "name": "泰凌微",
+      "listing_status": "LISTED",
+      "trading_status": "TRADING",
+      "listing_effective_at": "2023-08-25T00:00:00+08:00"
+    },
+    {
+      "external_code": "1:688592",
+      "instrument_kind": "STOCK",
+      "exchange": "SSE",
+      "trading_code": "688592",
+      "name": "司南导航",
+      "listing_status": "LISTED",
+      "trading_status": "TRADING",
+      "listing_effective_at": "2023-08-16T00:00:00+08:00"
+    },
+    {
+      "external_code": "1:688593",
+      "instrument_kind": "STOCK",
+      "exchange": "SSE",
+      "trading_code": "688593",
+      "name": "新相微",
+      "listing_status": "LISTED",
+      "trading_status": "TRADING",
+      "listing_effective_at": "2023-06-01T00:00:00+08:00"
     },
     {
       "external_code": "1:688595",
@@ -19333,6 +21876,36 @@
       "listing_effective_at": "2021-06-28T00:00:00+08:00"
     },
     {
+      "external_code": "1:688602",
+      "instrument_kind": "STOCK",
+      "exchange": "SSE",
+      "trading_code": "688602",
+      "name": "康鹏科技",
+      "listing_status": "LISTED",
+      "trading_status": "TRADING",
+      "listing_effective_at": "2023-07-20T00:00:00+08:00"
+    },
+    {
+      "external_code": "1:688603",
+      "instrument_kind": "STOCK",
+      "exchange": "SSE",
+      "trading_code": "688603",
+      "name": "天承科技",
+      "listing_status": "LISTED",
+      "trading_status": "TRADING",
+      "listing_effective_at": "2023-07-10T00:00:00+08:00"
+    },
+    {
+      "external_code": "1:688605",
+      "instrument_kind": "STOCK",
+      "exchange": "SSE",
+      "trading_code": "688605",
+      "name": "先锋精科",
+      "listing_status": "LISTED",
+      "trading_status": "TRADING",
+      "listing_effective_at": "2024-12-12T00:00:00+08:00"
+    },
+    {
       "external_code": "1:688606",
       "instrument_kind": "STOCK",
       "exchange": "SSE",
@@ -19373,6 +21946,16 @@
       "listing_effective_at": "2021-03-23T00:00:00+08:00"
     },
     {
+      "external_code": "1:688610",
+      "instrument_kind": "STOCK",
+      "exchange": "SSE",
+      "trading_code": "688610",
+      "name": "埃科光电",
+      "listing_status": "LISTED",
+      "trading_status": "TRADING",
+      "listing_effective_at": "2023-07-19T00:00:00+08:00"
+    },
+    {
       "external_code": "1:688611",
       "instrument_kind": "STOCK",
       "exchange": "SSE",
@@ -19383,6 +21966,16 @@
       "listing_effective_at": "2021-04-12T00:00:00+08:00"
     },
     {
+      "external_code": "1:688612",
+      "instrument_kind": "STOCK",
+      "exchange": "SSE",
+      "trading_code": "688612",
+      "name": "威迈斯",
+      "listing_status": "LISTED",
+      "trading_status": "TRADING",
+      "listing_effective_at": "2023-07-26T00:00:00+08:00"
+    },
+    {
       "external_code": "1:688613",
       "instrument_kind": "STOCK",
       "exchange": "SSE",
@@ -19391,6 +21984,16 @@
       "listing_status": "LISTED",
       "trading_status": "TRADING",
       "listing_effective_at": "2021-05-21T00:00:00+08:00"
+    },
+    {
+      "external_code": "1:688615",
+      "instrument_kind": "STOCK",
+      "exchange": "SSE",
+      "trading_code": "688615",
+      "name": "合合信息",
+      "listing_status": "LISTED",
+      "trading_status": "TRADING",
+      "listing_effective_at": "2024-09-26T00:00:00+08:00"
     },
     {
       "external_code": "1:688616",
@@ -19433,6 +22036,16 @@
       "listing_effective_at": "2021-02-23T00:00:00+08:00"
     },
     {
+      "external_code": "1:688620",
+      "instrument_kind": "STOCK",
+      "exchange": "SSE",
+      "trading_code": "688620",
+      "name": "安凯微",
+      "listing_status": "LISTED",
+      "trading_status": "TRADING",
+      "listing_effective_at": "2023-06-27T00:00:00+08:00"
+    },
+    {
       "external_code": "1:688621",
       "instrument_kind": "STOCK",
       "exchange": "SSE",
@@ -19451,6 +22064,16 @@
       "listing_status": "LISTED",
       "trading_status": "TRADING",
       "listing_effective_at": "2021-09-13T00:00:00+08:00"
+    },
+    {
+      "external_code": "1:688623",
+      "instrument_kind": "STOCK",
+      "exchange": "SSE",
+      "trading_code": "688623",
+      "name": "双元科技",
+      "listing_status": "LISTED",
+      "trading_status": "TRADING",
+      "listing_effective_at": "2023-06-08T00:00:00+08:00"
     },
     {
       "external_code": "1:688625",
@@ -19473,6 +22096,16 @@
       "listing_effective_at": "2021-03-31T00:00:00+08:00"
     },
     {
+      "external_code": "1:688627",
+      "instrument_kind": "STOCK",
+      "exchange": "SSE",
+      "trading_code": "688627",
+      "name": "精智达",
+      "listing_status": "LISTED",
+      "trading_status": "TRADING",
+      "listing_effective_at": "2023-07-18T00:00:00+08:00"
+    },
+    {
       "external_code": "1:688628",
       "instrument_kind": "STOCK",
       "exchange": "SSE",
@@ -19481,6 +22114,16 @@
       "listing_status": "LISTED",
       "trading_status": "TRADING",
       "listing_effective_at": "2021-02-01T00:00:00+08:00"
+    },
+    {
+      "external_code": "1:688629",
+      "instrument_kind": "STOCK",
+      "exchange": "SSE",
+      "trading_code": "688629",
+      "name": "华丰科技",
+      "listing_status": "LISTED",
+      "trading_status": "TRADING",
+      "listing_effective_at": "2023-06-27T00:00:00+08:00"
     },
     {
       "external_code": "1:688630",
@@ -19493,6 +22136,16 @@
       "listing_effective_at": "2021-04-01T00:00:00+08:00"
     },
     {
+      "external_code": "1:688631",
+      "instrument_kind": "STOCK",
+      "exchange": "SSE",
+      "trading_code": "688631",
+      "name": "莱斯信息",
+      "listing_status": "LISTED",
+      "trading_status": "TRADING",
+      "listing_effective_at": "2023-06-28T00:00:00+08:00"
+    },
+    {
       "external_code": "1:688633",
       "instrument_kind": "STOCK",
       "exchange": "SSE",
@@ -19501,6 +22154,16 @@
       "listing_status": "LISTED",
       "trading_status": "TRADING",
       "listing_effective_at": "2021-03-24T00:00:00+08:00"
+    },
+    {
+      "external_code": "1:688635",
+      "instrument_kind": "STOCK",
+      "exchange": "SSE",
+      "trading_code": "688635",
+      "name": "长进光子",
+      "listing_status": "LISTED",
+      "trading_status": "TRADING",
+      "listing_effective_at": "2026-05-27T00:00:00+08:00"
     },
     {
       "external_code": "1:688636",
@@ -19513,6 +22176,16 @@
       "listing_effective_at": "2021-04-08T00:00:00+08:00"
     },
     {
+      "external_code": "1:688638",
+      "instrument_kind": "STOCK",
+      "exchange": "SSE",
+      "trading_code": "688638",
+      "name": "誉辰智能",
+      "listing_status": "LISTED",
+      "trading_status": "TRADING",
+      "listing_effective_at": "2023-07-12T00:00:00+08:00"
+    },
+    {
       "external_code": "1:688639",
       "instrument_kind": "STOCK",
       "exchange": "SSE",
@@ -19521,6 +22194,56 @@
       "listing_status": "LISTED",
       "trading_status": "TRADING",
       "listing_effective_at": "2021-04-22T00:00:00+08:00"
+    },
+    {
+      "external_code": "1:688646",
+      "instrument_kind": "STOCK",
+      "exchange": "SSE",
+      "trading_code": "688646",
+      "name": "逸飞激光",
+      "listing_status": "LISTED",
+      "trading_status": "TRADING",
+      "listing_effective_at": "2023-07-28T00:00:00+08:00"
+    },
+    {
+      "external_code": "1:688648",
+      "instrument_kind": "STOCK",
+      "exchange": "SSE",
+      "trading_code": "688648",
+      "name": "中邮科技",
+      "listing_status": "LISTED",
+      "trading_status": "TRADING",
+      "listing_effective_at": "2023-11-13T00:00:00+08:00"
+    },
+    {
+      "external_code": "1:688651",
+      "instrument_kind": "STOCK",
+      "exchange": "SSE",
+      "trading_code": "688651",
+      "name": "盛邦安全",
+      "listing_status": "LISTED",
+      "trading_status": "TRADING",
+      "listing_effective_at": "2023-07-26T00:00:00+08:00"
+    },
+    {
+      "external_code": "1:688652",
+      "instrument_kind": "STOCK",
+      "exchange": "SSE",
+      "trading_code": "688652",
+      "name": "京仪装备",
+      "listing_status": "LISTED",
+      "trading_status": "TRADING",
+      "listing_effective_at": "2023-11-29T00:00:00+08:00"
+    },
+    {
+      "external_code": "1:688653",
+      "instrument_kind": "STOCK",
+      "exchange": "SSE",
+      "trading_code": "688653",
+      "name": "康希通信",
+      "listing_status": "LISTED",
+      "trading_status": "TRADING",
+      "listing_effective_at": "2023-11-17T00:00:00+08:00"
     },
     {
       "external_code": "1:688655",
@@ -19541,6 +22264,16 @@
       "listing_status": "LISTED",
       "trading_status": "TRADING",
       "listing_effective_at": "2021-01-13T00:00:00+08:00"
+    },
+    {
+      "external_code": "1:688657",
+      "instrument_kind": "STOCK",
+      "exchange": "SSE",
+      "trading_code": "688657",
+      "name": "浩辰软件",
+      "listing_status": "LISTED",
+      "trading_status": "TRADING",
+      "listing_effective_at": "2023-10-10T00:00:00+08:00"
     },
     {
       "external_code": "1:688658",
@@ -19651,6 +22384,16 @@
       "listing_status": "LISTED",
       "trading_status": "TRADING",
       "listing_effective_at": "2021-08-02T00:00:00+08:00"
+    },
+    {
+      "external_code": "1:688671",
+      "instrument_kind": "STOCK",
+      "exchange": "SSE",
+      "trading_code": "688671",
+      "name": "碧兴物联",
+      "listing_status": "LISTED",
+      "trading_status": "TRADING",
+      "listing_effective_at": "2023-08-09T00:00:00+08:00"
     },
     {
       "external_code": "1:688676",
@@ -19783,6 +22526,46 @@
       "listing_effective_at": "2021-06-23T00:00:00+08:00"
     },
     {
+      "external_code": "1:688691",
+      "instrument_kind": "STOCK",
+      "exchange": "SSE",
+      "trading_code": "688691",
+      "name": "灿芯股份",
+      "listing_status": "LISTED",
+      "trading_status": "TRADING",
+      "listing_effective_at": "2024-04-11T00:00:00+08:00"
+    },
+    {
+      "external_code": "1:688692",
+      "instrument_kind": "STOCK",
+      "exchange": "SSE",
+      "trading_code": "688692",
+      "name": "达梦数据",
+      "listing_status": "LISTED",
+      "trading_status": "TRADING",
+      "listing_effective_at": "2024-06-12T00:00:00+08:00"
+    },
+    {
+      "external_code": "1:688693",
+      "instrument_kind": "STOCK",
+      "exchange": "SSE",
+      "trading_code": "688693",
+      "name": "锴威特",
+      "listing_status": "LISTED",
+      "trading_status": "TRADING",
+      "listing_effective_at": "2023-08-18T00:00:00+08:00"
+    },
+    {
+      "external_code": "1:688695",
+      "instrument_kind": "STOCK",
+      "exchange": "SSE",
+      "trading_code": "688695",
+      "name": "中创股份",
+      "listing_status": "LISTED",
+      "trading_status": "TRADING",
+      "listing_effective_at": "2024-03-13T00:00:00+08:00"
+    },
+    {
       "external_code": "1:688696",
       "instrument_kind": "STOCK",
       "exchange": "SSE",
@@ -19843,6 +22626,16 @@
       "listing_effective_at": "2021-09-16T00:00:00+08:00"
     },
     {
+      "external_code": "1:688702",
+      "instrument_kind": "STOCK",
+      "exchange": "SSE",
+      "trading_code": "688702",
+      "name": "盛科通信",
+      "listing_status": "LISTED",
+      "trading_status": "TRADING",
+      "listing_effective_at": "2023-09-14T00:00:00+08:00"
+    },
+    {
       "external_code": "1:688707",
       "instrument_kind": "STOCK",
       "exchange": "SSE",
@@ -19851,6 +22644,36 @@
       "listing_status": "LISTED",
       "trading_status": "TRADING",
       "listing_effective_at": "2021-09-14T00:00:00+08:00"
+    },
+    {
+      "external_code": "1:688708",
+      "instrument_kind": "STOCK",
+      "exchange": "SSE",
+      "trading_code": "688708",
+      "name": "佳驰科技",
+      "listing_status": "LISTED",
+      "trading_status": "TRADING",
+      "listing_effective_at": "2024-12-05T00:00:00+08:00"
+    },
+    {
+      "external_code": "1:688709",
+      "instrument_kind": "STOCK",
+      "exchange": "SSE",
+      "trading_code": "688709",
+      "name": "成都华微",
+      "listing_status": "LISTED",
+      "trading_status": "TRADING",
+      "listing_effective_at": "2024-02-07T00:00:00+08:00"
+    },
+    {
+      "external_code": "1:688710",
+      "instrument_kind": "STOCK",
+      "exchange": "SSE",
+      "trading_code": "688710",
+      "name": "益诺思",
+      "listing_status": "LISTED",
+      "trading_status": "TRADING",
+      "listing_effective_at": "2024-09-03T00:00:00+08:00"
     },
     {
       "external_code": "1:688711",
@@ -19863,6 +22686,36 @@
       "listing_effective_at": "2021-09-01T00:00:00+08:00"
     },
     {
+      "external_code": "1:688712",
+      "instrument_kind": "STOCK",
+      "exchange": "SSE",
+      "trading_code": "688712",
+      "name": "北芯生命",
+      "listing_status": "LISTED",
+      "trading_status": "TRADING",
+      "listing_effective_at": "2026-02-05T00:00:00+08:00"
+    },
+    {
+      "external_code": "1:688716",
+      "instrument_kind": "STOCK",
+      "exchange": "SSE",
+      "trading_code": "688716",
+      "name": "中研股份",
+      "listing_status": "LISTED",
+      "trading_status": "TRADING",
+      "listing_effective_at": "2023-09-20T00:00:00+08:00"
+    },
+    {
+      "external_code": "1:688717",
+      "instrument_kind": "STOCK",
+      "exchange": "SSE",
+      "trading_code": "688717",
+      "name": "艾罗能源",
+      "listing_status": "LISTED",
+      "trading_status": "TRADING",
+      "listing_effective_at": "2024-01-03T00:00:00+08:00"
+    },
+    {
       "external_code": "1:688718",
       "instrument_kind": "STOCK",
       "exchange": "SSE",
@@ -19871,6 +22724,36 @@
       "listing_status": "LISTED",
       "trading_status": "TRADING",
       "listing_effective_at": "2021-07-28T00:00:00+08:00"
+    },
+    {
+      "external_code": "1:688719",
+      "instrument_kind": "STOCK",
+      "exchange": "SSE",
+      "trading_code": "688719",
+      "name": "爱科赛博",
+      "listing_status": "LISTED",
+      "trading_status": "TRADING",
+      "listing_effective_at": "2023-09-28T00:00:00+08:00"
+    },
+    {
+      "external_code": "1:688720",
+      "instrument_kind": "STOCK",
+      "exchange": "SSE",
+      "trading_code": "688720",
+      "name": "艾森股份",
+      "listing_status": "LISTED",
+      "trading_status": "TRADING",
+      "listing_effective_at": "2023-12-06T00:00:00+08:00"
+    },
+    {
+      "external_code": "1:688721",
+      "instrument_kind": "STOCK",
+      "exchange": "SSE",
+      "trading_code": "688721",
+      "name": "龙图光罩",
+      "listing_status": "LISTED",
+      "trading_status": "TRADING",
+      "listing_effective_at": "2024-08-06T00:00:00+08:00"
     },
     {
       "external_code": "1:688722",
@@ -19883,6 +22766,26 @@
       "listing_effective_at": "2021-10-19T00:00:00+08:00"
     },
     {
+      "external_code": "1:688726",
+      "instrument_kind": "STOCK",
+      "exchange": "SSE",
+      "trading_code": "688726",
+      "name": "拉普拉斯",
+      "listing_status": "LISTED",
+      "trading_status": "TRADING",
+      "listing_effective_at": "2024-10-29T00:00:00+08:00"
+    },
+    {
+      "external_code": "1:688727",
+      "instrument_kind": "STOCK",
+      "exchange": "SSE",
+      "trading_code": "688727",
+      "name": "恒坤新材",
+      "listing_status": "LISTED",
+      "trading_status": "TRADING",
+      "listing_effective_at": "2025-11-18T00:00:00+08:00"
+    },
+    {
       "external_code": "1:688728",
       "instrument_kind": "STOCK",
       "exchange": "SSE",
@@ -19891,6 +22794,16 @@
       "listing_status": "LISTED",
       "trading_status": "TRADING",
       "listing_effective_at": "2021-08-18T00:00:00+08:00"
+    },
+    {
+      "external_code": "1:688729",
+      "instrument_kind": "STOCK",
+      "exchange": "SSE",
+      "trading_code": "688729",
+      "name": "屹唐股份",
+      "listing_status": "LISTED",
+      "trading_status": "TRADING",
+      "listing_effective_at": "2025-07-08T00:00:00+08:00"
     },
     {
       "external_code": "1:688733",
@@ -19921,6 +22834,66 @@
       "listing_status": "LISTED",
       "trading_status": "TRADING",
       "listing_effective_at": "2021-10-28T00:00:00+08:00"
+    },
+    {
+      "external_code": "1:688750",
+      "instrument_kind": "STOCK",
+      "exchange": "SSE",
+      "trading_code": "688750",
+      "name": "金天钛业",
+      "listing_status": "LISTED",
+      "trading_status": "TRADING",
+      "listing_effective_at": "2024-11-20T00:00:00+08:00"
+    },
+    {
+      "external_code": "1:688755",
+      "instrument_kind": "STOCK",
+      "exchange": "SSE",
+      "trading_code": "688755",
+      "name": "汉邦科技",
+      "listing_status": "LISTED",
+      "trading_status": "TRADING",
+      "listing_effective_at": "2025-05-16T00:00:00+08:00"
+    },
+    {
+      "external_code": "1:688757",
+      "instrument_kind": "STOCK",
+      "exchange": "SSE",
+      "trading_code": "688757",
+      "name": "胜科纳米",
+      "listing_status": "LISTED",
+      "trading_status": "TRADING",
+      "listing_effective_at": "2025-03-25T00:00:00+08:00"
+    },
+    {
+      "external_code": "1:688758",
+      "instrument_kind": "STOCK",
+      "exchange": "SSE",
+      "trading_code": "688758",
+      "name": "赛分科技",
+      "listing_status": "LISTED",
+      "trading_status": "TRADING",
+      "listing_effective_at": "2025-01-10T00:00:00+08:00"
+    },
+    {
+      "external_code": "1:688759",
+      "instrument_kind": "STOCK",
+      "exchange": "SSE",
+      "trading_code": "688759",
+      "name": "必贝特",
+      "listing_status": "LISTED",
+      "trading_status": "TRADING",
+      "listing_effective_at": "2025-10-28T00:00:00+08:00"
+    },
+    {
+      "external_code": "1:688765",
+      "instrument_kind": "STOCK",
+      "exchange": "SSE",
+      "trading_code": "688765",
+      "name": "禾元生物",
+      "listing_status": "LISTED",
+      "trading_status": "TRADING",
+      "listing_effective_at": "2025-10-28T00:00:00+08:00"
     },
     {
       "external_code": "1:688766",
@@ -19963,6 +22936,16 @@
       "listing_effective_at": "2021-10-15T00:00:00+08:00"
     },
     {
+      "external_code": "1:688775",
+      "instrument_kind": "STOCK",
+      "exchange": "SSE",
+      "trading_code": "688775",
+      "name": "影石创新",
+      "listing_status": "LISTED",
+      "trading_status": "TRADING",
+      "listing_effective_at": "2025-06-11T00:00:00+08:00"
+    },
+    {
       "external_code": "1:688776",
       "instrument_kind": "STOCK",
       "exchange": "SSE",
@@ -20001,6 +22984,36 @@
       "listing_status": "LISTED",
       "trading_status": "TRADING",
       "listing_effective_at": "2021-08-11T00:00:00+08:00"
+    },
+    {
+      "external_code": "1:688781",
+      "instrument_kind": "STOCK",
+      "exchange": "SSE",
+      "trading_code": "688781",
+      "name": "视涯科技",
+      "listing_status": "LISTED",
+      "trading_status": "TRADING",
+      "listing_effective_at": "2026-03-25T00:00:00+08:00"
+    },
+    {
+      "external_code": "1:688783",
+      "instrument_kind": "STOCK",
+      "exchange": "SSE",
+      "trading_code": "688783",
+      "name": "西安奕材",
+      "listing_status": "LISTED",
+      "trading_status": "TRADING",
+      "listing_effective_at": "2025-10-28T00:00:00+08:00"
+    },
+    {
+      "external_code": "1:688785",
+      "instrument_kind": "STOCK",
+      "exchange": "SSE",
+      "trading_code": "688785",
+      "name": "恒运昌",
+      "listing_status": "LISTED",
+      "trading_status": "TRADING",
+      "listing_effective_at": "2026-01-28T00:00:00+08:00"
     },
     {
       "external_code": "1:688786",
@@ -20043,6 +23056,16 @@
       "listing_effective_at": "2021-07-08T00:00:00+08:00"
     },
     {
+      "external_code": "1:688790",
+      "instrument_kind": "STOCK",
+      "exchange": "SSE",
+      "trading_code": "688790",
+      "name": "昂瑞微",
+      "listing_status": "LISTED",
+      "trading_status": "TRADING",
+      "listing_effective_at": "2025-12-16T00:00:00+08:00"
+    },
+    {
       "external_code": "1:688793",
       "instrument_kind": "STOCK",
       "exchange": "SSE",
@@ -20051,6 +23074,36 @@
       "listing_status": "LISTED",
       "trading_status": "TRADING",
       "listing_effective_at": "2021-07-15T00:00:00+08:00"
+    },
+    {
+      "external_code": "1:688795",
+      "instrument_kind": "STOCK",
+      "exchange": "SSE",
+      "trading_code": "688795",
+      "name": "摩尔线程",
+      "listing_status": "LISTED",
+      "trading_status": "TRADING",
+      "listing_effective_at": "2025-12-05T00:00:00+08:00"
+    },
+    {
+      "external_code": "1:688796",
+      "instrument_kind": "STOCK",
+      "exchange": "SSE",
+      "trading_code": "688796",
+      "name": "百奥赛图",
+      "listing_status": "LISTED",
+      "trading_status": "TRADING",
+      "listing_effective_at": "2025-12-10T00:00:00+08:00"
+    },
+    {
+      "external_code": "1:688797",
+      "instrument_kind": "STOCK",
+      "exchange": "SSE",
+      "trading_code": "688797",
+      "name": "臻宝科技",
+      "listing_status": "LISTED",
+      "trading_status": "TRADING",
+      "listing_effective_at": "2026-06-24T00:00:00+08:00"
     },
     {
       "external_code": "1:688798",
@@ -20083,6 +23136,106 @@
       "listing_effective_at": "2021-07-22T00:00:00+08:00"
     },
     {
+      "external_code": "1:688802",
+      "instrument_kind": "STOCK",
+      "exchange": "SSE",
+      "trading_code": "688802",
+      "name": "沐曦股份",
+      "listing_status": "LISTED",
+      "trading_status": "TRADING",
+      "listing_effective_at": "2025-12-17T00:00:00+08:00"
+    },
+    {
+      "external_code": "1:688805",
+      "instrument_kind": "STOCK",
+      "exchange": "SSE",
+      "trading_code": "688805",
+      "name": "健信超导",
+      "listing_status": "LISTED",
+      "trading_status": "TRADING",
+      "listing_effective_at": "2025-12-24T00:00:00+08:00"
+    },
+    {
+      "external_code": "1:688806",
+      "instrument_kind": "STOCK",
+      "exchange": "SSE",
+      "trading_code": "688806",
+      "name": "泰诺麦博",
+      "listing_status": "LISTED",
+      "trading_status": "TRADING",
+      "listing_effective_at": "2026-07-21T00:00:00+08:00"
+    },
+    {
+      "external_code": "1:688807",
+      "instrument_kind": "STOCK",
+      "exchange": "SSE",
+      "trading_code": "688807",
+      "name": "优迅股份",
+      "listing_status": "LISTED",
+      "trading_status": "TRADING",
+      "listing_effective_at": "2025-12-19T00:00:00+08:00"
+    },
+    {
+      "external_code": "1:688808",
+      "instrument_kind": "STOCK",
+      "exchange": "SSE",
+      "trading_code": "688808",
+      "name": "联讯仪器",
+      "listing_status": "LISTED",
+      "trading_status": "TRADING",
+      "listing_effective_at": "2026-04-24T00:00:00+08:00"
+    },
+    {
+      "external_code": "1:688809",
+      "instrument_kind": "STOCK",
+      "exchange": "SSE",
+      "trading_code": "688809",
+      "name": "强一股份",
+      "listing_status": "LISTED",
+      "trading_status": "TRADING",
+      "listing_effective_at": "2025-12-30T00:00:00+08:00"
+    },
+    {
+      "external_code": "1:688811",
+      "instrument_kind": "STOCK",
+      "exchange": "SSE",
+      "trading_code": "688811",
+      "name": "有研复材",
+      "listing_status": "LISTED",
+      "trading_status": "TRADING",
+      "listing_effective_at": "2026-04-10T00:00:00+08:00"
+    },
+    {
+      "external_code": "1:688813",
+      "instrument_kind": "STOCK",
+      "exchange": "SSE",
+      "trading_code": "688813",
+      "name": "泰金新能",
+      "listing_status": "LISTED",
+      "trading_status": "TRADING",
+      "listing_effective_at": "2026-03-31T00:00:00+08:00"
+    },
+    {
+      "external_code": "1:688816",
+      "instrument_kind": "STOCK",
+      "exchange": "SSE",
+      "trading_code": "688816",
+      "name": "易思维",
+      "listing_status": "LISTED",
+      "trading_status": "TRADING",
+      "listing_effective_at": "2026-02-11T00:00:00+08:00"
+    },
+    {
+      "external_code": "1:688818",
+      "instrument_kind": "STOCK",
+      "exchange": "SSE",
+      "trading_code": "688818",
+      "name": "电科蓝天",
+      "listing_status": "LISTED",
+      "trading_status": "TRADING",
+      "listing_effective_at": "2026-02-10T00:00:00+08:00"
+    },
+    {
       "external_code": "1:688819",
       "instrument_kind": "STOCK",
       "exchange": "SSE",
@@ -20091,6 +23244,66 @@
       "listing_status": "LISTED",
       "trading_status": "TRADING",
       "listing_effective_at": "2021-01-18T00:00:00+08:00"
+    },
+    {
+      "external_code": "1:688820",
+      "instrument_kind": "STOCK",
+      "exchange": "SSE",
+      "trading_code": "688820",
+      "name": "盛合晶微",
+      "listing_status": "LISTED",
+      "trading_status": "TRADING",
+      "listing_effective_at": "2026-04-21T00:00:00+08:00"
+    },
+    {
+      "external_code": "1:688825",
+      "instrument_kind": "STOCK",
+      "exchange": "SSE",
+      "trading_code": "688825",
+      "name": "长鑫科技",
+      "listing_status": "LISTED",
+      "trading_status": "TRADING",
+      "listing_effective_at": "2026-07-27T00:00:00+08:00"
+    },
+    {
+      "external_code": "1:688826",
+      "instrument_kind": "STOCK",
+      "exchange": "SSE",
+      "trading_code": "688826",
+      "name": "频准激光",
+      "listing_status": "LISTED",
+      "trading_status": "TRADING",
+      "listing_effective_at": "2026-08-18T00:00:00+08:00"
+    },
+    {
+      "external_code": "1:688828",
+      "instrument_kind": "STOCK",
+      "exchange": "SSE",
+      "trading_code": "688828",
+      "name": "国仪公司",
+      "listing_status": "LISTED",
+      "trading_status": "TRADING",
+      "listing_effective_at": "2026-08-11T00:00:00+08:00"
+    },
+    {
+      "external_code": "1:688835",
+      "instrument_kind": "STOCK",
+      "exchange": "SSE",
+      "trading_code": "688835",
+      "name": "高凯技术",
+      "listing_status": "LISTED",
+      "trading_status": "TRADING",
+      "listing_effective_at": "2026-08-25T00:00:00+08:00"
+    },
+    {
+      "external_code": "1:688836",
+      "instrument_kind": "STOCK",
+      "exchange": "SSE",
+      "trading_code": "688836",
+      "name": "宇树科技",
+      "listing_status": "LISTED",
+      "trading_status": "TRADING",
+      "listing_effective_at": "2026-08-19T00:00:00+08:00"
     },
     {
       "external_code": "1:688981",

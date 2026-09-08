@@ -19,6 +19,38 @@ from market_monitor_analysis.official_orchestrator import (
 NOW = datetime(2026, 8, 26, 2, 0, tzinfo=UTC)
 
 
+def test_shadow_mode_runs_the_existing_pipeline_without_official_side_effects() -> None:
+    pipeline = FakePipeline(threshold_status=StageStatus(True, data={"activation_count": 0}))
+    journal = InMemoryCycleJournal()
+    orchestrator = OfficialOrchestrator(
+        pipeline,
+        journal,
+        OfficialOrchestratorConfig(evaluation_disposition="SHADOW"),
+    )
+
+    result = orchestrator.run("subject-1", "shadow-cycle-1", NOW)
+
+    assert result.status is CycleStatus.SHADOW_COMPLETED
+    assert result.details["evaluation_disposition"] == "SHADOW"
+    assert result.details["snapshot_uid"] == "snapshot-1"
+    assert pipeline.calls == [
+        "boot",
+        "calendar",
+        "reference",
+        "provider",
+        "historical",
+        "minute",
+        "phase",
+        "threshold",
+        "snapshot",
+        "metrics",
+    ]
+    assert pipeline.permits == [None]
+    assert pipeline.commits == []
+    assert pipeline.delivery_count == 0
+    assert journal.records == {}
+
+
 @dataclass
 class FakePipeline:
     phase: str = "CONTINUOUS_AM"
@@ -51,7 +83,7 @@ class FakePipeline:
     )
     calls: list[str] = field(default_factory=list)
     snapshots: list[str] = field(default_factory=list)
-    permits: list[OfficialExecutionPermit] = field(default_factory=list)
+    permits: list[OfficialExecutionPermit | None] = field(default_factory=list)
     commits: list[OfficialCommitInput] = field(default_factory=list)
     commit_count: int = 0
     delivery_count: int = 0
@@ -98,7 +130,7 @@ class FakePipeline:
         return snapshot_uid
 
     def run_metrics(
-        self, snapshot_uid: str, permit: OfficialExecutionPermit
+        self, snapshot_uid: str, permit: OfficialExecutionPermit | None
     ) -> OfficialMetricOutput:
         self.calls.append("metrics")
         self.permits.append(permit)
@@ -195,6 +227,7 @@ def test_permit_is_issued_after_snapshot_and_bound_to_exact_lineage() -> None:
     assert result.status is CycleStatus.COMMITTED
     assert len(pipeline.permits) == 1
     permit = pipeline.permits[0]
+    assert permit is not None
     assert permit.subject_uid == "subject-1"
     assert permit.snapshot_uid == pipeline.snapshots[0]
     assert permit.cycle_key == "cycle-lineage"
@@ -251,7 +284,9 @@ def test_crash_before_commit_resumes_from_sealed_snapshot() -> None:
     original_run_metrics = pipeline.run_metrics
     failed = {"once": True}
 
-    def fail_once(snapshot_uid: str, permit: OfficialExecutionPermit) -> OfficialMetricOutput:
+    def fail_once(
+        snapshot_uid: str, permit: OfficialExecutionPermit | None
+    ) -> OfficialMetricOutput:
         if failed["once"]:
             failed["once"] = False
             raise RuntimeError("crash before commit")

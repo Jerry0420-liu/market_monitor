@@ -17,11 +17,12 @@ WriterQueue.
 5. In another terminal, run `python scripts/dev.py smoke-local --expect-web`.
 
 The process initializes/migrates its local SQLite database, starts one WriterQueue, one bounded
-delivery loop, and the continuous production worker in the same process. The worker remains idle
-while `MARKET_MONITOR_OFFICIAL_ENABLED=false` or `MARKET_MONITOR_THRESHOLD_ACTIVATION=0`; when
-explicitly enabled, it uses the existing TradingClock and CR-003 pipeline without a second
-SQLite writer. Stop it with Ctrl+C; the worker and delivery loop stop before the writer and database
-close.
+delivery loop, and the continuous production worker in the same process. With
+`MARKET_MONITOR_OFFICIAL_ENABLED=false` or `MARKET_MONITOR_THRESHOLD_ACTIVATION=0`, the worker
+uses the existing pipeline in `SHADOW` disposition and never commits official state or delivers
+notifications. When explicitly enabled, it uses the same TradingClock and CR-003 pipeline without
+a second SQLite writer. Stop it with Ctrl+C; the worker and delivery loop stop before the writer
+and database close.
 
 ## Compose packaging
 
