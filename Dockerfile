@@ -30,7 +30,7 @@ COPY alembic.ini ./
 COPY migrations migrations
 COPY packages packages
 COPY apps/api/src apps/api/src
-COPY scripts/__init__.py scripts/official_runner.py scripts/production_worker.py scripts/run_local.py scripts/tdx_runner.py scripts/
+COPY scripts/__init__.py scripts/official_runner.py scripts/production_worker.py scripts/reference_bootstrap.py scripts/run_local.py scripts/tdx_runner.py scripts/
 COPY --from=web-build --chown=marketmonitor:marketmonitor /workspace/apps/web/dist apps/web/dist
 
 USER marketmonitor
